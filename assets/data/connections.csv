@@ -1,0 +1,364 @@
+Target,TargetCount,Type,Source_1,Count_1,Source_2,Count_2,Source_3,Count_3
+Antimatter,1,crafting,Chromatic Metal,25,Condensed Carbon,20,,
+Microprocessor,1,crafting,Chromatic Metal,40,Carbon Nanotubes,1,,
+Quantum Computer,1,crafting,Microprocessor,1,Antimatter,1,Chromatic Metal,25
+Solar Mirror,1,crafting,Gold,40,Silver,30,Chromatic Metal,25
+Amino Chamber,1,crafting,Metal Plating,1,Chlorine,20,Condensed Carbon,25
+Enriched Carbon,1,crafting,Radon,250,Condensed Carbon,50,,
+Hermetic Seal,1,crafting,Condensed Carbon,30,,,,
+Nitrogen Salt,1,crafting,Nitrogen,250,Condensed Carbon,50,,
+Thermic Condensate,1,crafting,Sulphurine,250,Condensed Carbon,50,,
+Warp Cell,1,crafting,Antimatter Housing,1,Antimatter,1,,
+Metal Plating,1,crafting,Ferrite Dust,50,,,,
+Save Point,1,crafting,Metal Plating,2,Di-hydrogen Jelly,1,,
+Starship Launch Fuel,1,crafting,Di-hydrogen,40,Metal Plating,1,,
+Unstable Plasma,1,crafting,Oxygen,50,Metal Plating,1,,
+Aronium,1,crafting,Paraffinium,50,Ionised Cobalt,50,,
+Grantine,1,crafting,Ionised Cobalt,50,Dioxite,50,,
+Herox,1,crafting,Ammonia,50,Ionised Cobalt,50,,
+Magnetic Resonator,1,crafting,Magnetised Ferrite,40,Ionised Cobalt,40,,
+Magno-Gold,1,crafting,Ionised Cobalt,50,Phosphorus,50,,
+Explosive Drones,1,crafting,Walker Brain,1,Gold,50,,
+Fuel Oxidiser,1,crafting,Quad Servo,2,Gold,50,,
+Holographic Analyser,1,crafting,Quantum Computer,1,Gold,50,,
+Mind Control Device,1,crafting,Solar Mirror,1,Gold,50,,
+Mineral Compressor,1,crafting,Hydraulic Wiring,1,Gold,50,,
+Starshield Battery,1,crafting,Tritium,50,Gold,20,,
+Antimatter Housing,1,crafting,Oxygen,30,Ferrite Dust,50,,
+Life Support Gel,1,crafting,Di-hydrogen Jelly,1,Carbon,20,,
+Oxygen Capsule,1,crafting,Oxygen,25,Ferrite Dust,20,,
+Ion Battery,1,crafting,Ferrite Dust,5,Cobalt,10,,
+Ammonium Salt,1,crafting,Nitrogen,250,Carbon,25,,
+Carbon Nanotubes,1,crafting,Carbon,50,,,,
+Creature Pellets,1,crafting,Carbon,60,,,,
+Magmox,1,crafting,Carbon,30,Thamium9,300,Plutonium,300
+Power Canister,1,crafting,Plutonium,75,Carbon,150,,
+Power Gel,1,crafting,Plutonium,50,Carbon,100,,
+Power Reservoir,1,crafting,Plutonium,100,Carbon,200,,
+Suspension Fluid,1,crafting,Carbon,50,,,,
+Hydraulic Wiring,1,crafting,Carbon Nanotubes,2,Salt,20,Di-hydrogen,40
+Di-hydrogen Jelly,1,crafting,Di-hydrogen,40,,,,
+Acid,1,crafting,Mordite,25,Fungal Mould,600,,
+Lemmium,1,crafting,Uranium,50,Pure Ferrite,100,,
+Dirty Bronze,1,crafting,Pyrite,50,Pure Ferrite,100,,
+Poly Fibre,1,crafting,Cactus Flesh,100,Star Bulb,200,,
+Circuit Board,1,crafting,Heat Capacitor,1,Poly Fibre,1,,
+Lubricant,1,crafting,Faecium,50,Gamma Root,400,,
+Liquid Explosive,1,crafting,Acid,1,Unstable Gel,1,,
+Portable Reactor,1,crafting,Liquid Explosive,1,Fusion Accelerant,1,,
+Unstable Gel,1,crafting,Cactus Flesh,200,,,,
+Glass,1,crafting,Frost Crystal,40,,,,
+Heat Capacitor,1,crafting,Frost Crystal,100,Solanium,200,,
+Living Glass,1,crafting,Lubricant,1,Glass,5,,
+Cryogenic Chamber,1,crafting,Living Glass,1,Cryo-Pump,1,,
+Quantum Processor,1,crafting,Circuit Board,1,Superconductor,1,,
+Fusion Ignitor,1,crafting,Portable Reactor,1,Quantum Processor,1,Geodesite,1
+Fusion Accelerant,1,crafting,Organic Catalyst,1,Nitrogen Salt,1,,
+Stasis Device,1,crafting,Quantum Processor,1,Cryogenic Chamber,1,Iridesite,1
+Cryo-Pump,1,crafting,Hot Ice,1,Thermic Condensate,1,,
+Hot Ice,1,crafting,Enriched Carbon,1,Nitrogen Salt,1,,
+Organic Catalyst,1,crafting,Thermic Condensate,1,Enriched Carbon,1,,
+Superconductor,1,crafting,Enriched Carbon,1,Semiconductor,1,,
+Semiconductor,1,crafting,Thermic Condensate,1,Nitrogen Salt,1,,
+Iridesite,1,crafting,Aronium,1,Magno-Gold,1,Grantine,1
+Geodesite,1,crafting,Dirty Bronze,1,Herox,1,Lemmium,1
+Electron Vapour,1,crafting,Suspension Fluid,1,Plutonium,100,,
+Nanite Cluster,15,refining,Salvaged Data,1,,,,
+Gold,100,refining,Living Pearl,1,,,,
+Living Slime,50,refining,Hypnotic Eye,1,,,,
+Nanite Cluster,50,refining,Hadal Core,1,,,,
+Sodium Nitrate,50,refining,Crystal Sulphide,1,,,,
+Nanite Cluster,50,refining,Larval Core,1,,,,
+Condensed Carbon,1,refining,Cyto-Phosphate,1,,,,
+Gold,1,refining,Hexite,1,,,,
+Glass,1,refining,Frost Crystal,40,,,,
+Pyrite,1,refining,Gold,1,,,,
+Nanite Cluster,1,refining,Platinum,35,,,,
+Nanite Cluster,1,refining,Pugneum,25,,,,
+Faecium,1,refining,Mordite,3,,,,
+Carbon,1,refining,Oxygen,1,,,,
+Di-hydrogen Jelly,1,refining,Di-hydrogen,30,,,,
+Di-hydrogen,50,refining,Di-hydrogen Jelly,1,,,,
+Ionised Cobalt,1,refining,Cobalt,2,,,,
+Cobalt,2,refining,Ionised Cobalt,1,,,,
+Carbon,2,refining,Condensed Carbon,1,,,,
+Condensed Carbon,1,refining,Carbon,2,,,,
+Sodium Nitrate,1,refining,Sodium,2,,,,
+Sodium,2,refining,Sodium Nitrate,1,,,,
+Pure Ferrite,1,refining,Ferrite Dust,1,,,,
+Magnetised Ferrite,1,refining,Pure Ferrite,2,,,,
+Pure Ferrite,2,refining,Magnetised Ferrite,1,,,,
+Chromatic Metal,1,refining,Cadmium,1,,,,
+Chromatic Metal,4,refining,Indium,2,,,,
+Chromatic Metal,3,refining,Emeril,2,,,,
+Chromatic Metal,1,refining,Copper,2,,,,
+Chromatic Metal,2,refining,Activated Cadmium,1,,,,
+Chromatic Metal,4,refining,Activated Indium,1,,,,
+Chromatic Metal,3,refining,Activated Emeril,1,,,,
+Chromatic Metal,1,refining,Activated Copper,1,,,,
+Ferrite Dust,1,refining,Paraffinium,1,,,,
+Ferrite Dust,1,refining,Pyrite,1,,,,
+Ferrite Dust,1,refining,Ammonia,1,,,,
+Ferrite Dust,1,refining,Uranium,1,,,,
+Ferrite Dust,1,refining,Dioxite,1,,,,
+Ferrite Dust,1,refining,Phosphorus,1,,,,
+Chlorine,1,refining,Salt,2,,,,
+Salt,2,refining,Chlorine,1,,,,
+Radon,1,refining,Sulphurine,3,,,,
+Nitrogen,1,refining,Radon,3,,,,
+Sulphurine,1,refining,Nitrogen,3,,,,
+Viscous Fluids,1,refining,Residual Goop,1,,,,
+Nanite Cluster,1,refining,Runaway Mould,5,,,,
+Ferrite Dust,2,refining,Rusted Metal,1,,,,
+Runaway Mould,1,refining,Living Slime,1,,,,
+Living Slime,1,refining,Viscous Fluids,1,,,,
+Di-hydrogen,1,refining,Tritium,5,,,,
+Carbon,2,refining,Fungal Mould,1,,,,
+Carbon,2,refining,Gamma Root,1,,,,
+Carbon,2,refining,Cactus Flesh,1,,,,
+Carbon,2,refining,Solanium,1,,,,
+Carbon,2,refining,Star Bulb,1,,,,
+Sodium,1,refining,Marrow Bulb,1,,,,
+Oxygen,1,refining,Kelp Sac,1,,,,
+Mordite,2,refining,Faecium,3,,,,
+Silver,250,refining,Aronium,1,,,,
+Silver,250,refining,Dirty Bronze,1,,,,
+Silver,250,refining,Herox,1,,,,
+Gold,125,refining,Lemmium,1,,,,
+Gold,125,refining,Magno-Gold,1,,,,
+Gold,125,refining,Grantine,1,,,,
+Platinum,250,refining,Geodesite,1,,,,
+Platinum,250,refining,Iridesite,1,,,,
+Glass,1,refining,Cyto-Phosphate,50,Salt,50,,
+Nanite Cluster,1,refining,Faecium,1,Hexite,1,,
+Gold,1,refining,Faecium,1,Residual Goop,1,,
+Platinum,1,refining,Gold,1,Silver,1,,
+Condensed Carbon,2,refining,Uranium,1,Di-hydrogen,1,,
+Solanium,1,refining,Sulphurine,1,Di-hydrogen,1,,
+Uranium,1,refining,Radon,1,Di-hydrogen,1,,
+Ammonia,1,refining,Nitrogen,1,Di-hydrogen,1,,
+Salt,1,refining,Di-hydrogen,1,Oxygen,1,,
+Faecium,1,refining,Di-hydrogen,1,Carbon,1,,
+Mordite,1,refining,Di-hydrogen,1,Condensed Carbon,1,,
+Magnetised Ferrite,1,refining,Ferrite Dust,1,Carbon,1,,
+Magnetised Ferrite,2,refining,Ferrite Dust,1,Condensed Carbon,1,,
+Magnetised Ferrite,2,refining,Pure Ferrite,1,Carbon,1,,
+Magnetised Ferrite,3,refining,Pure Ferrite,1,Condensed Carbon,1,,
+Deuterium,1,refining,Di-hydrogen,1,Tritium,1,,
+Rusted Metal,2,refining,Pure Ferrite,1,Oxygen,1,,
+Rusted Metal,1,refining,Ferrite Dust,1,Oxygen,1,,
+Condensed Carbon,5,refining,Carbon,2,Oxygen,2,,
+Condensed Carbon,6,refining,Condensed Carbon,1,Oxygen,2,,
+Sodium Nitrate,1,refining,Sodium,1,Oxygen,1,,
+Sodium Nitrate,2,refining,Sodium Nitrate,1,Oxygen,1,,
+Sodium Nitrate,1,refining,Carbon,1,Sodium,1,,
+Sodium Nitrate,2,refining,Condensed Carbon,1,Sodium,1,,
+Dioxite,1,refining,Carbon,1,Sodium Nitrate,1,,
+Dioxite,2,refining,Condensed Carbon,1,Sodium Nitrate,1,,
+Mordite,1,refining,Carbon,1,Pugneum,1,,
+Mordite,2,refining,Condensed Carbon,1,Pugneum,1,,
+Sodium Nitrate,1,refining,Sodium,1,Pugneum,1,,
+Sodium Nitrate,3,refining,Sodium Nitrate,1,Pugneum,1,,
+Faecium,3,refining,Carbon,2,Mordite,1,,
+Faecium,4,refining,Condensed Carbon,1,Mordite,1,,
+Marrow Bulb,3,refining,Sodium,2,Mordite,1,,
+Marrow Bulb,4,refining,Sodium Nitrate,1,Mordite,1,,
+Pure Ferrite,3,refining,Ferrite Dust,2,Pugneum,1,,
+Magnetised Ferrite,3,refining,Pure Ferrite,2,Pugneum,1,,
+Magnetised Ferrite,4,refining,Magnetised Ferrite,3,Pugneum,1,,
+Cadmium,2,refining,Cadmium,1,Chromatic Metal,1,,
+Indium,2,refining,Indium,1,Chromatic Metal,1,,
+Emeril,2,refining,Emeril,1,Chromatic Metal,1,,
+Copper,2,refining,Copper,1,Chromatic Metal,1,,
+Star Bulb,2,refining,Paraffinium,1,Star Bulb,1,,
+Cactus Flesh,2,refining,Pyrite,1,Cactus Flesh,1,,
+Fungal Mould,2,refining,Ammonia,1,Fungal Mould,1,,
+Gamma Root,2,refining,Uranium,1,Gamma Root,1,,
+Frost Crystal,2,refining,Dioxite,1,Frost Crystal,1,,
+Solanium,2,refining,Phosphorus,1,Solanium,1,,
+Chlorine,5,refining,Salt,2,Oxygen,2,,
+Chlorine,6,refining,Chlorine,1,Oxygen,2,,
+Ionised Cobalt,5,refining,Cobalt,2,Oxygen,2,,
+Ionised Cobalt,6,refining,Ionised Cobalt,1,Oxygen,2,,
+Gold,1,refining,Mordite,1,Pugneum,1,,
+Paraffinium,2,refining,Silver,1,Oxygen,1,,
+Pyrite,2,refining,Gold,1,Oxygen,1,,
+Magnetised Ferrite,10,refining,Platinum,1,Oxygen,1,,
+Radon,1,refining,Sulphurine,1,Oxygen,1,,
+Nitrogen,1,refining,Radon,1,Oxygen,1,,
+Sulphurine,1,refining,Nitrogen,1,Oxygen,1,,
+Radon,1,refining,Sulphurine,1,Chromatic Metal,1,,
+Nitrogen,1,refining,Radon,1,Chromatic Metal,1,,
+Sulphurine,1,refining,Nitrogen,1,Chromatic Metal,1,,
+Sodium Nitrate,1,refining,Nitrogen,1,Sodium,1,,
+Sodium Nitrate,2,refining,Nitrogen,1,Sodium Nitrate,1,,
+Ionised Cobalt,2,refining,Marrow Bulb,1,Oxygen,1,,
+Chlorine,2,refining,Kelp Sac,1,Oxygen,1,,
+Faecium,3,refining,Faecium,1,Oxygen,1,,
+Ionised Cobalt,2,refining,Marrow Bulb,1,Pugneum,1,,
+Chlorine,2,refining,Kelp Sac,1,Pugneum,1,,
+Sodium,2,refining,Marrow Bulb,1,Carbon,1,,
+Oxygen,2,refining,Kelp Sac,1,Carbon,1,,
+Condensed Carbon,2,refining,Faecium,1,Carbon,2,,
+Sodium Nitrate,2,refining,Marrow Bulb,1,Sodium,1,,
+Sodium Nitrate,2,refining,Kelp Sac,1,Sodium,1,,
+Sodium Nitrate,2,refining,Faecium,1,Sodium,1,,
+Sodium,2,refining,Marrow Bulb,1,Condensed Carbon,1,,
+Oxygen,2,refining,Kelp Sac,1,Condensed Carbon,1,,
+Condensed Carbon,3,refining,Faecium,1,Condensed Carbon,1,,
+Sodium Nitrate,2,refining,Marrow Bulb,1,Sodium Nitrate,1,,
+Sodium Nitrate,2,refining,Kelp Sac,1,Sodium Nitrate,1,,
+Sodium Nitrate,2,refining,Faecium,1,Sodium Nitrate,1,,
+Ionised Cobalt,2,refining,Marrow Bulb,1,Cobalt,1,,
+Chlorine,2,refining,Kelp Sac,1,Salt,1,,
+Ionised Cobalt,2,refining,Marrow Bulb,1,Ionised Cobalt,1,,
+Chlorine,2,refining,Kelp Sac,1,Chlorine,1,,
+Gold,2,refining,Faecium,1,Pugneum,1,,
+Condensed Carbon,2,refining,Faecium,1,Mordite,1,,
+Magnetised Ferrite,4,refining,Indium,1,Ferrite Dust,1,,
+Magnetised Ferrite,2,refining,Cadmium,1,Ferrite Dust,1,,
+Magnetised Ferrite,3,refining,Emeril,1,Ferrite Dust,1,,
+Magnetised Ferrite,1,refining,Copper,1,Ferrite Dust,1,,
+Chromatic Metal,2,refining,Cadmium,1,Pure Ferrite,1,,
+Chromatic Metal,3,refining,Emeril,1,Pure Ferrite,1,,
+Chromatic Metal,1,refining,Copper,1,Pure Ferrite,1,,
+Chromatic Metal,4,refining,Indium,1,Pure Ferrite,1,,
+Magnetised Ferrite,4,refining,Activated Cadmium,1,Ferrite Dust,1,,
+Magnetised Ferrite,8,refining,Activated Indium,1,Ferrite Dust,1,,
+Magnetised Ferrite,6,refining,Activated Emeril,1,Ferrite Dust,1,,
+Magnetised Ferrite,2,refining,Activated Copper,1,Ferrite Dust,1,,
+Chromatic Metal,4,refining,Activated Cadmium,1,Pure Ferrite,1,,
+Chromatic Metal,8,refining,Activated Indium,1,Pure Ferrite,1,,
+Chromatic Metal,6,refining,Activated Emeril,1,Pure Ferrite,1,,
+Chromatic Metal,2,refining,Activated Copper,1,Pure Ferrite,1,,
+Star Bulb,1,refining,Paraffinium,2,Oxygen,1,,
+Cactus Flesh,1,refining,Pyrite,2,Oxygen,1,,
+Fungal Mould,1,refining,Ammonia,2,Oxygen,1,,
+Gamma Root,1,refining,Uranium,2,Oxygen,1,,
+Frost Crystal,1,refining,Dioxite,2,Oxygen,1,,
+Solanium,1,refining,Phosphorus,2,Oxygen,1,,
+Ammonia,1,refining,Paraffinium,2,Ferrite Dust,1,,
+Paraffinium,1,refining,Pyrite,2,Ferrite Dust,1,,
+Dioxite,1,refining,Ammonia,2,Ferrite Dust,1,,
+Pyrite,1,refining,Uranium,2,Ferrite Dust,1,,
+Phosphorus,1,refining,Dioxite,2,Ferrite Dust,1,,
+Uranium,1,refining,Phosphorus,2,Ferrite Dust,1,,
+Ammonia,1,refining,Paraffinium,2,Pure Ferrite,1,,
+Paraffinium,1,refining,Pyrite,2,Pure Ferrite,1,,
+Dioxite,1,refining,Ammonia,2,Pure Ferrite,1,,
+Pyrite,1,refining,Uranium,2,Pure Ferrite,1,,
+Phosphorus,1,refining,Dioxite,2,Pure Ferrite,1,,
+Uranium,1,refining,Phosphorus,2,Pure Ferrite,1,,
+Ammonia,1,refining,Fungal Mould,2,Salt,1,,
+Dioxite,1,refining,Frost Crystal,2,Salt,1,,
+Uranium,1,refining,Gamma Root,2,Salt,1,,
+Pyrite,1,refining,Cactus Flesh,2,Salt,1,,
+Phosphorus,1,refining,Solanium,2,Salt,1,,
+Paraffinium,1,refining,Star Bulb,2,Salt,1,,
+Paraffinium,1,refining,Sulphurine,1,Ferrite Dust,1,,
+Uranium,1,refining,Ferrite Dust,1,Radon,1,,
+Sodium Nitrate,1,refining,Nitrogen,1,Ferrite Dust,1,,
+Paraffinium,2,refining,Sulphurine,1,Pure Ferrite,1,,
+Uranium,2,refining,Radon,1,Pure Ferrite,1,,
+Sodium Nitrate,2,refining,Nitrogen,1,Pure Ferrite,1,,
+Paraffinium,3,refining,Sulphurine,1,Magnetised Ferrite,1,,
+Uranium,3,refining,Radon,1,Magnetised Ferrite,1,,
+Sodium Nitrate,3,refining,Nitrogen,1,Magnetised Ferrite,1,,
+Fungal Mould,1,refining,Ammonia,1,Nitrogen,1,,
+Frost Crystal,1,refining,Dioxite,1,Radon,1,,
+Gamma Root,1,refining,Uranium,1,Radon,1,,
+Cactus Flesh,1,refining,Pyrite,1,Sulphurine,1,,
+Solanium,1,refining,Phosphorus,1,Sulphurine,1,,
+Star Bulb,1,refining,Paraffinium,1,Nitrogen,1,,
+Marrow Bulb,1,refining,Cobalt,1,Nitrogen,1,,
+Kelp Sac,1,refining,Salt,1,Nitrogen,1,,
+Faecium,1,refining,Sulphurine,1,Nitrogen,1,,
+Nanite Cluster,1,refining,Silver,15,Gold,15,Platinum,25
+Magnetised Ferrite,5,refining,Ferrite Dust,1,Pure Ferrite,1,Silver,1
+Magnetised Ferrite,8,refining,Ferrite Dust,1,Pure Ferrite,1,Gold,1
+Magnetised Ferrite,12,refining,Ferrite Dust,1,Pure Ferrite,1,Platinum,1
+Oxygen,10,refining,Fungal Mould,1,Kelp Sac,1,Condensed Carbon,1
+Oxygen,10,refining,Frost Crystal,1,Kelp Sac,1,Condensed Carbon,1
+Oxygen,10,refining,Cactus Flesh,1,Kelp Sac,1,Condensed Carbon,1
+Oxygen,10,refining,Solanium,1,Kelp Sac,1,Condensed Carbon,1
+Oxygen,10,refining,Gamma Root,1,Kelp Sac,1,Condensed Carbon,1
+Oxygen,10,refining,Star Bulb,1,Kelp Sac,1,Condensed Carbon,1
+Chromatic Metal,5,refining,Silver,1,Gold,1,Copper,1
+Chromatic Metal,10,refining,Silver,1,Gold,1,Cadmium,1
+Chromatic Metal,20,refining,Silver,1,Gold,1,Emeril,1
+Chromatic Metal,30,refining,Silver,1,Gold,1,Indium,1
+Gold,10,refining,Ferrite Dust,1,Oxygen,1,Emeril,1
+Platinum,10,refining,Ferrite Dust,1,Oxygen,1,Chromatic Metal,250
+Warp Cell,1,refining,Condensed Carbon,25,Sodium,10,Chromatic Metal,250
+Warp Cell,1,refining,Carbon,50,Sodium Nitrate,5,Chromatic Metal,250
+Warp Cell,1,refining,Condensed Carbon,25,Sodium Nitrate,5,Chromatic Metal,250
+Unstable Plasma,1,refining,Oxygen,10,Ferrite Dust,20,Carbon,20
+Unstable Plasma,1,refining,Oxygen,10,Ferrite Dust,20,Condensed Carbon,10
+Unstable Plasma,1,refining,Oxygen,10,Pure Ferrite,20,Carbon,20
+Unstable Plasma,1,refining,Oxygen,10,Condensed Carbon,10,Pure Ferrite,20
+Life Support Gel,1,refining,Oxygen,10,Condensed Carbon,10,Di-hydrogen,10
+Starship Launch Fuel,1,refining,Di-hydrogen,10,Ferrite Dust,20,Sodium Nitrate,5
+Starship Launch Fuel,1,refining,Di-hydrogen,10,Pure Ferrite,20,Sodium,10
+Starship Launch Fuel,1,refining,Di-hydrogen,10,Magnetised Ferrite,10,Sodium Nitrate,5
+Ion Battery,1,refining,Ferrite Dust,10,Silver,10,Sodium,10
+Aronium,1,refining,Paraffinium,30,Cobalt,60,Tritium,20
+Aronium,1,refining,Paraffinium,30,Ionised Cobalt,30,Tritium,20
+Aronium,1,refining,Paraffinium,30,Cobalt,60,Silver,20
+Aronium,1,refining,Paraffinium,30,Ionised Cobalt,30,Silver,20
+Aronium,1,refining,Paraffinium,30,Cobalt,60,Gold,10
+Aronium,1,refining,Paraffinium,30,Ionised Cobalt,30,Gold,10
+Aronium,1,refining,Paraffinium,30,Cobalt,60,Platinum,5
+Aronium,1,refining,Paraffinium,30,Ionised Cobalt,30,Platinum,5
+Dirty Bronze,1,refining,Pyrite,30,Ferrite Dust,120,Tritium,20
+Dirty Bronze,1,refining,Pyrite,30,Pure Ferrite,60,Tritium,20
+Dirty Bronze,1,refining,Pyrite,30,Ferrite Dust,120,Silver,20
+Dirty Bronze,1,refining,Pyrite,30,Pure Ferrite,60,Silver,20
+Dirty Bronze,1,refining,Pyrite,30,Ferrite Dust,120,Gold,10
+Dirty Bronze,1,refining,Pyrite,30,Pure Ferrite,60,Gold,10
+Dirty Bronze,1,refining,Pyrite,30,Ferrite Dust,120,Platinum,5
+Dirty Bronze,1,refining,Pyrite,30,Pure Ferrite,60,Platinum,5
+Herox,1,refining,Ammonia,30,Cobalt,60,Tritium,20
+Herox,1,refining,Ammonia,30,Ionised Cobalt,30,Tritium,20
+Herox,1,refining,Ammonia,30,Cobalt,60,Silver,20
+Herox,1,refining,Ammonia,30,Ionised Cobalt,30,Silver,20
+Herox,1,refining,Ammonia,30,Cobalt,60,Gold,10
+Herox,1,refining,Ammonia,30,Ionised Cobalt,30,Gold,10
+Herox,1,refining,Ammonia,30,Cobalt,60,Platinum,5
+Herox,1,refining,Ammonia,30,Ionised Cobalt,30,Platinum,5
+Lemmium,1,refining,Uranium,30,Ferrite Dust,120,Tritium,20
+Lemmium,1,refining,Uranium,30,Pure Ferrite,60,Tritium,20
+Lemmium,1,refining,Uranium,30,Ferrite Dust,120,Silver,20
+Lemmium,1,refining,Uranium,30,Pure Ferrite,60,Silver,20
+Lemmium,1,refining,Uranium,30,Ferrite Dust,120,Gold,10
+Lemmium,1,refining,Uranium,30,Pure Ferrite,60,Gold,10
+Lemmium,1,refining,Uranium,30,Ferrite Dust,120,Platinum,5
+Lemmium,1,refining,Uranium,30,Pure Ferrite,60,Platinum,5
+Magno-Gold,1,refining,Phosphorus,30,Cobalt,60,Tritium,20
+Magno-Gold,1,refining,Phosphorus,30,Ionised Cobalt,30,Tritium,20
+Magno-Gold,1,refining,Phosphorus,30,Cobalt,60,Silver,20
+Magno-Gold,1,refining,Phosphorus,30,Ionised Cobalt,30,Silver,20
+Magno-Gold,1,refining,Phosphorus,30,Cobalt,60,Gold,10
+Magno-Gold,1,refining,Phosphorus,30,Ionised Cobalt,30,Gold,10
+Magno-Gold,1,refining,Phosphorus,30,Cobalt,60,Platinum,5
+Magno-Gold,1,refining,Phosphorus,30,Ionised Cobalt,30,Platinum,5
+Grantine,1,refining,Dioxite,30,Cobalt,60,Tritium,20
+Grantine,1,refining,Dioxite,30,Ionised Cobalt,30,Tritium,20
+Grantine,1,refining,Dioxite,30,Cobalt,60,Silver,20
+Grantine,1,refining,Dioxite,30,Ionised Cobalt,30,Silver,20
+Grantine,1,refining,Dioxite,30,Cobalt,60,Gold,10
+Grantine,1,refining,Dioxite,30,Ionised Cobalt,30,Gold,10
+Grantine,1,refining,Dioxite,30,Cobalt,60,Platinum,5
+Grantine,1,refining,Dioxite,30,Ionised Cobalt,30,Platinum,5
+Thermic Condensate,1,refining,Sulphurine,100,Carbon,20,Salt,10
+Enriched Carbon,1,refining,Radon,100,Carbon,20,Salt,10
+Nitrogen Salt,1,refining,Nitrogen,100,Carbon,20,Salt,10
+Thermic Condensate,1,refining,Sulphurine,100,Condensed Carbon,10,Salt,10
+Enriched Carbon,1,refining,Radon,100,Condensed Carbon,10,Salt,10
+Nitrogen Salt,1,refining,Nitrogen,100,Condensed Carbon,10,Salt,10
+Thermic Condensate,1,refining,Sulphurine,100,Carbon,20,Chlorine,5
+Enriched Carbon,1,refining,Radon,100,Carbon,20,Chlorine,5
+Nitrogen Salt,1,refining,Nitrogen,100,Carbon,20,Chlorine,5
+Thermic Condensate,1,refining,Sulphurine,100,Condensed Carbon,10,Chlorine,5
+Enriched Carbon,1,refining,Radon,100,Condensed Carbon,10,Chlorine,5
+Nitrogen Salt,1,refining,Nitrogen,100,Condensed Carbon,10,Chlorine,5
+Glass,1,refining,Silicate Powder,40,,,,

@@ -1,0 +1,41 @@
+html,
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.node {
+  cursor: move;
+}
+.node circle {
+  fill: transparent;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.node.fixed circle {
+  stroke: #f00;
+}
+
+#hoverInfo {
+  position: absolute;
+  z-index: 100;
+  padding: 10px;
+  border: blue 1px solid;
+  border-radius: 5px;
+  background: #fff;
+  font-size: 2rem;
+}
+#hoverInfo .wrapper {
+  display: flex;
+  align-items: center;
+}
+#hoverInfo img {
+  width: 50px;
+}
