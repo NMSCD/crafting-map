@@ -1,12 +1,12 @@
 const path = require("path");
 const fs = require("fs");
-const { parse } = require("csv-parse/sync")
-const { stringify } = require('csv-stringify/sync');
+const { parse } = require("csv-parse/sync");
+const { stringify } = require("csv-stringify/sync");
 
 const fileData = fs.readFileSync(path.join(__dirname, "../nodes.csv"));
 const nodes = parse(fileData, {
   columns: true,
-  skip_empty_lines: true
+  skip_empty_lines: true,
 });
 
 // function removeUnusedNodes() {

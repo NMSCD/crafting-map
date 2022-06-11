@@ -3,6 +3,7 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
+  background-color: #070c20;
 }
 
 .link {
@@ -15,7 +16,7 @@ body {
 }
 .node circle {
   fill: transparent;
-  stroke: #000;
+  stroke: #7f7f7f;
   stroke-width: 1.5px;
 }
 

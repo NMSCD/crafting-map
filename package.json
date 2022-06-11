@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "prettier": "prettier -w ."
+  },
   "dependencies": {},
   "devDependencies": {
     "csv": "^6.1.0",

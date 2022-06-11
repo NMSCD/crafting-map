@@ -1,38 +1,68 @@
 const template = document.createElement("template");
 template.innerHTML = `
 <style>
- nav {
-   display: flex;
-   align-items: center;
-   justify-content: flex-end;
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 40px;
-   background: deepskyblue;
- }
- #refresh {
-   cursor: pointer
- }
+nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  max-width: 10vw;
+  color: white
+}
+.nav-center {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(52,85,223,0.2);
+  border-radius: 1rem 0 0 1rem;
+  box-shadow: -1px 1px 5px 1px #ffffff;
+  padding: 1rem;
+}
+.nav-center > * {
+  margin-bottom: 10px;
+}
+#search {
+  font-size: 1.5rem;
+}
+#refresh {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 <nav>
-  <span id="refresh" class="material-icons">&#xe5d5;</span>
-<!--  <div>-->
-<!--    <label>-->
-<!--      <input type="radio" name="color" value="byRecipe">-->
-<!--      <span>By Recipe</span>-->
-<!--    </label>-->
-<!--    <label>-->
-<!--      <input type="radio" name="color" value="byType">-->
-<!--      <span>By Type</span>-->
-<!--    </label>-->
-<!--  </div>-->
-  <label>
-    <input id="direction" type="checkbox"><span>BySource</span>
-  </label>
-  <span class="material-icons">&#xe8b6;</span>
-  <input id="search">
+  <div class="nav-center">
+    <button id="refresh" title="Refresh">
+      <div class="material-icons" >&#xe5d5;</div> Refresh
+    </button>
+  <!--  <div>-->
+  <!--    <label>-->
+  <!--      <input type="radio" name="color" value="byRecipe">-->
+  <!--      <span>By Recipe</span>-->
+  <!--    </label>-->
+  <!--    <label>-->
+  <!--      <input type="radio" name="color" value="byType">-->
+  <!--      <span>By Type</span>-->
+  <!--    </label>-->
+  <!--  </div>-->
+    <label>
+      <input id="direction" type="checkbox"><span>Filter by product/source</span>
+    </label>
+    <div>
+      <input id="search" placeholder="Filtering...">
+    </div>
+    
+    <div class="info">
+      <p>RightClick on element to filter by it!</p>
+      <p>Click & drag on empty space to move around</p>
+      <p>Click & drag to move element!</p>
+      <p>Click on dragged element to make it float again</p>
+    </div>
+  </div>
 </nav>
 `;
 
@@ -41,6 +71,7 @@ export class Menu extends HTMLElement {
   #directionEl;
   #abort = new AbortController();
   #filters;
+
   constructor() {
     super();
     this.appendChild(template.content);
@@ -49,12 +80,7 @@ export class Menu extends HTMLElement {
     this.resetFilters();
   }
 
-  resetFilters(
-    filters = {
-      direction: true,
-      search: "",
-    }
-  ) {
+  resetFilters(filters = { direction: true, search: "" }) {
     this.#filters = filters;
     this.#searchEl.value = filters.search || "";
     this.#directionEl.checked = !!filters.direction;
@@ -106,4 +132,5 @@ export class Menu extends HTMLElement {
     console.log(this.#filters);
   }
 }
+
 window.customElements.define("ak-menu", Menu);

@@ -12,9 +12,6 @@ const config = { width, height, iconSize, collisionRadius: iconSize * 3 };
 const data = new DataReader();
 const renderer = new D3Renderer(config, data);
 renderer.build();
-// data.fetchJSON$().then(() => {
-//   renderer.refresh();
-// });
 
 data.fetchCSV$().then(() => {
   renderer.refresh();

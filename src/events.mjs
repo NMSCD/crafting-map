@@ -75,7 +75,7 @@ export function bindMouseOverLink(links, data) {
   function showHoverInfo(event, d) {
     hoverTimerHandler = setTimeout(() => showTooltip(event), 100);
     const groupLinks = findGroupedLinks(links, d);
-    groupLinks.transition().duration("50").attr("opacity", "0.5");
+    groupLinks.transition().duration("50").attr("stroke", `rgb(248, 188, 99)`);
 
     const connections = data.connectionsDataByIdxes(d.connectionIdx);
     let linkInfo = connectionsToHtml(connections);
@@ -84,7 +84,7 @@ export function bindMouseOverLink(links, data) {
 
   function hideHoverInfo(d) {
     const groupLinks = findGroupedLinks(links, d);
-    groupLinks.transition().duration("50").attr("opacity", "1");
+    groupLinks.transition().duration("50").attr("stroke", `#7f7f7f`);
 
     tooltip.transition().duration(150).style("opacity", "0");
     tooltip.style("display", "none");
