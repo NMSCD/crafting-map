@@ -15,8 +15,7 @@ body {
   cursor: move;
 }
 .node circle {
-  fill: transparent;
-  stroke: #7f7f7f;
+  fill: #070c20;
   stroke-width: 1.5px;
 }
 
