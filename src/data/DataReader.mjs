@@ -117,11 +117,11 @@ export class DataReader {
   }
 
   async fetchCSV$() {
-    let response = await fetch("/assets/data/nodes.csv");
+    let response = await fetch("assets/data/nodes.csv");
     let data = await response.text();
     const nodes = parseCSVNodes(csvParse(data, autoType));
 
-    response = await fetch("/assets/data/connections.csv");
+    response = await fetch("assets/data/connections.csv");
     data = await response.text();
 
     const connections = parseCSVConnections(csvParse(data, autoType), nodes);

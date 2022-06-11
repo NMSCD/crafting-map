@@ -75,11 +75,11 @@ export function bindMouseOverLink(links, data) {
 
   function connectionToHtml(data) {
     let html = data.source.map((s) => {
-      return `<div>${s.count}</div> <img src="/assets/${s.image}"/>`;
+      return `<div>${s.count}</div> <img src="assets/${s.image}"/>`;
     });
 
     html = html.join("");
-    html += `<div>=  ${data.count}</div> <img src="/assets/${data.image}"/>`;
+    html += `<div>=  ${data.count}</div> <img src="assets/${data.image}"/>`;
     return html;
   }
 
