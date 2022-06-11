@@ -8,6 +8,7 @@ Gold,Exotic,Valuable Asteroid Mineral,353,gold.png,/wiki/Gold
 Platinum,Exotic,Valuable Asteroid Mineral,505,platinum.png,/wiki/Platinum
 Antimatter Housing,Component,Crafted Technology Component,6500,antimatter_housing.png,/wiki/Antimatter_Housing
 Magnetic Resonator,Component,Crafted Technology Component,6150,magnetic_resonator.png,/wiki/Magnetic_Resonator
+Wiring Loom,Consumable,Universal Technology Platform,25000,wiring_loom.png,/wiki/Wiring_Loom
 Quantum Computer,Component,Crafted Technology Component,4200,quantum_computer.png,/wiki/Quantum_Computer
 Microprocessor,Component,Crafted Technology Component,2000,microprocessor.png,/wiki/Microprocessor
 Life Support Gel,Consumable,Portable Life Support Power,200,life_support_gel.png,/wiki/Life_Support_Gel
@@ -51,6 +52,7 @@ Unstable Plasma,Consumable,Plasma Launcher Recharge,5750,unstable_plasma.png,/wi
 Mineral Compressor,Consumable,Consumable Frigate Upgrade,75000,mineral_compressor.png,/wiki/Mineral_Compressor
 Holographic Analyser,Consumable,Consumable Frigate Upgrade,75000,holographic_analyser.png,/wiki/Holographic_Analyser
 Mind Control Device,Consumable,Consumable Frigate Upgrade,75000,mind_control_device.png,/wiki/Mind_Control_Device
+Gravitino Ball,Tradeable,Trade commodity,40024,gravitino_ball.png,/wiki/Gravitino_Ball
 Fuel Oxidiser,Consumable,Consumable Frigate Upgrade,75000,fuel_oxidiser.png,/wiki/Fuel_Oxidiser
 Explosive Drones,Consumable,Consumable Frigate Upgrade,75000,explosive_drones.png,/wiki/Explosive_Drones
 Fungal Mould,Flora,Harvested Agricultural Substance,16,fungal_mould.png,/wiki/Fungal_Mould
@@ -83,6 +85,7 @@ Hypnotic Eye,Tradeable,Horrific Sample,57000,hypnotic_eye.png,/wiki/Hypnotic_Eye
 Nitrogen,Earth,Compressed Atmospheric Gas,20,nitrogen.png,/wiki/Nitrogen
 Radon,Earth,Compressed Atmospheric Gas,20,radon.png,/wiki/Radon
 Sulphurine,Earth,Compressed Atmospheric Gas,20,sulphurine.png,/wiki/Sulphurine
+Star Silk,Tradeable,Trade Commodity,6000,star_silk.png,/wiki/Star_Silk
 Enriched Carbon,Tradeable,Enhanced Gas Product,50000,enriched_carbon.png,/wiki/Enriched_Carbon
 Nitrogen Salt,Tradeable,Enhanced Gas Product,50000,nitrogen_salt.png,/wiki/Nitrogen_Salt
 Cobalt,Earth,Subterranean Mineral,198,cobalt.png,/wiki/Cobalt
@@ -95,8 +98,12 @@ Magno-Gold,Tradeable,Alloy Metal,25000,magno-gold.png,/wiki/Magno-Gold
 Deuterium,Earth,High Energy Substance,34,deuterium.png,/wiki/Deuterium
 Lemmium,Tradeable,Alloy Metal,25000,lemmium.png,/wiki/Lemmium
 Residual Goop,Special,Junk,20,residual_goop.png,/wiki/Residual_Goop
+Heridium,??,Silicate,27.5,heridium.png,/wiki/Heridium
+Iron,??,Oxide,13.8,iron.png,/wiki/Iron
 Walker Brain,Component,Contraband,35000,walker_brain.png,/wiki/Walker_Brain
 Quad Servo,Component,Contraband,20000,quad_servo.png,/wiki/Quad_Servo
+Aluminium,??,Neutral,165,aluminium.png,/wiki/Aluminium
+Liquid Sun,Special,Transmuted Metal,16,liquid_sun.png,/wiki/Liquid_Sun
 Plutonium,??,Isotope,41,plutonium.png,/wiki/Plutonium
 Starshield Battery,Consumable,Portable Energy Storage,500,starshield_battery.png,/wiki/Starshield_Battery
 Dirty Bronze,Tradeable,Alloy Metal,25000,dirty_bronze.png,/wiki/Dirty_Bronze
@@ -104,7 +111,16 @@ Pyrite,Earth,Localised Earth Element,62,pyrite.png,/wiki/Pyrite
 Nanite Cluster,Special,Technological Currency,??,nanite_cluster.png,/wiki/Nanite_Cluster
 Geodesite,Tradeable,Enriched Alloy Metal,150000,geodesite.png,/wiki/Geodesite
 Iridesite,Tradeable,Enriched Alloy Metal,150000,iridesite.png,/wiki/Iridesite
+Titanium,??,Oxide,61.9,titanium.png,/wiki/Titanium
+Chrysonite,??,Silicate,82.5,chrysonite.png,/wiki/Chrysonite
+Nickel,??,Neutral,138,nickel.png,/wiki/Nickel
+Zinc,??,Oxide,41.3,zinc.png,/wiki/Zinc
+Iridium,??,Neutral,96,iridium.png,/wiki/Iridium
+Radnox,??,Precious/Exotic,303,radnox.png,/wiki/Radnox
 Thamium9,??,Isotope,21,thamium9.png,/wiki/Thamium9
+Microdensity Fabric,Component,Technology component,1650,microdensity_fabric.png,/wiki/Microdensity_Fabric
+Projectile Ammunition,Consumable,Universal Ammo Module,1,projectile_ammunition.png,/wiki/Projectile_Ammunition
+Basalt,Unknown,Localised Earth Element,62,basalt.png,/wiki/Basalt
 Oxygen Capsule,Consumable,Portable Life Support Power,350,oxygen_capsule.png,/wiki/Oxygen_Capsule
 Rusted Metal,Special,Junk,20,rusted_metal.png,/wiki/Rusted_Metal
 Ammonium Salt,Trade Commodity,Enhanced Gas Product,??,ammonium_salt.png,/wiki/Ammonium_Salt
@@ -113,6 +129,10 @@ Power Canister,Consumable,Energy Recharge Cell,343.8,power_canister.png,/wiki/Po
 Power Gel,Consumable,Energy Recharge Cell,171.9,power_gel.png,/wiki/Power_Gel
 Power Reservoir,Consumable,Energy Recharge Cell,515.6,power_reservoir.png,/wiki/Power_Reservoir
 Suspension Fluid,Component,??,1100,suspension_fluid.png,/wiki/Suspension_Fluid
+Dimensional Matrix,Trade Commodity,Neutral resource,15125,dimensional_matrix.png,/wiki/Dimensional_Matrix
+Frigate Fuel (100 Tonnes),Consumable,Stabilised Di-hydrogen Fuel,40000,frigate_fuel_(100_tonnes).png,/wiki/Frigate_Fuel_(100_Tonnes)
+Frigate Fuel (200 Tonnes),Consumable,Stabilised Di-hydrogen Fuel,80000,frigate_fuel_(200_tonnes).png,/wiki/Frigate_Fuel_(200_Tonnes)
+Frigate Fuel (50 Tonnes),Consumable,Stabilised Di-hydrogen Fuel,20000,frigate_fuel_(50_tonnes).png,/wiki/Frigate_Fuel_(50_Tonnes)
 Hexite,Special,Unrefined Organic Element,654,hexite.png,/wiki/Hexite
 Electron Vapour,Component,Technology component,4950,electron_vapour.png,/wiki/Electron_Vapour
 Quantum Processor,Tradeable,Advanced Crafted Product,4400000,quantum_processor.png,/wiki/Quantum_Processor
@@ -121,11 +141,54 @@ Fusion Ignitor,Tradeable,Highly Refined Technology,15600000,fusion_ignitor.png,/
 Organic Catalyst,Tradeable,Manufactured Gas Product,320000,organic_catalyst.png,/wiki/Organic_Catalyst
 Stasis Device,Tradeable,Highly Refined Technology,15600000,stasis_device.png,/wiki/Stasis_Device
 Hot Ice,Tradeable,Manufactured Gas Product,320000,hot_ice.png,/wiki/Hot_Ice
+Cobalt Mirror,Component,Crafted Technology Component,20500,cobalt_mirror.png,/wiki/Cobalt_Mirror
+Oxygen Filter,Component,Crafted Technology Component,615,oxygen_filter.png,/wiki/Oxygen_Filter
+Salt Refractor,Component,Crafted Technology Component,30500,salt_refractor.png,/wiki/Salt_Refractor
+Sodium Diode,Component,Crafted Technology Component,3500,sodium_diode.png,/wiki/Sodium_Diode
+Advanced Ion Battery,Consumable,Portable Energy Storage,500,advanced_ion_battery.png,/wiki/Advanced_Ion_Battery
+Emergency Broadcast Receiver,Consumable,Coordinate Data,3280,emergency_broadcast_receiver.png,/wiki/Emergency_Broadcast_Receiver
 Living Slime,Special,Junk,20,living_slime.png,/wiki/Living_Slime
 Viscous Fluids,Special,Junk,20,viscous_fluids.png,/wiki/Viscous_Fluids
 Runaway Mould,Special,Junk,20,runaway_mould.png,/wiki/Runaway_Mould
 Salvaged Data,Constructed Technology,Salvaged Technology,52000,salvaged_data.png,/wiki/Salvaged_Data
 Hadal Core,Tradeable,Horrific Sample,92625,hadal_core.png,/wiki/Hadal_Core
+Albumen Pearl,Tradeable,Trade commodity,10640,albumen_pearl.png,/wiki/Albumen_Pearl
+Exceptional Skeleton,Tradeable,??,1227996.4,exceptional_skeleton.png,/wiki/Ancient_Skeleton
+Autonomous Positioning Unit,Tradeable,Technology Parts,30000,autonomous_positioning_unit.png,/wiki/Autonomous_Positioning_Unit
+Bromide Salt,Tradeable,Tradable Minerals,15000,bromide_salt.png,/wiki/Bromide_Salt
+Comet Droplets,Tradeable,Trade Commodity,15000,comet_droplets.png,/wiki/Comet_Droplets
+De-Scented Pheromone Bottle,Tradeable,Scientific Components,1000,de-scented_pheromone_bottle.png,/wiki/De-Scented_Pheromone_Bottle
+Decommissioned Circuit Board,Tradeable,Technology Parts,1000,decommissioned_circuit_board.png,/wiki/Decommissioned_Circuit_Board
+Decrypted User Data,Tradeable,Trade Commodity,1000,decrypted_user_data.png,/wiki/Decrypted_User_Data
+Dirt,Tradeable,Tradable Minerals,1000,dirt.png,/wiki/Dirt
+Enormous Metal Cog,Tradeable,Industrial Components,1000,enormous_metal_cog.png,/wiki/Enormous_Metal_Cog
+Experimental Power Fluid,Tradeable,Tradable Energy Source,30000,experimental_power_fluid.png,/wiki/Experimental_Power_Fluid
+Five Dimensional Torus,Tradeable,Advanced Construction Materials,30000,five_dimensional_torus.png,/wiki/Five_Dimensional_Torus
+Fusion Core,Tradeable,Tradable Energy Source,50000,fusion_core.png,/wiki/Fusion_Core
+High Capacity Vector Compressor,Tradeable,Industrial Components,50000,high_capacity_vector_compressor.png,/wiki/High_Capacity_Vector_Compressor
+Holographic Crankshaft,Tradeable,Industrial Components,30000,holographic_crankshaft.png,/wiki/Holographic_Crankshaft
+Instability Injector,Tradeable,Scientific Components,15000,instability_injector.png,/wiki/Instability_Injector
+Ion Capacitor,Tradeable,Technology Parts,15000,ion_capacitor.png,/wiki/Ion_Capacitor
+Ion Sphere,Tradeable,Trade Commodity,30000,ion_sphere.png,/wiki/Ion_Sphere
+Nanotube Crate,Tradeable,Advanced Construction Materials,1000,nanotube_crate.png,/wiki/Nanotube_Crate
+Neural Duct,Tradeable,Scientific Components,50000,neural_duct.png,/wiki/Neural_Duct
+Neutron Microscope,Tradeable,Scientific Components,6000,neutron_microscope.png,/wiki/Neutron_Microscope
+Non-Stick Piston,Tradeable,Industrial Components,6000,non-stick_piston.png,/wiki/Non-Stick_Piston
+Ohmic Gel,Tradeable,Tradable Energy Source,15000,ohmic_gel.png,/wiki/Ohmic_Gel
+Optical Solvent,Tradeable,Advanced Construction Materials,15000,optical_solvent.png,/wiki/Optical_Solvent
+Organic Piping,Tradeable,Scientific Components,30000,organic_piping.png,/wiki/Organic_Piping
+Polychromatic Zirconium,Tradeable,Tradable Minerals,30000,polychromatic_zirconium.png,/wiki/Polychromatic_Zirconium
+Quantum Accelerator,Tradeable,Technology Parts,50000,quantum_accelerator.png,/wiki/Quantum_Accelerator
+Re-latticed Arc Crystal,Tradeable,Tradable Minerals,50000,re-latticed_arc_crystal.png,/wiki/Re-latticed_Arc_Crystal
+Sac Venom,Tradeable,Trade commodity,60800,sac_venom.png,/wiki/Sac_Venom
+Self-Repairing Heridium,Tradeable,Advanced Construction Materials,6000,self-repairing_heridium.png,/wiki/Self-Repairing_Heridium
 Semiconductor,Tradeable,Manufactured Gas Product,320000,semiconductor.png,/wiki/Semiconductor
+Six-Pronged Mesh Decoupler,Tradeable,Industrial Components,15000,six-pronged_mesh_decoupler.png,/wiki/Six-Pronged_Mesh_Decoupler
+Spark Canister,Tradeable,Tradable Energy Source,1000,spark_canister.png,/wiki/Spark_Canister
+Superconducting Fibre,Tradeable,Advanced Construction Materials,50000,superconducting_fibre.png,/wiki/Superconducting_Fibre
+Teleport Coordinators,Tradeable,Trade Commodity,50000,teleport_coordinators.png,/wiki/Teleport_Coordinators
+Unrefined Pyrite Grease,Tradeable,Tradable Minerals,6000,unrefined_pyrite_grease.png,/wiki/Unrefined_Pyrite_Grease
+Vortex Cube,Tradeable,Trade commodity,5800,vortex_cube.png,/wiki/Vortex_Cube
+Welding Soap,Tradeable,Technology Parts,6000,welding_soap.png,/wiki/Welding_Soap
 Warp Cell,,,46750,warp_cell.png,
 Larval Core,,,??,larval_core.png,
