@@ -42,35 +42,35 @@ export function bindDragAndDrop(nodes, simulation) {
   }
 }
 
-const tooltip = select("body").append("div").attr("id", "hoverInfo").style("opacity", "0").text("a simple tooltip");
-
-function showTooltip({ x, y }) {
-  tooltip.style("top", y + "px").style("left", x + 10 + "px");
-  tooltip.style("display", "block");
-  tooltip.transition().duration(150).style("opacity", "0.9");
-}
-function findGroupedLinks(links, d) {
-  return links.filter((l) => haveCommonElements(l.connectionIdx, d.connectionIdx));
-}
-
-function connectionToHtml(data) {
-  let html = data.source.map((s) => {
-    return `<div>${s.count}</div> <img src="/assets/${s.image}"/>`;
-  });
-
-  html = html.join("");
-  html += `<div>=  ${data.count}</div> <img src="/assets/${data.image}"/>`;
-  return html;
-}
-
-function connectionsToHtml(connectionsData) {
-  let html = connectionsData.map((c) => connectionToHtml(c));
-  html = html.map((c) => `<div class="wrapper"> ${c} </div>`);
-  html = html.join("");
-  return html;
-}
-
 export function bindMouseOverLink(links, data) {
+  const tooltip = select("body").append("div").attr("id", "hoverInfo").style("opacity", "0").text("a simple tooltip");
+
+  function showTooltip({ x, y }) {
+    tooltip.style("top", y + "px").style("left", x + 10 + "px");
+    tooltip.style("display", "block");
+    tooltip.transition().duration(150).style("opacity", "0.9");
+  }
+  function findGroupedLinks(links, d) {
+    return links.filter((l) => haveCommonElements(l.connectionIdx, d.connectionIdx));
+  }
+
+  function connectionToHtml(data) {
+    let html = data.source.map((s) => {
+      return `<div>${s.count}</div> <img src="/assets/${s.image}"/>`;
+    });
+
+    html = html.join("");
+    html += `<div>=  ${data.count}</div> <img src="/assets/${data.image}"/>`;
+    return html;
+  }
+
+  function connectionsToHtml(connectionsData) {
+    let html = connectionsData.map((c) => connectionToHtml(c));
+    html = html.map((c) => `<div class="wrapper"> ${c} </div>`);
+    html = html.join("");
+    return html;
+  }
+
   let hoverTimerHandler;
   function showHoverInfo(event, d) {
     hoverTimerHandler = setTimeout(() => showTooltip(event), 100);

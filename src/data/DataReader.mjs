@@ -116,14 +116,6 @@ export class DataReader {
     });
   }
 
-  // fetchJSON$() {
-  //   return fetch("/assets/data/data.json")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       this.#parseExternalData(data.nodes, data.connections);
-  //     });
-  // }
-
   async fetchCSV$() {
     let response = await fetch("/assets/data/nodes.csv");
     let data = await response.text();
