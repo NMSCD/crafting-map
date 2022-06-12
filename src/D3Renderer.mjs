@@ -72,13 +72,17 @@ export class D3Renderer {
 }
 
 function buildSvg({ width, height }) {
-  const svg = create("svg").attr("viewBox", [0, 0, width, height]).style("font", "12px sans-serif");
-  svg
-    .append("defs")
-    .selectAll("marker")
-    .data([1])
-    .join("marker")
-    .attr("id", (d) => `arrow-${d}`)
+  const svg = create("svg").attr("id", "nms-graph").attr("viewBox", [0, 0, width, height]);
+  addArrowHeadDefs(svg);
+  return svg;
+}
+
+function addArrowHeadDefs(svg) {
+  const defs = svg.append("defs");
+
+  defs
+    .append("marker")
+    .attr("id", `arrow-basic`)
     .attr("viewBox", "0 -5 10 10")
     .attr("refX", 8)
     .attr("refY", 0)
@@ -89,6 +93,18 @@ function buildSvg({ width, height }) {
     .attr("fill", `#7f7f7f`)
     .attr("d", "M0,-5L10,0L0,5");
 
+  defs
+    .append("marker")
+    .attr("id", `arrow-highlight`)
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 8)
+    .attr("refY", 0)
+    .attr("markerWidth", 4)
+    .attr("markerHeight", 4)
+    .attr("orient", "auto")
+    .append("path")
+    .attr("fill", `#f8bc63`)
+    .attr("d", "M0,-5L10,0L0,5");
   return svg;
 }
 
@@ -104,7 +120,7 @@ function buildLinks({}, svg, data = []) {
     .join("path")
     .attr("data-target", (d) => d.target)
     .attr("stroke", () => `#7f7f7f`)
-    .attr("marker-end", (d) => `url(${new URL(`#arrow-1`, location)})`);
+    .attr("marker-end", () => `url(${new URL(`#arrow-basic`, location)})`);
 }
 
 function buildNodes({ iconSize }, svg, data = []) {

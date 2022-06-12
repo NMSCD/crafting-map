@@ -4,22 +4,16 @@ body {
   margin: 0;
   padding: 0;
   background-color: #070c20;
+  font: 12px sans-serif;
 }
 
-.link {
-  stroke: #000;
-  stroke-width: 1.5px;
-}
-
-.node {
+#nms-graph .node {
   cursor: move;
 }
-.node circle {
+#nms-graph .node circle {
   fill: #070c20;
-  stroke-width: 1.5px;
 }
-
-.node.fixed circle {
+#nms-graph .node.fixed circle {
   stroke: #f00;
 }
 
