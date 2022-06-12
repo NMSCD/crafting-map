@@ -18,6 +18,7 @@ data.fetchCSV$().then(() => {
 });
 data.config$((config) => {
   menuEl.resetFilters(config);
+  renderer.refresh();
 });
 
 menuEl.addEventListener("filter", ({ detail }) => {

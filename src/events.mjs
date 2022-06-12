@@ -3,6 +3,7 @@ import { zoom } from "https://cdn.skypack.dev/d3-zoom@3";
 import { drag } from "https://cdn.skypack.dev/d3-drag@3";
 
 import { haveCommonElements } from "./utils.mjs";
+import { ConfigBuilder } from "./ConfigBuilder.mjs";
 
 const height = window.innerHeight;
 const width = window.innerWidth;
@@ -40,6 +41,24 @@ export function bindDragAndDrop(nodes, simulation) {
   function clamp(x, lo, hi) {
     return x < lo ? lo : x > hi ? hi : x;
   }
+}
+
+export function bindSelectNode(nodes, data) {
+  function targetSingleNode({ id }) {
+    const node = select(`.node[data-target="${id}"]`);
+    node.classed("node targeted", true);
+    const text = node.select("text").text();
+    data.changeConfig(new ConfigBuilder(data.config).search(text).build());
+  }
+
+  function handleSelectiveDisplay() {
+    return (event, d) => {
+      event.preventDefault();
+      targetSingleNode(d);
+    };
+  }
+
+  nodes.on("contextmenu", handleSelectiveDisplay());
 }
 
 export function bindMouseOverLink(links, data) {

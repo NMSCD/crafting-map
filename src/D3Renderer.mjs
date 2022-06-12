@@ -1,8 +1,7 @@
 import { create } from "https://cdn.skypack.dev/d3-selection@3";
 
-import { bindDragAndDrop, bindMouseOverLink, bindZoomAndPan } from "./events.mjs";
+import { bindDragAndDrop, bindMouseOverLink, bindSelectNode, bindZoomAndPan } from "./events.mjs";
 import { D3Simulation } from "./D3Simulation.mjs";
-import { ConfigBuilder } from "./ConfigBuilder.mjs";
 
 export class D3Renderer {
   #config;
@@ -31,7 +30,7 @@ export class D3Renderer {
     this.#nodes.remove();
     this.#nodes = buildNodes(this.#config, this.#svg, nodes);
     bindDragAndDrop(this.#nodes, this.#simulation);
-    this.#nodes.on("contextmenu", this.#handleSelectiveDisplay());
+    bindSelectNode(this.#nodes, this.#data);
   }
 
   #updateLinks(links) {
@@ -39,20 +38,6 @@ export class D3Renderer {
     this.#links.remove();
     this.#links = buildLinks(this.#config, this.#svg, links);
     bindMouseOverLink(this.#links, this.#data);
-  }
-
-  #handleSelectiveDisplay() {
-    return (event, d) => {
-      event.preventDefault();
-      this.#targetSingleNode(d);
-    };
-  }
-
-  #targetSingleNode({ id }) {
-    const node = this.#svg.select(`.node[data-target="${id}"]`);
-    node.classed("node targeted", true);
-    this.#data.changeConfig(new ConfigBuilder(this.#data.config).clickId(id).build());
-    this.refresh();
   }
 
   #tick() {
@@ -133,7 +118,7 @@ function buildNodes({ iconSize }, svg, data = []) {
     .data(data)
     .join("g")
     .classed("node", true)
-    .attr("data-target", (d) => d.index);
+    .attr("data-target", (d) => d.id);
   node
     .append("circle")
     .attr("r", (d) => nodeValueRadius(d.value, iconSize))
