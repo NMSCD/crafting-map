@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "prettier": "prettier -w ."
+    "prettier": "prettier -w .",
+    "test": "echo 1",
+    "build": "echo 1"
   },
   "dependencies": {},
   "devDependencies": {
