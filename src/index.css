@@ -1,10 +1,12 @@
+/*@import url('https://nmscd.github.io/No-Mans-Sky-Universal-Font/assets/font/NMSGeoSans_Kerned/Web-TT/NMSGeoSans_Kerned.css');*/
+
 html,
 body {
   overflow: hidden;
   margin: 0;
   padding: 0;
   background-color: #070c20;
-  font: 12px sans-serif;
+  font: 12px NMSGeoSans sans-serif;
 }
 
 #nms-graph .node {

@@ -1,15 +1,22 @@
 {
   "scripts": {
-    "prettier": "prettier -w .",
-    "test": "echo 1",
-    "build": "echo 1"
+    "lint:code": "prettier -c src/",
+    "lint:ts": "tsc --noEmit",
+    "test": "npm run lint:code && npm run lint:ts",
+    "build": "esbuild src/index.ts --minify --bundle --loader:.ts=ts --target=es2022 --outfile=dst/out.mjs",
+    "dev": "esbuild src/index.ts --sourcemap --bundle --loader:.ts=ts --target=es2022 --watch --outfile=dst/out.mjs",
+    "prepare": "husky install"
   },
-  "dependencies": {},
+  "dependencies": {
+    "esbuild": "^0.14.45",
+    "typescript": "^4.7.3"
+  },
   "devDependencies": {
     "csv": "^6.1.0",
     "node-fetch": "^2",
     "node-html-parser": "^5.2.0",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "husky": "^8.0.0"
   },
   "prettier": {
     "printWidth": 120

@@ -1,9 +1,8 @@
-import { select } from "https://cdn.skypack.dev/d3-selection@3";
-import { zoom } from "https://cdn.skypack.dev/d3-zoom@3";
-import { drag } from "https://cdn.skypack.dev/d3-drag@3";
-
 import { haveCommonElements } from "./utils.mjs";
 import { ConfigBuilder } from "./ConfigBuilder.mjs";
+
+// @ts-ignore
+const { select, zoom, drag } = d3;
 
 const height = window.innerHeight;
 const width = window.innerWidth;
@@ -98,6 +97,7 @@ export function bindMouseOverLink(links, data) {
       .transition()
       .duration("50")
       .attr("stroke", `#f8bc63`)
+      // @ts-ignore
       .attr("marker-end", () => `url(${new URL(`#arrow-highlight`, location)})`);
 
     const connections = data.connectionsDataByIdxes(d.connectionIdx);
@@ -111,6 +111,7 @@ export function bindMouseOverLink(links, data) {
       .transition()
       .duration("50")
       .attr("stroke", `#7f7f7f`)
+      // @ts-ignore
       .attr("marker-end", () => `url(${new URL(`#arrow-basic`, location)})`);
 
     tooltip.transition().duration(150).style("opacity", "0");

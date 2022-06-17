@@ -1,2 +1,5 @@
+.idea/
+*.iml
 /node_modules/
 /assets/data/updaters/temps/
+/dst/*.map

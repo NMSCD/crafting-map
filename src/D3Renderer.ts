@@ -1,7 +1,9 @@
-import { create } from "https://cdn.skypack.dev/d3-selection@3";
-
-import { bindDragAndDrop, bindMouseOverLink, bindSelectNode, bindZoomAndPan } from "./events.mjs";
+import { bindDragAndDrop, bindMouseOverLink, bindSelectNode, bindZoomAndPan } from "./events.js";
 import { D3Simulation } from "./D3Simulation.mjs";
+import { DataType } from "./model/data";
+
+// @ts-ignore
+const { create } = d3;
 
 export class D3Renderer {
   #config;
@@ -9,9 +11,9 @@ export class D3Renderer {
   #nodes;
   #links;
   #simulation;
-  #data;
+  #data: DataType;
 
-  constructor(config, data) {
+  constructor(config, data: DataType) {
     this.#config = config;
     this.#data = data;
     this.#simulation = new D3Simulation(config);
@@ -99,13 +101,16 @@ function buildLinks({}, svg, data = []) {
     linksGroup = svg.append("g").classed("links", true).attr("fill", "none").attr("stroke-width", 2);
   }
 
-  return linksGroup
-    .selectAll("path")
-    .data(data)
-    .join("path")
-    .attr("data-target", (d) => d.target)
-    .attr("stroke", () => `#7f7f7f`)
-    .attr("marker-end", () => `url(${new URL(`#arrow-basic`, location)})`);
+  return (
+    linksGroup
+      .selectAll("path")
+      .data(data)
+      .join("path")
+      .attr("data-target", (d) => d.target)
+      .attr("stroke", () => `#7f7f7f`)
+      // @ts-ignore
+      .attr("marker-end", () => `url(${new URL(`#arrow-basic`, location)})`)
+  );
 }
 
 function buildNodes({ iconSize }, svg, data = []) {

@@ -1,9 +1,9 @@
-import { D3Renderer } from "./D3Renderer.mjs";
-import { DataReader } from "./data/DataReader.mjs";
+import { D3Renderer } from "./D3Renderer";
+import { DataReader } from "./data/DataReader";
 import { ConfigBuilder } from "./ConfigBuilder.mjs";
 
 const el = document.querySelector("#graph");
-const menuEl = document.querySelector("ak-menu");
+const menuEl = document.querySelector("ak-menu") as any;
 const height = window.innerHeight;
 const width = window.innerWidth;
 const iconSize = 32;

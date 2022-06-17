@@ -1,5 +1,8 @@
 import { FilteredDataProvider } from "./FilteredDataProvider.mjs";
-import { autoType, csvParse } from "https://cdn.skypack.dev/d3-dsv@3";
+import { ConnectionType, DataType } from "../model/data";
+
+// @ts-ignore
+const { autoType, csvParse } = d3;
 
 function parseCSVConnections(data, nodes) {
   return data.map((c, idx) => {
@@ -33,11 +36,11 @@ function parseCSVConnections(data, nodes) {
   });
 }
 
-function parseConnectionsToLinks(connections) {
+function parseConnectionsToLinks(connections: ConnectionType[]) {
   const links = new Map();
   connections.forEach((c, idx) => {
     c.source.forEach((source) => {
-      const key = source.id + "_" + c.targetId;
+      const key = `${source.id}_${c.targetId}`;
       if (links.has(key)) {
         links.get(key).connectionIdx = [...links.get(key).connectionIdx, idx];
       } else {
@@ -51,9 +54,8 @@ function parseConnectionsToLinks(connections) {
   });
   return links;
 }
-
 export class DataReader {
-  #data = {};
+  #data: DataType = {};
   #config = {};
   #filtered;
   #configCB$;

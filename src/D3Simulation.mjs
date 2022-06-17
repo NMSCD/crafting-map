@@ -1,10 +1,4 @@
-import {
-  forceCenter,
-  forceCollide,
-  forceLink,
-  forceManyBody,
-  forceSimulation,
-} from "https://cdn.skypack.dev/d3-force@3";
+const { forceCenter, forceCollide, forceLink, forceManyBody, forceSimulation } = window.d3;
 
 export class D3Simulation {
   #simulation;
