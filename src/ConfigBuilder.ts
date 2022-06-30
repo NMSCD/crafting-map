@@ -1,7 +1,9 @@
-export class ConfigBuilder {
-  #config;
+import { SearchOpts } from "./model/config";
 
-  constructor(config = {}) {
+export class ConfigBuilder {
+  #config: SearchOpts;
+
+  constructor(config: SearchOpts = {}) {
     this.#config = config;
   }
 
@@ -30,7 +32,7 @@ export class ConfigBuilder {
     return this;
   }
 
-  build() {
+  build(): SearchOpts {
     return this.#config;
   }
 }

@@ -47,8 +47,8 @@ export class D3Renderer {
   }
 
   #tick() {
-    this.#links?.attr("d", (d) => linkArc(this.#config, d));
-    this.#linkHovers?.attr("d", (d) => linkArc(this.#config, d));
+    this.#links?.attr("d", (d) => plotLinkD(this.#config, d));
+    this.#linkHovers?.attr("d", (d) => plotLinkD(this.#config, d));
     this.#nodes?.attr("transform", (d) => `translate(${d.x},${d.y})`);
   }
 
@@ -65,8 +65,11 @@ export class D3Renderer {
   #updateHoversRegions() {}
 }
 
-function buildSvg({ width, height }: Config) {
-  const svg = create("svg").attr("id", "nms-graph").attr("viewBox", [0, 0, width, height]);
+function buildSvg({ width, height, curvedArrows }: Config) {
+  const svg = create("svg")
+    .attr("id", "nms-graph")
+    .attr("viewBox", [0, 0, width, height])
+    .classed("arrows", curvedArrows);
   return addArrowHeadDefs(svg);
 }
 
@@ -152,6 +155,28 @@ function buildNodes({ iconSize }: Config, svg: D3Selection<SVGElement>, data: No
   value.raise();
 
   return node as D3DataSelection<SVGGElement, D3NodeType>;
+}
+
+function plotLinkD(c: Config, d) {
+  if (c.curvedArrows) {
+    return linkArc(c, d);
+  }
+  return linkLine(c, d);
+}
+
+function linkLine({ iconSize }: Config, d) {
+  const arrowFix = 2;
+  const R = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
+  const r = nodeValueRadius(d.source.value, iconSize);
+  const x = (r * (d.target.x - d.source.x)) / R + d.source.x;
+  const y = (r * (d.target.y - d.source.y)) / R + d.source.y;
+
+  const r1 = nodeValueRadius(d.target.value, iconSize) + arrowFix;
+  const x1 = (r1 * (d.source.x - d.target.x)) / R + d.target.x;
+  const y1 = (r1 * (d.source.y - d.target.y)) / R + d.target.y;
+
+  return `M${x},${y}
+          ${x1},${y1}`;
 }
 
 function linkArc({ iconSize }: Config, d) {

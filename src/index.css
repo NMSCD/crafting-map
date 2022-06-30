@@ -1,4 +1,4 @@
-/*@import url('https://nmscd.github.io/No-Mans-Sky-Universal-Font/assets/font/NMSGeoSans_Kerned/Web-TT/NMSGeoSans_Kerned.css');*/
+@import url("https://nmscd.github.io/No-Mans-Sky-Universal-Font/assets/font/NMSGeoSans_Kerned/Web-TT/NMSGeoSans_Kerned.css");
 
 html,
 body {
@@ -23,16 +23,24 @@ body {
 
 #nms-graph .links path {
   stroke: #7f7f7f;
-  marker-end: url("#arrow-basic");
 }
+
 #nms-graph .links path.hover {
   stroke: #f8bc63;
+}
+
+#nms-graph.arrows .links path {
+  marker-end: url("#arrow-basic");
+}
+
+#nms-graph.arrows .links path.hover {
   marker-end: url("#arrow-highlight");
 }
 
 #nms-graph .node {
   cursor: move;
 }
+
 #nms-graph .node circle {
   fill: #070c20;
 }

@@ -14,14 +14,16 @@ export type LinkType = {
   source: number;
   target: number;
   connectionIdx: number[];
+  twoWay?: boolean;
 };
 export type ConnectionType = {
   connectionIdx: number;
   count: number;
-  source: { id: number; count: number }[];
+  source: ConnectionSource[];
   targetId: number;
   type: string;
 };
+export type ConnectionSource = { id: number; count: number };
 export type DataType = {
   nodes?: NodeType[];
   links?: LinkType[];

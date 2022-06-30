@@ -1,4 +1,4 @@
-import { ConfigBuilder } from "./ConfigBuilder.mjs";
+import { ConfigBuilder } from "./ConfigBuilder.js";
 import { D3Selection } from "./model/d3";
 
 // @ts-ignore
@@ -48,7 +48,7 @@ export function bindSelectNode(nodes, data) {
     const node = select(`.node[data-target="${id}"]`);
     node.classed("node targeted", true);
     const text = node.select("text").text();
-    data.changeConfig(new ConfigBuilder(data.config).search(text).build());
+    data.changeConfig(new ConfigBuilder(data.searchOpts).search(text).build());
   }
 
   function handleSelectiveDisplay() {
