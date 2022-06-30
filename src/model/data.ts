@@ -6,7 +6,7 @@ export type NodeType = {
   type: string;
   value: number;
 };
-type LinkType = {
+export type LinkType = {
   source: number;
   target: number;
   connectionIdx: number[];

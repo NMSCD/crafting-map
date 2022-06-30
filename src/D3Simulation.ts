@@ -1,9 +1,12 @@
+import { Config } from "./model/config";
+
 const { forceCenter, forceCollide, forceLink, forceManyBody, forceSimulation } = window.d3;
 
 export class D3Simulation {
   #simulation;
-  #config;
-  constructor(config) {
+  #config: Config;
+
+  constructor(config: Config) {
     this.#config = config;
     this.#simulation = createSimulation(config);
   }
@@ -22,9 +25,13 @@ export class D3Simulation {
   onTick(cb) {
     this.#simulation.on("tick", cb);
   }
+
+  onEnd(cb) {
+    this.#simulation.on("end", cb);
+  }
 }
 
-function createSimulation({ width, height, collisionRadius }) {
+function createSimulation({ width, height, collisionRadius }: Config) {
   return forceSimulation()
     .nodes([])
     .force("charge", forceManyBody())

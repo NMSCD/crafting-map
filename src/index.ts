@@ -1,6 +1,7 @@
 import { D3Renderer } from "./D3Renderer";
 import { DataReader } from "./data/DataReader";
 import { ConfigBuilder } from "./ConfigBuilder.mjs";
+import { Config } from "./model/config";
 
 const el = document.querySelector("#graph");
 const menuEl = document.querySelector("ak-menu") as any;

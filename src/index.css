@@ -9,6 +9,27 @@ body {
   font: 12px NMSGeoSans sans-serif;
 }
 
+#nms-graph .linkHovers,
+#nms-graph .links {
+  stroke-width: 2;
+  fill: none;
+}
+
+#nms-graph .linkHovers {
+  stroke-width: 15;
+  stroke: red;
+  opacity: 0;
+}
+
+#nms-graph .links path {
+  stroke: #7f7f7f;
+  marker-end: url("#arrow-basic");
+}
+#nms-graph .links path.hover {
+  stroke: #f8bc63;
+  marker-end: url("#arrow-highlight");
+}
+
 #nms-graph .node {
   cursor: move;
 }

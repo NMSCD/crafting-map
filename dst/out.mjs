@@ -1,4 +1,507 @@
-(()=>{function v(n,t){return n.some(e=>t.some(r=>e===r))}var f=class{#t;constructor(t={}){this.#t=t}search(t){return t?(delete this.#t.clickId,this.#t.search=t,this):(delete this.#t.search,this)}clickId(t){return t?(delete this.#t.search,this.#t.clickId=t,this):(delete this.#t.clickId,this)}direction(t){return this.#t.direction=t,this}build(){return this.#t}};var{select:g,zoom:H,drag:_}=d3,V=window.innerHeight,R=window.innerWidth;function $(n){function t(e){n.select(".nodes").attr("transform",e.transform),n.select(".links").attr("transform",e.transform)}n.call(H().on("zoom",t))}function L(n,t){let e=_().on("start",i).on("drag",s);n.call(e).on("click",r);function r(o,h){delete h.fx,delete h.fy,g(this).classed("fixed",!1),t.restart()}function i(){g(this).classed("fixed",!0)}function s(o,h){h.fx=c(o.x,0,R),h.fy=c(o.y,0,V),t.restart()}function c(o,h,u){return o<h?h:o>u?u:o}}function b(n,t){function e({id:i}){let s=g(`.node[data-target="${i}"]`);s.classed("node targeted",!0);let c=s.select("text").text();t.changeConfig(new f(t.config).search(c).build())}function r(){return(i,s)=>{i.preventDefault(),e(s)}}n.on("contextmenu",r())}function C(n,t){let e=g("body").append("div").attr("id","hoverInfo").style("opacity","0").text("a simple tooltip");function r({x:d,y:a}){e.style("top",a+"px").style("left",d+10+"px"),e.style("display","block"),e.transition().duration(150).style("opacity","0.9")}function i(d,a){return d.filter(l=>v(l.connectionIdx,a.connectionIdx))}function s(d){let a=d.source.map(l=>`<div>${l.count}</div> <img src="assets/${l.image}"/>`);return a=a.join(""),a+=`<div>=  ${d.count}</div> <img src="assets/${d.image}"/>`,a}function c(d){let a=d.map(l=>s(l));return a=a.map(l=>`<div class="wrapper"> ${l} </div>`),a=a.join(""),a}let o;function h(d,a){o=setTimeout(()=>r(d),100),i(n,a).transition().duration("50").attr("stroke","#f8bc63").attr("marker-end",()=>`url(${new URL("#arrow-highlight",location)})`);let B=t.connectionsDataByIdxes(a.connectionIdx),E=c(B);e.html(E)}function u(d){i(n,d).transition().duration("50").attr("stroke","#7f7f7f").attr("marker-end",()=>`url(${new URL("#arrow-basic",location)})`),e.transition().duration(150).style("opacity","0"),e.style("display","none"),clearTimeout(o)}n.on("mouseover",function(d,a){h(d,a)}),n.on("mouseout",function(d,a){u(a)})}var{forceCenter:j,forceCollide:W,forceLink:F,forceManyBody:G,forceSimulation:P}=window.d3,m=class{#t;#e;constructor(t){this.#e=t,this.#t=U(t)}restart(){this.#t.alpha(1).restart()}resetData(t,e){this.#t.nodes(t),this.#t.force("link").links(e),this.#t.force("charge").strength(-5),this.#t.force("colide").strength(.5),this.restart()}onTick(t){this.#t.on("tick",t)}};function U({width:n,height:t,collisionRadius:e}){return P().nodes([]).force("charge",G()).force("center",j(n/2,t/2)).force("colide",W(e)).force("link",F())}var{create:Z}=d3,k=class{#t;#e;#n;#r;#o;#i;constructor(t,e){this.#t=t,this.#i=e,this.#o=new m(t),this.#o.onTick(()=>this.#c())}build(){this.#e=q(this.#t),this.#r=T(this.#t,this.#e),this.#n=D(this.#t,this.#e),$(this.#e)}#a(t){this.#n.on(".",null),this.#n.remove(),this.#n=D(this.#t,this.#e,t),L(this.#n,this.#o),b(this.#n,this.#i)}#s(t){this.#r.on(".",null),this.#r.remove(),this.#r=T(this.#t,this.#e,t),C(this.#r,this.#i)}#c(){this.#r.attr("d",t=>X(this.#t,t)),this.#n.attr("transform",t=>`translate(${t.x},${t.y})`)}get htmlEl(){return this.#e.node()}refresh(){this.#a(this.#i.nodes),this.#s(this.#i.links),this.#o.resetData(this.#i.nodes,this.#i.links)}};function q({width:n,height:t}){let e=Z("svg").attr("id","nms-graph").attr("viewBox",[0,0,n,t]);return O(e),e}function O(n){let t=n.append("defs");return t.append("marker").attr("id","arrow-basic").attr("viewBox","0 -5 10 10").attr("refX",8).attr("refY",0).attr("markerWidth",4).attr("markerHeight",4).attr("orient","auto").append("path").attr("fill","#7f7f7f").attr("d","M0,-5L10,0L0,5"),t.append("marker").attr("id","arrow-highlight").attr("viewBox","0 -5 10 10").attr("refX",8).attr("refY",0).attr("markerWidth",4).attr("markerHeight",4).attr("orient","auto").append("path").attr("fill","#f8bc63").attr("d","M0,-5L10,0L0,5"),n}function T({},n,t=[]){let e=n.select(".links");return e.empty()&&(e=n.append("g").classed("links",!0).attr("fill","none").attr("stroke-width",2)),e.selectAll("path").data(t).join("path").attr("data-target",r=>r.target).attr("stroke",()=>"#7f7f7f").attr("marker-end",()=>`url(${new URL("#arrow-basic",location)})`)}function D({iconSize:n},t,e=[]){let r=t.select(".nodes");r.empty()&&(r=t.append("g").classed("nodes",!0));let i=r.selectAll(".node").data(e).join("g").classed("node",!0).attr("data-target",o=>o.id);i.append("circle").attr("r",o=>I(o.value,n)).classed("fixed",o=>o.fx!==void 0),i.append("svg:image").attr("xlink:href",o=>`assets/${o.image}`).attr("x",n/-2).attr("y",n/-2).attr("width",n).attr("height",n);let s=i.append("text").attr("text-anchor","middle").attr("x",0).attr("y",-n/2).text(o=>o.name);s.clone(!0).attr("fill","none").attr("stroke","white").attr("stroke-width",3),s.raise();let c=i.append("text").attr("text-anchor","middle").attr("x",0).attr("y",n/2+8).text(o=>o.value+" $");return c.clone(!0).attr("fill","none").attr("stroke","white").attr("stroke-width",3),c.raise(),i}function X({iconSize:n},t){let r=Math.hypot(t.target.x-t.source.x,t.target.y-t.source.y),i=I(t.source.value,n),s=i*(t.target.x-t.source.x)/r+t.source.x,c=i*(t.target.y-t.source.y)/r+t.source.y,o=I(t.target.value,n)+2,h=o*(t.source.x-t.target.x)/r+t.target.x,u=o*(t.source.y-t.target.y)/r+t.target.y;return isNaN(s)||isNaN(c)?"":`
-    M${s},${c}
-    A${r},${r} 0 0 0 ${h},${u}
-  `}function I(n,t){let e=Number(n)||1;return Math.log2(e)+t/2+2}var y=class{#t;#e={};#n={};#r;constructor(t){this.#t=t}refresh(t){this.#e=t,this.#n={},this.#r=void 0,this.#i(),this.#o(),this.#a()}get nodesIds(){return this.#n.nodeIds}get links(){return this.#n.links}#o(){let t=this.#e.search?.toLowerCase();if(!t)return;let e=this.#t.allNodes.filter(r=>r.name.toLowerCase().includes(t)).map(r=>r.id);this.#r=e,this.#n.nodeIds=this.#s(e)}#i(){let t=this.#e.clickId;!t||(this.#r=[t],this.#n.nodeIds=this.#s([t]))}#a(){let t=this.#r;if(!t)return;let e=this.#e.direction?"target":"source";this.#n.links=this.#t.allLinks.filter(r=>t.includes(r[e].id))}#s(t){let e=this.#t.allLinks,r=this.#e.direction?"target":"source",i=this.#e.direction?"source":"target",s=e.reduce((c,o)=>t.includes(o[r].id)&&!c.includes(o[i].id)?[...c,o[i].id]:c,[...t]);return[...new Set(s)]}};var{autoType:N,csvParse:S}=d3;function Y(n,t){return n.map((e,r)=>{let i=[];if(!e.Source_1)throw new Error("parsing error!");return i.push({id:t.get(e.Source_1).id,count:e.Count_1}),e.Source_2&&i.push({id:t.get(e.Source_2).id,count:e.Count_2}),e.Source_3&&i.push({id:t.get(e.Source_3).id,count:e.Count_3}),{source:i,targetId:t.get(e.Target).id,count:e.TargetCount,connectionIdx:r,type:e.Type}})}function J(n){let t=new Map;return n.forEach((e,r)=>{e.source.forEach(i=>{let s=`${i.id}_${e.targetId}`;t.has(s)?t.get(s).connectionIdx=[...t.get(s).connectionIdx,r]:t.set(s,{source:i.id,target:e.targetId,connectionIdx:[r]})})}),t}var x=class{#t={};#e={};#n;#r;constructor(){this.#n=new y(this)}get nodes(){let t=this.#n.nodesIds;return t?this.#t.nodes.filter(e=>t.includes(e.id)):this.#t.nodes}get links(){return this.#n.links||this.#t.links}set config(t){this.#e=t,this.#n.refresh(t)}changeConfig(t){this.config=t,this.#r(t)}config$(t){this.#r=t}get config(){return this.#e}get allNodes(){return this.#t.nodes}get allLinks(){return this.#t.links}connectionsDataByIdxes(t){return t.map(r=>this.#t.connections[r]).map(r=>({...r,...this.#t.nodes.find(i=>i.id===r.targetId),source:r.source.map(i=>({...this.#t.nodes.find(s=>s.id===i.id),...i}))}))}async fetchCSV$(){let t=await fetch("assets/data/nodes.csv"),e=await t.text(),r=K(S(e,N));t=await fetch("assets/data/connections.csv"),e=await t.text();let i=Y(S(e,N),r),s=J(i);this.#t.nodes=[...r.values()],this.#t.connections=i,this.#t.links=[...s.values()]}};function K(n){let t=new Map;return n.forEach((e,r)=>{t.set(e.Name,{name:e.Name,id:r,category:e.Category,type:e.Type,value:e.Value,image:e.Image})}),t}var Q=document.querySelector("#graph"),A=document.querySelector("ak-menu"),z=window.innerHeight,tt=window.innerWidth,M=32,et={width:tt,height:z,iconSize:M,collisionRadius:M*3},w=new x,p=new k(et,w);p.build();w.fetchCSV$().then(()=>{p.refresh()});w.config$(n=>{A.resetFilters(n),p.refresh()});A.addEventListener("filter",({detail:n})=>{w.config=new f().search(n.search).direction(n.direction).clickId(n.clickId).build(),p.refresh()});Q.append(p.htmlEl);})();
+(() => {
+  // src/ConfigBuilder.mjs
+  var ConfigBuilder = class {
+    #config;
+    constructor(config2 = {}) {
+      this.#config = config2;
+    }
+    search(value) {
+      if (!value) {
+        delete this.#config.search;
+        return this;
+      }
+      delete this.#config.clickId;
+      this.#config.search = value;
+      return this;
+    }
+    clickId(value) {
+      if (!value) {
+        delete this.#config.clickId;
+        return this;
+      }
+      delete this.#config.search;
+      this.#config.clickId = value;
+      return this;
+    }
+    direction(value) {
+      this.#config.direction = value;
+      return this;
+    }
+    build() {
+      return this.#config;
+    }
+  };
+
+  // src/events.ts
+  var { select, zoom, drag } = d3;
+  var height = window.innerHeight;
+  var width = window.innerWidth;
+  function bindZoomAndPan(svg) {
+    function handleZoom(e) {
+      svg.select(".nodes").attr("transform", e.transform);
+      svg.select(".links").attr("transform", e.transform);
+      svg.select(".linkHovers").attr("transform", e.transform);
+    }
+    svg.call(zoom().on("zoom", handleZoom));
+  }
+  function bindDragAndDrop(nodes, simulation) {
+    const dragEvent = drag().on("start", dragstart).on("drag", dragged);
+    nodes.call(dragEvent).on("click", click);
+    function click(event, d) {
+      delete d.fx;
+      delete d.fy;
+      select(this).classed("fixed", false);
+      simulation.restart();
+    }
+    function dragstart() {
+      select(this).classed("fixed", true);
+    }
+    function dragged(event, d) {
+      d.fx = clamp(event.x, 0, width);
+      d.fy = clamp(event.y, 0, height);
+      simulation.restart();
+    }
+    function clamp(x, lo, hi) {
+      return x < lo ? lo : x > hi ? hi : x;
+    }
+  }
+  function bindSelectNode(nodes, data2) {
+    function targetSingleNode({ id }) {
+      const node = select(`.node[data-target="${id}"]`);
+      node.classed("node targeted", true);
+      const text = node.select("text").text();
+      data2.changeConfig(new ConfigBuilder(data2.config).search(text).build());
+    }
+    function handleSelectiveDisplay() {
+      return (event, d) => {
+        event.preventDefault();
+        targetSingleNode(d);
+      };
+    }
+    nodes.on("contextmenu", handleSelectiveDisplay());
+  }
+
+  // src/D3Simulation.ts
+  var { forceCenter, forceCollide, forceLink, forceManyBody, forceSimulation } = window.d3;
+  var D3Simulation = class {
+    #simulation;
+    #config;
+    constructor(config2) {
+      this.#config = config2;
+      this.#simulation = createSimulation(config2);
+    }
+    restart() {
+      this.#simulation.alpha(1).restart();
+    }
+    resetData(nodes, links) {
+      this.#simulation.nodes(nodes);
+      this.#simulation.force("link").links(links);
+      this.#simulation.force("charge").strength(-5);
+      this.#simulation.force("colide").strength(0.5);
+      this.restart();
+    }
+    onTick(cb) {
+      this.#simulation.on("tick", cb);
+    }
+    onEnd(cb) {
+      this.#simulation.on("end", cb);
+    }
+  };
+  function createSimulation({ width: width3, height: height3, collisionRadius }) {
+    return forceSimulation().nodes([]).force("charge", forceManyBody()).force("center", forceCenter(width3 / 2, height3 / 2)).force("colide", forceCollide(collisionRadius)).force("link", forceLink());
+  }
+
+  // src/utils.mjs
+  function haveCommonElements(arrA, arrB) {
+    return arrA.some((a) => {
+      return arrB.some((b) => {
+        return a === b;
+      });
+    });
+  }
+
+  // src/hover.ts
+  var { selectAll, select: select2 } = d3;
+  function bindMouseOverLink(links, data2) {
+    const tooltip = select2("body").append("div").attr("id", "hoverInfo").style("opacity", "0").text("a simple tooltip");
+    function showTooltip({ x, y }) {
+      tooltip.style("top", y + "px").style("left", x + 10 + "px");
+      tooltip.style("display", "block");
+      tooltip.transition().duration(150).style("opacity", "0.9");
+    }
+    function findGroupedLinks(links2, d) {
+      return links2.filter((l) => haveCommonElements(l.connectionIdx, d.connectionIdx));
+    }
+    function connectionToHtml(data3) {
+      let html = data3.source.map((s) => {
+        return `<div>${s.count}</div> <img src="assets/${s.image}"/>`;
+      });
+      html = html.join("");
+      html += `<div>=  ${data3.count}</div> <img src="assets/${data3.image}"/>`;
+      return html;
+    }
+    function connectionsToHtml(connectionsData) {
+      let html = connectionsData.map((c) => connectionToHtml(c));
+      html = html.map((c) => `<div class="wrapper"> ${c} </div>`);
+      html = html.join("");
+      return html;
+    }
+    let hoverTimerHandler;
+    function showHoverInfo(event, d) {
+      hoverTimerHandler = setTimeout(() => showTooltip(event), 100);
+      const groupLinks = findGroupedLinks(links, d);
+      groupLinks.classed("hover", true);
+      const connections = data2.connectionsDataByIdxes(d.connectionIdx);
+      let linkInfo = connectionsToHtml(connections);
+      tooltip.html(linkInfo);
+    }
+    function hideHoverInfo(d) {
+      const groupLinks = findGroupedLinks(links, d);
+      groupLinks.classed("hover", false);
+      tooltip.transition().duration(150).style("opacity", "0");
+      tooltip.style("display", "none");
+      clearTimeout(hoverTimerHandler);
+    }
+    const hoverableLinks = selectAll("svg .linkHovers path");
+    hoverableLinks.on("mouseover", function(event, d) {
+      showHoverInfo(event, d);
+    });
+    hoverableLinks.on("mouseout", function(event, d) {
+      hideHoverInfo(d);
+    });
+  }
+
+  // src/D3Renderer.ts
+  var { create } = d3;
+  var D3Renderer = class {
+    #config;
+    #svg;
+    #nodes;
+    #links;
+    #linkHovers;
+    #simulation;
+    #data;
+    constructor(config2, data2) {
+      this.#config = config2;
+      this.#data = data2;
+      this.#simulation = new D3Simulation(config2);
+      this.#simulation.onTick(() => this.#tick());
+      this.#simulation.onEnd(() => this.#updateHoversRegions());
+    }
+    build() {
+      this.#svg = buildSvg(this.#config);
+      this.#links = buildLinks(this.#config, this.#svg);
+      this.#nodes = buildNodes(this.#config, this.#svg);
+      bindZoomAndPan(this.#svg);
+    }
+    #updateNodes(nodes) {
+      this.#nodes.on(".", null);
+      this.#nodes.remove();
+      this.#nodes = buildNodes(this.#config, this.#svg, nodes);
+      bindDragAndDrop(this.#nodes, this.#simulation);
+      bindSelectNode(this.#nodes, this.#data);
+    }
+    #updateLinks(links) {
+      this.#links.on(".", null);
+      this.#links.remove();
+      this.#links = buildLinks(this.#config, this.#svg, links);
+      this.#linkHovers = buildHovers(this.#config, this.#svg, links);
+      bindMouseOverLink(this.#links, this.#data);
+    }
+    #tick() {
+      this.#links.attr("d", (d) => linkArc(this.#config, d));
+      this.#nodes.attr("transform", (d) => `translate(${d.x},${d.y})`);
+    }
+    get htmlEl() {
+      return this.#svg.node();
+    }
+    refresh() {
+      this.#updateNodes(this.#data.nodes);
+      this.#updateLinks(this.#data.links);
+      this.#simulation.resetData(this.#data.nodes, this.#data.links);
+    }
+    #updateHoversRegions() {
+      this.#linkHovers.attr("d", (d) => linkArc(this.#config, d));
+    }
+  };
+  function buildSvg({ width: width3, height: height3 }) {
+    const svg = create("svg").attr("id", "nms-graph").attr("viewBox", [0, 0, width3, height3]);
+    addArrowHeadDefs(svg);
+    return svg;
+  }
+  function addArrowHeadDefs(svg) {
+    const defs = svg.append("defs");
+    defs.append("marker").attr("id", `arrow-basic`).attr("viewBox", "0 -5 10 10").attr("refX", 8).attr("refY", 0).attr("markerWidth", 4).attr("markerHeight", 4).attr("orient", "auto").append("path").attr("fill", `#7f7f7f`).attr("d", "M0,-5L10,0L0,5");
+    defs.append("marker").attr("id", `arrow-highlight`).attr("viewBox", "0 -5 10 10").attr("refX", 8).attr("refY", 0).attr("markerWidth", 4).attr("markerHeight", 4).attr("orient", "auto").append("path").attr("fill", `#f8bc63`).attr("d", "M0,-5L10,0L0,5");
+    return svg;
+  }
+  function buildLinks({}, svg, data2 = []) {
+    let linksGroup = svg.select(".links");
+    if (linksGroup.empty()) {
+      linksGroup = svg.append("g").classed("links", true);
+    }
+    return linksGroup.selectAll("path").data(data2).join("path").attr("data-target", (d) => d.target);
+  }
+  function buildHovers({}, svg, data2 = []) {
+    let linksGroup = svg.select(".linkHovers");
+    if (linksGroup.empty()) {
+      linksGroup = svg.append("g").classed("linkHovers", true);
+    }
+    return linksGroup.selectAll("path").data(data2).join("path").attr("data-target", (d) => d.target);
+  }
+  function buildNodes({ iconSize: iconSize2 }, svg, data2 = []) {
+    let nodeGroup = svg.select(".nodes");
+    if (nodeGroup.empty()) {
+      nodeGroup = svg.append("g").classed("nodes", true);
+    }
+    const node = nodeGroup.selectAll(".node").data(data2).join("g").classed("node", true).attr("data-target", (d) => d.id);
+    node.append("circle").attr("r", (d) => nodeValueRadius(d.value, iconSize2)).classed("fixed", (d) => d.fx !== void 0);
+    node.append("svg:image").attr("xlink:href", (d) => `assets/${d.image}`).attr("x", iconSize2 / -2).attr("y", iconSize2 / -2).attr("width", iconSize2).attr("height", iconSize2);
+    const text = node.append("text").attr("text-anchor", "middle").attr("x", 0).attr("y", -iconSize2 / 2).text((d) => d.name);
+    text.clone(true).attr("fill", "none").attr("stroke", "white").attr("stroke-width", 3);
+    text.raise();
+    const value = node.append("text").attr("text-anchor", "middle").attr("x", 0).attr("y", iconSize2 / 2 + 8).text((d) => d.value + " $");
+    value.clone(true).attr("fill", "none").attr("stroke", "white").attr("stroke-width", 3);
+    value.raise();
+    return node;
+  }
+  function linkArc({ iconSize: iconSize2 }, d) {
+    const arrowFix = 2;
+    const R = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
+    const r = nodeValueRadius(d.source.value, iconSize2);
+    const x = r * (d.target.x - d.source.x) / R + d.source.x;
+    const y = r * (d.target.y - d.source.y) / R + d.source.y;
+    const r1 = nodeValueRadius(d.target.value, iconSize2) + arrowFix;
+    const x1 = r1 * (d.source.x - d.target.x) / R + d.target.x;
+    const y1 = r1 * (d.source.y - d.target.y) / R + d.target.y;
+    if (isNaN(x) || isNaN(y)) {
+      return "";
+    }
+    return `
+    M${x},${y}
+    A${R},${R} 0 0 0 ${x1},${y1}
+  `;
+  }
+  function nodeValueRadius(value, iconSize2) {
+    const fixedVal = Number(value) || 1;
+    return Math.log2(fixedVal) + iconSize2 / 2 + 2;
+  }
+
+  // src/data/FilteredDataProvider.mjs
+  var FilteredDataProvider = class {
+    #data;
+    #config = {};
+    #filter = {};
+    #initialIds;
+    constructor(data2) {
+      this.#data = data2;
+    }
+    refresh(config2) {
+      this.#config = config2;
+      this.#filter = {};
+      this.#initialIds = void 0;
+      this.#nodeIdsById();
+      this.#nodeIdsBySearch();
+      this.#linksIds();
+    }
+    get nodesIds() {
+      return this.#filter.nodeIds;
+    }
+    get links() {
+      return this.#filter.links;
+    }
+    #nodeIdsBySearch() {
+      const search = this.#config.search?.toLowerCase();
+      if (!search) {
+        return;
+      }
+      const initialIds = this.#data.allNodes.filter((n) => n.name.toLowerCase().includes(search)).map((n) => n.id);
+      this.#initialIds = initialIds;
+      this.#filter.nodeIds = this.#findMultiNodeIds(initialIds);
+    }
+    #nodeIdsById() {
+      const id = this.#config.clickId;
+      if (!id) {
+        return;
+      }
+      this.#initialIds = [id];
+      this.#filter.nodeIds = this.#findMultiNodeIds([id]);
+    }
+    #linksIds() {
+      let ids = this.#initialIds;
+      if (!ids) {
+        return;
+      }
+      const keyA = this.#config.direction ? "target" : "source";
+      this.#filter.links = this.#data.allLinks.filter((l) => ids.includes(l[keyA].id));
+    }
+    #findMultiNodeIds(ids) {
+      const d3LinkData = this.#data.allLinks;
+      const keyA = this.#config.direction ? "target" : "source";
+      const keyB = !this.#config.direction ? "target" : "source";
+      const nodeIds = d3LinkData.reduce((acc, value) => {
+        if (ids.includes(value[keyA].id) && !acc.includes(value[keyB].id)) {
+          return [...acc, value[keyB].id];
+        }
+        return acc;
+      }, [...ids]);
+      return [...new Set(nodeIds)];
+    }
+  };
+
+  // src/data/DataReader.ts
+  var { autoType, csvParse } = d3;
+  function parseCSVConnections(data2, nodes) {
+    return data2.map((c, idx) => {
+      const source = [];
+      if (!c.Source_1) {
+        throw new Error("parsing error!");
+      }
+      source.push({
+        id: nodes.get(c.Source_1).id,
+        count: c.Count_1
+      });
+      if (c.Source_2) {
+        source.push({
+          id: nodes.get(c.Source_2).id,
+          count: c.Count_2
+        });
+      }
+      if (c.Source_3) {
+        source.push({
+          id: nodes.get(c.Source_3).id,
+          count: c.Count_3
+        });
+      }
+      return {
+        source,
+        targetId: nodes.get(c.Target).id,
+        count: c.TargetCount,
+        connectionIdx: idx,
+        type: c.Type
+      };
+    });
+  }
+  function parseConnectionsToLinks(connections) {
+    const links = /* @__PURE__ */ new Map();
+    connections.forEach((c, idx) => {
+      c.source.forEach((source) => {
+        const key = `${source.id}_${c.targetId}`;
+        if (links.has(key)) {
+          links.get(key).connectionIdx = [...links.get(key).connectionIdx, idx];
+        } else {
+          links.set(key, {
+            source: source.id,
+            target: c.targetId,
+            connectionIdx: [idx]
+          });
+        }
+      });
+    });
+    return links;
+  }
+  var DataReader = class {
+    #data = {};
+    #config = {};
+    #filtered;
+    #configCB$;
+    constructor() {
+      this.#filtered = new FilteredDataProvider(this);
+    }
+    get nodes() {
+      let ids = this.#filtered.nodesIds;
+      if (ids) {
+        return this.#data.nodes.filter((n) => ids.includes(n.id));
+      }
+      return this.#data.nodes;
+    }
+    get links() {
+      return this.#filtered.links || this.#data.links;
+    }
+    set config(config2) {
+      this.#config = config2;
+      this.#filtered.refresh(config2);
+    }
+    changeConfig(config2) {
+      this.config = config2;
+      this.#configCB$(config2);
+    }
+    config$(cb) {
+      this.#configCB$ = cb;
+    }
+    get config() {
+      return this.#config;
+    }
+    get allNodes() {
+      return this.#data.nodes;
+    }
+    get allLinks() {
+      return this.#data.links;
+    }
+    connectionsDataByIdxes(idxs) {
+      const connections = idxs.map((idx) => this.#data.connections[idx]);
+      return connections.map((c) => {
+        return {
+          ...c,
+          ...this.#data.nodes.find((node) => node.id === c.targetId),
+          source: c.source.map((s) => {
+            return {
+              ...this.#data.nodes.find((node) => node.id === s.id),
+              ...s
+            };
+          })
+        };
+      });
+    }
+    async fetchCSV$() {
+      let response = await fetch("assets/data/nodes.csv");
+      let data2 = await response.text();
+      const nodes = parseCSVNodes(csvParse(data2, autoType));
+      response = await fetch("assets/data/connections.csv");
+      data2 = await response.text();
+      const connections = parseCSVConnections(csvParse(data2, autoType), nodes);
+      const links = parseConnectionsToLinks(connections);
+      this.#data.nodes = [...nodes.values()];
+      this.#data.connections = connections;
+      this.#data.links = [...links.values()];
+    }
+  };
+  function parseCSVNodes(nodeArray) {
+    const nodeMap = /* @__PURE__ */ new Map();
+    nodeArray.forEach((n, idx) => {
+      nodeMap.set(n.Name, {
+        name: n.Name,
+        id: idx,
+        category: n.Category,
+        type: n.Type,
+        value: n.Value,
+        image: n.Image
+      });
+    });
+    return nodeMap;
+  }
+
+  // src/index.ts
+  var el = document.querySelector("#graph");
+  var menuEl = document.querySelector("ak-menu");
+  var height2 = window.innerHeight;
+  var width2 = window.innerWidth;
+  var iconSize = 32;
+  var config = { width: width2, height: height2, iconSize, collisionRadius: iconSize * 3 };
+  var data = new DataReader();
+  var renderer = new D3Renderer(config, data);
+  renderer.build();
+  data.fetchCSV$().then(() => {
+    renderer.refresh();
+  });
+  data.config$((config2) => {
+    menuEl.resetFilters(config2);
+    renderer.refresh();
+  });
+  menuEl.addEventListener("filter", ({ detail }) => {
+    data.config = new ConfigBuilder().search(detail.search).direction(detail.direction).clickId(detail.clickId).build();
+    renderer.refresh();
+  });
+  el.append(renderer.htmlEl);
+})();
+//# sourceMappingURL=out.mjs.map
