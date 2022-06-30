@@ -1,9 +1,11 @@
 import { Config } from "./model/config";
+import { Simulation, SimulationLinkDatum } from "d3-force";
+import { D3NodeType, LinkType, NodeType } from "./model/data";
 
 const { forceCenter, forceCollide, forceLink, forceManyBody, forceSimulation } = window.d3;
 
 export class D3Simulation {
-  #simulation;
+  #simulation: Simulation<D3NodeType, SimulationLinkDatum<D3NodeType>>;
   #config: Config;
 
   constructor(config: Config) {
@@ -14,11 +16,9 @@ export class D3Simulation {
     this.#simulation.alpha(1).restart();
   }
 
-  resetData(nodes, links) {
-    this.#simulation.nodes(nodes);
-    this.#simulation.force("link").links(links);
-    this.#simulation.force("charge").strength(-5);
-    this.#simulation.force("colide").strength(0.5);
+  resetData(nodes: NodeType[], links: LinkType[]) {
+    this.#simulation.nodes(nodes as D3NodeType[]);
+    this.#simulation.force("link", forceLink().links(links));
     this.restart();
   }
 
@@ -32,10 +32,9 @@ export class D3Simulation {
 }
 
 function createSimulation({ width, height, collisionRadius }: Config) {
-  return forceSimulation()
+  return forceSimulation<D3NodeType, SimulationLinkDatum<D3NodeType>>()
     .nodes([])
-    .force("charge", forceManyBody())
+    .force("charge", forceManyBody().strength(-5))
     .force("center", forceCenter(width / 2, height / 2))
-    .force("colide", forceCollide(collisionRadius))
-    .force("link", forceLink());
+    .force("colide", forceCollide(collisionRadius).strength(0.5));
 }

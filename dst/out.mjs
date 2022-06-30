@@ -95,9 +95,7 @@
     }
     resetData(nodes, links) {
       this.#simulation.nodes(nodes);
-      this.#simulation.force("link").links(links);
-      this.#simulation.force("charge").strength(-5);
-      this.#simulation.force("colide").strength(0.5);
+      this.#simulation.force("link", forceLink().links(links));
       this.restart();
     }
     onTick(cb) {
@@ -108,7 +106,7 @@
     }
   };
   function createSimulation({ width: width3, height: height3, collisionRadius }) {
-    return forceSimulation().nodes([]).force("charge", forceManyBody()).force("center", forceCenter(width3 / 2, height3 / 2)).force("colide", forceCollide(collisionRadius)).force("link", forceLink());
+    return forceSimulation().nodes([]).force("charge", forceManyBody().strength(-5)).force("center", forceCenter(width3 / 2, height3 / 2)).force("colide", forceCollide(collisionRadius).strength(0.5));
   }
 
   // src/utils.mjs
@@ -190,44 +188,41 @@
     }
     build() {
       this.#svg = buildSvg(this.#config);
-      this.#links = buildLinks(this.#config, this.#svg);
-      this.#nodes = buildNodes(this.#config, this.#svg);
       bindZoomAndPan(this.#svg);
     }
     #updateNodes(nodes) {
-      this.#nodes.on(".", null);
-      this.#nodes.remove();
+      this.#nodes?.on(".", null);
+      this.#nodes?.remove();
       this.#nodes = buildNodes(this.#config, this.#svg, nodes);
       bindDragAndDrop(this.#nodes, this.#simulation);
       bindSelectNode(this.#nodes, this.#data);
     }
     #updateLinks(links) {
-      this.#links.on(".", null);
-      this.#links.remove();
-      this.#links = buildLinks(this.#config, this.#svg, links);
-      this.#linkHovers = buildHovers(this.#config, this.#svg, links);
+      this.#links?.on(".", null);
+      this.#links?.remove();
+      this.#links = buildLinks(this.#config, this.#svg, links, "links");
+      this.#linkHovers = buildLinks(this.#config, this.#svg, links, "linkHovers");
       bindMouseOverLink(this.#links, this.#data);
     }
     #tick() {
-      this.#links.attr("d", (d) => linkArc(this.#config, d));
-      this.#nodes.attr("transform", (d) => `translate(${d.x},${d.y})`);
+      this.#links?.attr("d", (d) => linkArc(this.#config, d));
+      this.#linkHovers?.attr("d", (d) => linkArc(this.#config, d));
+      this.#nodes?.attr("transform", (d) => `translate(${d.x},${d.y})`);
     }
     get htmlEl() {
       return this.#svg.node();
     }
     refresh() {
-      this.#updateNodes(this.#data.nodes);
       this.#updateLinks(this.#data.links);
+      this.#updateNodes(this.#data.nodes);
       this.#simulation.resetData(this.#data.nodes, this.#data.links);
     }
     #updateHoversRegions() {
-      this.#linkHovers.attr("d", (d) => linkArc(this.#config, d));
     }
   };
   function buildSvg({ width: width3, height: height3 }) {
     const svg = create("svg").attr("id", "nms-graph").attr("viewBox", [0, 0, width3, height3]);
-    addArrowHeadDefs(svg);
-    return svg;
+    return addArrowHeadDefs(svg);
   }
   function addArrowHeadDefs(svg) {
     const defs = svg.append("defs");
@@ -235,17 +230,10 @@
     defs.append("marker").attr("id", `arrow-highlight`).attr("viewBox", "0 -5 10 10").attr("refX", 8).attr("refY", 0).attr("markerWidth", 4).attr("markerHeight", 4).attr("orient", "auto").append("path").attr("fill", `#f8bc63`).attr("d", "M0,-5L10,0L0,5");
     return svg;
   }
-  function buildLinks({}, svg, data2 = []) {
-    let linksGroup = svg.select(".links");
+  function buildLinks({}, svg, data2 = [], className) {
+    let linksGroup = svg.select("." + className);
     if (linksGroup.empty()) {
-      linksGroup = svg.append("g").classed("links", true);
-    }
-    return linksGroup.selectAll("path").data(data2).join("path").attr("data-target", (d) => d.target);
-  }
-  function buildHovers({}, svg, data2 = []) {
-    let linksGroup = svg.select(".linkHovers");
-    if (linksGroup.empty()) {
-      linksGroup = svg.append("g").classed("linkHovers", true);
+      linksGroup = svg.append("g").classed(className, true);
     }
     return linksGroup.selectAll("path").data(data2).join("path").attr("data-target", (d) => d.target);
   }
@@ -255,7 +243,7 @@
       nodeGroup = svg.append("g").classed("nodes", true);
     }
     const node = nodeGroup.selectAll(".node").data(data2).join("g").classed("node", true).attr("data-target", (d) => d.id);
-    node.append("circle").attr("r", (d) => nodeValueRadius(d.value, iconSize2)).classed("fixed", (d) => d.fx !== void 0);
+    node.append("circle").attr("r", (d) => nodeValueRadius(d.value, iconSize2));
     node.append("svg:image").attr("xlink:href", (d) => `assets/${d.image}`).attr("x", iconSize2 / -2).attr("y", iconSize2 / -2).attr("width", iconSize2).attr("height", iconSize2);
     const text = node.append("text").attr("text-anchor", "middle").attr("x", 0).attr("y", -iconSize2 / 2).text((d) => d.name);
     text.clone(true).attr("fill", "none").attr("stroke", "white").attr("stroke-width", 3);

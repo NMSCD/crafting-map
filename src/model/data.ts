@@ -1,3 +1,5 @@
+import { SimulationNodeDatum } from "d3-force";
+
 export type NodeType = {
   category: string;
   id: number;
@@ -6,6 +8,8 @@ export type NodeType = {
   type: string;
   value: number;
 };
+export type D3NodeType = SimulationNodeDatum & NodeType;
+
 export type LinkType = {
   source: number;
   target: number;

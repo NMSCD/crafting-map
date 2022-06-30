@@ -1,18 +1,19 @@
 import { bindDragAndDrop, bindSelectNode, bindZoomAndPan } from "./events.js";
 import { D3Simulation } from "./D3Simulation";
-import { DataType, LinkType, NodeType } from "./model/data";
+import { D3NodeType, DataType, LinkType, NodeType } from "./model/data";
 import { Config } from "./model/config";
 import { bindMouseOverLink } from "./hover";
+import { D3DataSelection, D3Selection } from "./model/d3";
 
 // @ts-ignore
 const { create } = d3;
 
 export class D3Renderer {
   readonly #config: Config;
-  #svg;
-  #nodes;
-  #links;
-  #linkHovers;
+  #svg: D3Selection<SVGElement>;
+  #nodes?: D3DataSelection<SVGGElement, D3NodeType>;
+  #links?: D3DataSelection<SVGGElement, LinkType>;
+  #linkHovers?: D3DataSelection<SVGGElement, LinkType>;
   readonly #simulation: D3Simulation;
   readonly #data: DataType;
 
@@ -26,30 +27,29 @@ export class D3Renderer {
 
   build() {
     this.#svg = buildSvg(this.#config);
-    this.#links = buildLinks(this.#config, this.#svg);
-    this.#nodes = buildNodes(this.#config, this.#svg);
     bindZoomAndPan(this.#svg);
   }
 
   #updateNodes(nodes: NodeType[]) {
-    this.#nodes.on(".", null);
-    this.#nodes.remove();
+    this.#nodes?.on(".", null);
+    this.#nodes?.remove();
     this.#nodes = buildNodes(this.#config, this.#svg, nodes);
     bindDragAndDrop(this.#nodes, this.#simulation);
     bindSelectNode(this.#nodes, this.#data);
   }
 
   #updateLinks(links: LinkType[]) {
-    this.#links.on(".", null);
-    this.#links.remove();
-    this.#links = buildLinks(this.#config, this.#svg, links);
-    this.#linkHovers = buildHovers(this.#config, this.#svg, links);
+    this.#links?.on(".", null);
+    this.#links?.remove();
+    this.#links = buildLinks(this.#config, this.#svg, links, "links");
+    this.#linkHovers = buildLinks(this.#config, this.#svg, links, "linkHovers");
     bindMouseOverLink(this.#links, this.#data);
   }
 
   #tick() {
-    this.#links.attr("d", (d) => linkArc(this.#config, d));
-    this.#nodes.attr("transform", (d) => `translate(${d.x},${d.y})`);
+    this.#links?.attr("d", (d) => linkArc(this.#config, d));
+    this.#linkHovers?.attr("d", (d) => linkArc(this.#config, d));
+    this.#nodes?.attr("transform", (d) => `translate(${d.x},${d.y})`);
   }
 
   get htmlEl() {
@@ -57,23 +57,20 @@ export class D3Renderer {
   }
 
   refresh() {
-    this.#updateNodes(this.#data.nodes);
     this.#updateLinks(this.#data.links);
+    this.#updateNodes(this.#data.nodes);
     this.#simulation.resetData(this.#data.nodes, this.#data.links);
   }
 
-  #updateHoversRegions() {
-    this.#linkHovers.attr("d", (d) => linkArc(this.#config, d));
-  }
+  #updateHoversRegions() {}
 }
 
 function buildSvg({ width, height }: Config) {
   const svg = create("svg").attr("id", "nms-graph").attr("viewBox", [0, 0, width, height]);
-  addArrowHeadDefs(svg);
-  return svg;
+  return addArrowHeadDefs(svg);
 }
 
-function addArrowHeadDefs(svg) {
+function addArrowHeadDefs(svg: D3Selection<SVGSVGElement>) {
   const defs = svg.append("defs");
 
   defs
@@ -104,33 +101,20 @@ function addArrowHeadDefs(svg) {
   return svg;
 }
 
-function buildLinks({}: Config, svg, data: LinkType[] = []) {
-  let linksGroup = svg.select(".links");
+function buildLinks({}: Config, svg: D3Selection<SVGElement>, data: LinkType[] = [], className: string) {
+  let linksGroup = svg.select("." + className);
   if (linksGroup.empty()) {
-    linksGroup = svg.append("g").classed("links", true);
+    linksGroup = svg.append("g").classed(className, true);
   }
 
   return linksGroup
     .selectAll("path")
     .data(data)
     .join("path")
-    .attr("data-target", (d) => d.target);
+    .attr("data-target", (d) => d.target) as D3DataSelection<SVGPathElement, LinkType>;
 }
 
-function buildHovers({}: Config, svg, data: LinkType[] = []) {
-  let linksGroup = svg.select(".linkHovers");
-  if (linksGroup.empty()) {
-    linksGroup = svg.append("g").classed("linkHovers", true);
-  }
-
-  return linksGroup
-    .selectAll("path")
-    .data(data)
-    .join("path")
-    .attr("data-target", (d) => d.target);
-}
-
-function buildNodes({ iconSize }: Config, svg, data: NodeType[] = []) {
+function buildNodes({ iconSize }: Config, svg: D3Selection<SVGElement>, data: NodeType[] = []) {
   let nodeGroup = svg.select(".nodes");
   if (nodeGroup.empty()) {
     nodeGroup = svg.append("g").classed("nodes", true);
@@ -141,10 +125,7 @@ function buildNodes({ iconSize }: Config, svg, data: NodeType[] = []) {
     .join("g")
     .classed("node", true)
     .attr("data-target", (d) => d.id);
-  node
-    .append("circle")
-    .attr("r", (d) => nodeValueRadius(d.value, iconSize))
-    .classed("fixed", (d) => d.fx !== undefined);
+  node.append("circle").attr("r", (d) => nodeValueRadius(d.value, iconSize));
   node
     .append("svg:image")
     .attr("xlink:href", (d) => `assets/${d.image}`)
@@ -170,7 +151,7 @@ function buildNodes({ iconSize }: Config, svg, data: NodeType[] = []) {
   value.clone(true).attr("fill", "none").attr("stroke", "white").attr("stroke-width", 3);
   value.raise();
 
-  return node;
+  return node as D3DataSelection<SVGGElement, D3NodeType>;
 }
 
 function linkArc({ iconSize }: Config, d) {

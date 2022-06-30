@@ -1,4 +1,5 @@
 import { ConfigBuilder } from "./ConfigBuilder.mjs";
+import { D3Selection } from "./model/d3";
 
 // @ts-ignore
 const { select, zoom, drag } = d3;
@@ -6,7 +7,7 @@ const { select, zoom, drag } = d3;
 const height = window.innerHeight;
 const width = window.innerWidth;
 
-export function bindZoomAndPan(svg) {
+export function bindZoomAndPan(svg: D3Selection<SVGElement>) {
   function handleZoom(e) {
     svg.select(".nodes").attr("transform", e.transform);
     svg.select(".links").attr("transform", e.transform);
