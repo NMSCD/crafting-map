@@ -41,6 +41,9 @@ function parseConnectionsToLinks(config: Config, connections: ConnectionType[]) 
   const links = new Map<string, LinkType>();
   connections.forEach((c, idx) => {
     c.source.forEach((s) => {
+      if (c.targetId === s.id) {
+        return;
+      }
       const key = `${s.id}_${c.targetId}`;
       const key2 = `${c.targetId}_${s.id}`;
       if (links.has(key)) {
