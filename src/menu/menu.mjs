@@ -16,9 +16,9 @@ nav {
 .nav-center {
   display: flex;
   flex-direction: column;
-  background-color: rgba(52,85,223,0.2);
+  background-color: var(--box-bg);
+  border: var(--box-border) 1px solid;
   border-radius: 1rem 0 0 1rem;
-  box-shadow: -1px 1px 5px 1px #ffffff;
   padding: 1rem;
 }
 .nav-center > * {
@@ -39,23 +39,12 @@ nav {
     <button id="refresh" title="Refresh">
       <div class="material-icons" >&#xe5d5;</div> Refresh
     </button>
-  <!--  <div>-->
-  <!--    <label>-->
-  <!--      <input type="radio" name="color" value="byRecipe">-->
-  <!--      <span>By Recipe</span>-->
-  <!--    </label>-->
-  <!--    <label>-->
-  <!--      <input type="radio" name="color" value="byType">-->
-  <!--      <span>By Type</span>-->
-  <!--    </label>-->
-  <!--  </div>-->
+    <div>
+      <input id="search" placeholder="Filtering..." name="nms-filter">
+    </div>
     <label>
       <input id="direction" type="checkbox"><span>Filter by product/source</span>
     </label>
-    <div>
-      <input id="search" placeholder="Filtering...">
-    </div>
-    
     <div class="info">
       <p>RightClick on element to filter by it!</p>
       <p>Click & drag on empty space to move around</p>

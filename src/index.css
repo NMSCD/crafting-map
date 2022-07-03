@@ -1,17 +1,25 @@
 @import url("https://nmscd.github.io/No-Mans-Sky-Universal-Font/assets/font/NMSGeoSans_Kerned/Web-TT/NMSGeoSans_Kerned.css");
 
+:root {
+  --bg: #160008;
+  --box-border: rgba(125, 125, 125, 0.5);
+  --box-bg: rgba(30, 0, 9, 0.9);
+  --orange-0: #f8bc63;
+  --white: #ffffff;
+}
+
 html,
 body {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  background-color: #070c20;
+  background-color: var(--bg);
   font: 12px NMSGeoSans sans-serif;
 }
 
 #nms-graph .linkHovers,
 #nms-graph .links {
-  stroke-width: 2;
+  stroke-width: 1;
   fill: none;
 }
 
@@ -22,11 +30,12 @@ body {
 }
 
 #nms-graph .links path {
-  stroke: #7f7f7f;
+  stroke: var(--box-border);
 }
 
 #nms-graph .links path.hover {
-  stroke: #f8bc63;
+  stroke: var(--orange-0);
+  stroke-width: 2;
 }
 
 #nms-graph.arrows .links path {
@@ -42,21 +51,31 @@ body {
 }
 
 #nms-graph .node circle {
-  fill: #070c20;
+  fill: var(--bg);
 }
 #nms-graph .node.fixed circle {
   stroke: #f00;
 }
 
 #hoverInfo {
+  color: #fff;
   position: absolute;
   z-index: 100;
   padding: 10px;
-  border: blue 1px solid;
+  border: var(--box-border) 1px solid;
   border-radius: 5px;
-  background: #fff;
+  background: var(--box-bg);
   font-size: 2rem;
+  opacity: 0;
+  transition: opacity 100ms;
+  display: none;
 }
+
+#hoverInfo.show {
+  display: block;
+  opacity: 1;
+}
+
 #hoverInfo .wrapper {
   display: flex;
   align-items: center;

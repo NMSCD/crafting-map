@@ -3,13 +3,15 @@ import { haveCommonElements } from "./utils.mjs";
 const { selectAll, select } = d3;
 
 export function bindMouseOverLink(links, data) {
-  const tooltip = select("body").append("div").attr("id", "hoverInfo").style("opacity", "0").text("a simple tooltip");
+  const tooltip = getTooltipBox();
 
   function showTooltip({ x, y }) {
-    tooltip.style("top", y + "px").style("left", x + 10 + "px");
-    tooltip.style("display", "block");
-    tooltip.transition().duration(150).style("opacity", "0.9");
+    tooltip
+      .style("top", y + "px")
+      .style("left", x + 10 + "px")
+      .classed("show", true);
   }
+
   function findGroupedLinks(links, d) {
     return links.filter((l) => haveCommonElements(l.connectionIdx, d.connectionIdx));
   }
@@ -32,22 +34,24 @@ export function bindMouseOverLink(links, data) {
   }
 
   let hoverTimerHandler;
+
   function showHoverInfo(event, d) {
-    hoverTimerHandler = setTimeout(() => showTooltip(event), 100);
     const groupLinks = findGroupedLinks(links, d);
     groupLinks.classed("hover", true);
 
-    const connections = data.connectionsDataByIdxes(d.connectionIdx);
-    let linkInfo = connectionsToHtml(connections);
-    tooltip.html(linkInfo);
+    hoverTimerHandler = setTimeout(() => {
+      showTooltip(event);
+
+      const connections = data.connectionsDataByIdxes(d.connectionIdx);
+      tooltip.html(connectionsToHtml(connections));
+    }, 100);
   }
 
   function hideHoverInfo(d) {
     const groupLinks = findGroupedLinks(links, d);
     groupLinks.classed("hover", false);
 
-    tooltip.transition().duration(150).style("opacity", "0");
-    tooltip.style("display", "none");
+    tooltip.classed("show", false);
     clearTimeout(hoverTimerHandler);
   }
 
@@ -60,4 +64,12 @@ export function bindMouseOverLink(links, data) {
   hoverableLinks.on("mouseout", function (event, d) {
     hideHoverInfo(d);
   });
+}
+
+export function getTooltipBox() {
+  let tooltip = select("#hoverInfo");
+  if (tooltip.empty()) {
+    tooltip = select("body").append("div").attr("id", "hoverInfo");
+  }
+  return tooltip;
 }
