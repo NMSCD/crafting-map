@@ -3,8 +3,8 @@
     "lint:code": "prettier -c src/",
     "lint:ts": "tsc --noEmit",
     "test": "npm run lint:code && npm run lint:ts",
-    "build": "esbuild src/index.ts --minify --bundle --loader:.ts=ts --target=es2022 --outfile=dst/out.mjs",
-    "dev": "esbuild src/index.ts --sourcemap --bundle --loader:.ts=ts --target=es2022 --watch --outfile=dst/out.mjs",
+    "build": "esbuild src/index.ts src/menu/menu.mjs --minify --bundle --loader:.ts=ts --target=es2022 --outdir=_site",
+    "dev": "esbuild src/index.ts --sourcemap --bundle --loader:.ts=ts --target=es2022 --watch --outdir=_dite",
     "prepare": "husky install"
   },
   "dependencies": {

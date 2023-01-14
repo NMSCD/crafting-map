@@ -1,5 +1,6 @@
 .idea/
 *.iml
 /node_modules/
-/assets/data/updaters/temps/
-/dst/*.map
+/_site/assets/data/updaters/temps/
+/_site/*.map
+/_site/**/*.js
