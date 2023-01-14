@@ -2,15 +2,9 @@ const template = document.createElement("template");
 template.innerHTML = `
 <style>
 nav {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: fixed;
-  top: 0;
+  bottom: 0;
   right: 0;
-  height: 100vh;
-  max-width: 10vw;
   color: white
 }
 .nav-center {
