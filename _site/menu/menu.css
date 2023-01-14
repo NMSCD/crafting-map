@@ -1,0 +1,29 @@
+@import "slider.css";
+
+nav {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: white;
+}
+
+.nav-center {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--box-bg);
+  border: var(--box-border) 1px solid;
+  border-radius: 1rem 0 0 1rem;
+  padding: 1rem;
+}
+.nav-center > * {
+  margin-bottom: 10px;
+}
+#search {
+  font-size: 1.5rem;
+}
+#refresh {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

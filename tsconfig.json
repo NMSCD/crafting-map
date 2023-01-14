@@ -4,7 +4,11 @@
     "allowJs": true,
     "module": "ES2022",
     "target": "ES2022",
-    "sourceMap": true
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "moduleResolution": "node"
   },
   "include": ["./src/**/*"]
 }

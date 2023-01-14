@@ -1,0 +1,38 @@
+
+
+nav .slider {
+  --slider: var(--orange-1);
+  border: 1px solid var(--slider);
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  line-height: 1.5em;
+  padding: 0.1em 1em;
+  cursor: pointer;
+}
+nav .slider div {
+  position: relative;
+}
+
+nav .slider:hover .bcg,
+nav .slider:focus .bcg{
+  opacity: 0.8;
+}
+
+
+nav .slider .bcg {
+  background: var(--slider);
+  position: absolute;
+  border-radius: 20px;
+  left: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  transition: left 200ms ease-in-out;
+}
+
+nav .slider .bcg.on {
+  left: 50%
+}

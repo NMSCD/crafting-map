@@ -1,12 +1,6 @@
 @import url("https://nmscd.github.io/No-Mans-Sky-Universal-Font/assets/font/NMSGeoSans_Kerned/Web-TT/NMSGeoSans_Kerned.css");
-
-:root {
-  --bg: #160008;
-  --box-border: rgba(125, 125, 125, 0.5);
-  --box-bg: rgba(30, 0, 9, 0.9);
-  --orange-0: #f8bc63;
-  --white: #ffffff;
-}
+@import "variables.css";
+@import "menu/menu.css";
 
 html,
 body {

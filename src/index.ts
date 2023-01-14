@@ -4,7 +4,7 @@ import { ConfigBuilder } from "./ConfigBuilder.js";
 import { Config } from "./model/config";
 
 const el = document.querySelector("#graph");
-const menuEl = document.querySelector("ak-menu") as any;
+const menuEl = document.querySelector("nav") as any;
 const height = window.innerHeight;
 const width = window.innerWidth;
 const iconSize = 32;
@@ -19,7 +19,6 @@ data.fetchCSV$().then(() => {
 });
 data.config$((config) => {
   menuEl.resetFilters(config);
-  renderer.refresh();
 });
 
 menuEl.addEventListener("filter", ({ detail }) => {
