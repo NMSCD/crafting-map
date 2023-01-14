@@ -1,6 +1,5 @@
 import { haveCommonElements } from "./utils.mjs";
-// @ts-ignore
-const { selectAll, select } = d3;
+import { select, selectAll } from "d3";
 
 export function bindMouseOverLink(links, data) {
   const tooltip = getTooltipBox();

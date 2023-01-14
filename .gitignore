@@ -2,5 +2,6 @@
 *.iml
 /node_modules/
 /_site/assets/data/updaters/temps/
-/_site/*.map
+/_site/**/*.map
 /_site/**/*.js
+/meta.json

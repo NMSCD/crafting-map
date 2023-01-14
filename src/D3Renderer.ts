@@ -4,9 +4,7 @@ import { D3NodeType, DataType, LinkType, NodeType } from "./model/data";
 import { Config } from "./model/config";
 import { bindMouseOverLink } from "./hover";
 import { D3DataSelection, D3Selection } from "./model/d3";
-
-// @ts-ignore
-const { create } = d3;
+import { create } from "d3";
 
 export class D3Renderer {
   readonly #config: Config;

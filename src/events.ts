@@ -1,8 +1,6 @@
 import { ConfigBuilder } from "./ConfigBuilder.js";
 import { D3Selection } from "./model/d3";
-
-// @ts-ignore
-const { select, zoom, drag } = d3;
+import { drag, select, zoom } from "d3";
 
 const height = window.innerHeight;
 const width = window.innerWidth;

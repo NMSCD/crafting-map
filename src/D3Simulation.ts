@@ -1,8 +1,7 @@
 import { Config } from "./model/config";
 import { Simulation, SimulationLinkDatum } from "d3-force";
 import { D3NodeType, LinkType, NodeType } from "./model/data";
-
-const { forceCollide, forceLink, forceSimulation, forceCenter } = window.d3;
+import { forceCenter, forceCollide, forceLink, forceSimulation } from "d3";
 
 export class D3Simulation {
   #simulation: Simulation<D3NodeType, SimulationLinkDatum<D3NodeType>>;

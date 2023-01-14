@@ -1,9 +1,7 @@
 import { FilteredDataProvider } from "./FilteredDataProvider.mjs";
 import { ConnectionType, DataType, LinkType } from "../model/data";
 import { Config, SearchOpts } from "../model/config";
-
-// @ts-ignore
-const { autoType, csvParse } = d3;
+import { autoType, csvParse } from "d3";
 
 function parseCSVConnections(data, nodes) {
   return data.map((c, idx) => {
