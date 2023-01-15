@@ -1,9 +1,10 @@
 import { Component, createRef, h, render } from "preact";
 import { Slider } from "./slider";
+import { SearchOpts } from "../model/config";
 
 class Menu extends Component {
   ref = createRef();
-  state = {
+  state: SearchOpts = {
     search: "",
     direction: true,
   };
@@ -16,12 +17,8 @@ class Menu extends Component {
     this.ref.current.dispatchEvent(new CustomEvent("filter", { detail: this.state }));
   }
 
-  resetFilters(filters = { direction: true, search: "" }) {
+  resetFilters(filters: SearchOpts = { direction: true, search: "" }) {
     this.setState({ ...filters });
-  }
-
-  changeDirection(e: any) {
-    this.setState({ direction: e.target.checked });
   }
 
   render() {

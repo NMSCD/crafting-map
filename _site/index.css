@@ -1,6 +1,7 @@
 @import url("https://nmscd.github.io/No-Mans-Sky-Universal-Font/assets/font/NMSGeoSans_Kerned/Web-TT/NMSGeoSans_Kerned.css");
 @import "variables.css";
 @import "menu/menu.css";
+@import "tooltip.css";
 
 html,
 body {
@@ -49,31 +50,4 @@ body {
 }
 #nms-graph .node.fixed circle {
   stroke: #f00;
-}
-
-#hoverInfo {
-  color: #fff;
-  position: absolute;
-  z-index: 100;
-  padding: 10px;
-  border: var(--box-border) 1px solid;
-  border-radius: 5px;
-  background: var(--box-bg);
-  font-size: 2rem;
-  opacity: 0;
-  transition: opacity 100ms;
-  display: none;
-}
-
-#hoverInfo.show {
-  display: block;
-  opacity: 1;
-}
-
-#hoverInfo .wrapper {
-  display: flex;
-  align-items: center;
-}
-#hoverInfo img {
-  width: 50px;
 }

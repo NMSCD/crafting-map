@@ -1,0 +1,56 @@
+
+#hoverInfo {
+  color: #fff;
+  position: absolute;
+  z-index: 100;
+  padding: 10px;
+  border: var(--box-border) 1px solid;
+  border-radius: 5px;
+  background: var(--box-bg);
+  font-size: 2rem;
+  opacity: 0;
+  transition: opacity 100ms;
+  display: none;
+}
+
+#hoverInfo.show {
+  display: block;
+  opacity: 1;
+}
+
+#hoverInfo .wrapper {
+  display: flex;
+  align-items: center;
+}
+#hoverInfo .inner-wrapper {
+  display: flex;
+  align-items: center;
+}
+#hoverInfo .flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.3em;
+}
+
+#hoverInfo .flex-col:last-child {
+  margin-right: 0;
+}
+
+#hoverInfo small {
+  display: block;
+  font-size: 0.6em;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: opacity 100ms ease-in-out, height 100ms ease-in-out;
+}
+#hoverInfo small.show {
+  height: 1em;
+  opacity: 1;
+}
+
+#hoverInfo img {
+  width: 50px;
+}

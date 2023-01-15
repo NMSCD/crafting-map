@@ -1,10 +1,11 @@
 import { bindDragAndDrop, bindSelectNode, bindZoomAndPan } from "./events.js";
 import { D3Simulation } from "./D3Simulation";
-import { D3NodeType, DataType, LinkType, NodeType } from "./model/data";
+import { D3NodeType, LinkType, NodeType } from "./model/data";
 import { Config } from "./model/config";
 import { bindMouseOverLink } from "./hover";
 import { D3DataSelection, D3Selection } from "./model/d3";
 import { create } from "d3";
+import { DataReader } from "./data/DataReader";
 
 export class D3Renderer {
   readonly #config: Config;
@@ -13,9 +14,9 @@ export class D3Renderer {
   #links?: D3DataSelection<SVGGElement, LinkType>;
   #linkHovers?: D3DataSelection<SVGGElement, LinkType>;
   readonly #simulation: D3Simulation;
-  readonly #data: DataType;
+  readonly #data: DataReader;
 
-  constructor(config: Config, data: DataType) {
+  constructor(config: Config, data: DataReader) {
     this.#config = config;
     this.#data = data;
     this.#simulation = new D3Simulation(config);
