@@ -109,11 +109,7 @@ function buildLinks({}: Config, svg: D3Selection<SVGElement>, data: LinkType[] =
     linksGroup = svg.append("g").classed(className, true);
   }
 
-  return linksGroup
-    .selectAll("path")
-    .data(data)
-    .join("path")
-    .attr("data-target", (d) => d.target) as D3DataSelection<SVGPathElement, LinkType>;
+  return linksGroup.selectAll("path").data(data).join("path") as D3DataSelection<SVGPathElement, LinkType>;
 }
 
 function buildNodes({ iconSize }: Config, svg: D3Selection<SVGElement>, data: NodeType[] = []) {
@@ -121,12 +117,7 @@ function buildNodes({ iconSize }: Config, svg: D3Selection<SVGElement>, data: No
   if (nodeGroup.empty()) {
     nodeGroup = svg.append("g").classed("nodes", true);
   }
-  const node = nodeGroup
-    .selectAll(".node")
-    .data(data)
-    .join("g")
-    .classed("node", true)
-    .attr("data-target", (d) => d.id);
+  const node = nodeGroup.selectAll(".node").data(data).join("g").classed("node", true);
   node.append("circle").attr("r", (d) => nodeValueRadius(d.value, iconSize));
   node
     .append("svg:image")

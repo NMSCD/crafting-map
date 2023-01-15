@@ -1,6 +1,8 @@
 import { ConfigBuilder } from "./ConfigBuilder.js";
-import { D3Selection } from "./model/d3";
+import { D3DataSelection, D3Selection } from "./model/d3";
 import { drag, select, zoom } from "d3";
+import { DataReader } from "./data/DataReader";
+import { D3NodeType } from "./model/data";
 
 const height = window.innerHeight;
 const width = window.innerWidth;
@@ -41,12 +43,30 @@ export function bindDragAndDrop(nodes, simulation) {
   }
 }
 
-export function bindSelectNode(nodes, data) {
-  function targetSingleNode({ id }) {
-    const node = select(`.node[data-target="${id}"]`);
-    node.classed("node targeted", true);
-    const text = node.select("text").text();
-    data.changeConfig(new ConfigBuilder(data.searchOpts).search(text).build());
+let lastClick = {
+  name: "",
+  clickCount: 0,
+};
+
+export function bindSelectNode(nodes: D3DataSelection<SVGGElement, D3NodeType>, data: DataReader) {
+  function targetSingleNode({ name }) {
+    if (lastClick.name === name && lastClick.clickCount === 1) {
+      lastClick = {
+        name: "",
+        clickCount: 0,
+      };
+      data.changeConfig(new ConfigBuilder({ search: "", direction: true }).build());
+    } else if (lastClick.name === name) {
+      lastClick.clickCount++;
+      lastClick.name = name;
+      data.changeConfig(new ConfigBuilder().search(name).direction(!data.searchOpts.direction).build());
+    } else {
+      lastClick = {
+        name,
+        clickCount: 0,
+      };
+      data.changeConfig(new ConfigBuilder(data.searchOpts).search(name).build());
+    }
   }
 
   function handleSelectiveDisplay() {
