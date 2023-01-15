@@ -5,8 +5,8 @@ export function Slider({ checked, onChange }: { checked: boolean; onChange: (boo
   return (
     <div className="slider" onClick={change}>
       <div className={bcgClass}></div>
-      <div>Products</div>
-      <div>Sources</div>
+      <div>Recipe</div>
+      <div>Usage</div>
     </div>
   );
 }
