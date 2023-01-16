@@ -1,4 +1,4 @@
-import { haveCommonElements } from "./utils.mjs";
+import { haveCommonElements } from "./utils.js";
 import { selectAll } from "d3";
 import { TooltipRenderer } from "./tooltip";
 import { LinkType } from "./model/data";

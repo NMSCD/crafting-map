@@ -1,4 +1,4 @@
-import { SimulationLinkDatum, SimulationNodeDatum } from "d3-force";
+import { SimulationNodeDatum } from "d3-force";
 
 export type NodeType = {
   category: string;
@@ -16,7 +16,11 @@ export type LinkType = {
   connectionIdx: number[];
   twoWay?: boolean;
 };
-export type D3LinkType = SimulationLinkDatum<D3NodeType> & LinkType;
+export type D3LinkType = {
+  source: D3NodeType;
+  target: D3NodeType;
+  connectionIdx: number[];
+};
 export type ConnectionType = {
   connectionIdx: number;
   count: number;

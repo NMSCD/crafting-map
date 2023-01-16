@@ -48,6 +48,11 @@ body {
 #nms-graph .node circle {
   fill: var(--bg);
 }
+
+#nms-graph .star {
+  fill: white;
+}
+
 #nms-graph .node.fixed circle {
   stroke: #f00;
 }

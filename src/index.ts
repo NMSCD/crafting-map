@@ -8,7 +8,14 @@ const menuEl = document.querySelector("nav") as any;
 const height = window.innerHeight;
 const width = window.innerWidth;
 const iconSize = 32;
-const config: Config = { width, height, iconSize, collisionRadius: iconSize * 3, curvedArrows: false };
+const config: Config = {
+  width,
+  height,
+  iconSize,
+  collisionRadius: iconSize * 3,
+  curvedArrows: false,
+  starsAnimation: { animate: true },
+};
 
 const data = new DataReader(config);
 const renderer = new D3Renderer(config, data);

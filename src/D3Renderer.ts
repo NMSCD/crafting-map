@@ -6,21 +6,24 @@ import { bindMouseOverLink } from "./hover";
 import { D3Selection, GEl, PathEl, SVGEl } from "./model/d3";
 import { create } from "d3";
 import { DataReader } from "./data/DataReader";
+import { D3StarsRenderer } from "./D3StarsRenderer";
 
 export class D3Renderer {
   private viewPortEl!: GEl;
   private links?: PathEl<D3LinkType>;
-  private linkHovers?: PathEl<LinkType>;
+  private linkHovers?: PathEl<D3LinkType>;
   private nodesEl?: GEl<D3NodeType, SVGGElement>;
 
   private readonly config: Config;
   private readonly simulation: D3Simulation;
   private readonly data: DataReader;
+  private readonly stars: D3StarsRenderer;
 
   constructor(config: Config, data: DataReader) {
     this.config = config;
     this.data = data;
     this.simulation = new D3Simulation(config);
+    this.stars = new D3StarsRenderer(config.starsAnimation, this.simulation);
     this.simulation.onTick(() => this.tick());
   }
 
@@ -32,6 +35,7 @@ export class D3Renderer {
     const svg = buildSvg(this.config);
     addDefsToSvg(svg);
     this.viewPortEl = svg.append("g").attr("id", "view-port");
+    this.stars.build(this.viewPortEl);
     bindZoomAndPan(svg, this.viewPortEl);
   }
 
@@ -55,6 +59,7 @@ export class D3Renderer {
     this.links = buildLinks(this.config, this.viewPortEl, links, "links");
     this.linkHovers = buildLinks(this.config, this.viewPortEl, links, "linkHovers");
     bindMouseOverLink(this.links, this.data);
+    this.stars.updateLinks(this.data.links);
   }
 
   private tick() {
@@ -108,7 +113,7 @@ function appendChildGEl(parent: GEl, className: string) {
 }
 
 function buildLinks({}: Config, svg: GEl, data: LinkType[] = [], className: string) {
-  return appendChildGEl(svg, className).selectAll("path").data(data).join("path") as PathEl<LinkType>;
+  return appendChildGEl(svg, className).selectAll("path").data(data).join("path") as any as PathEl<D3LinkType>;
 }
 
 function buildNodes({ iconSize }: Config, svg: GEl, data: NodeType[] = []) {
@@ -142,14 +147,14 @@ function buildNodes({ iconSize }: Config, svg: GEl, data: NodeType[] = []) {
   return node as GEl<NodeType, SVGGElement>;
 }
 
-function plotLinkD(c: Config, d: LinkType) {
+function plotLinkD(c: Config, d: D3LinkType) {
   if (c.curvedArrows) {
     return linkArc(c, d);
   }
   return linkLine(c, d);
 }
 
-function linkLine({ iconSize }: Config, d: any) {
+function linkLine({ iconSize }: Config, d: D3LinkType) {
   const arrowFix = 2;
   const R = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
   const r = nodeValueRadius(d.source.value, iconSize);
@@ -164,7 +169,7 @@ function linkLine({ iconSize }: Config, d: any) {
           ${x1},${y1}`;
 }
 
-function linkArc({ iconSize }: Config, d: any) {
+function linkArc({ iconSize }: Config, d: D3LinkType) {
   const arrowFix = 2;
   const R = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
   const r = nodeValueRadius(d.source.value, iconSize);
