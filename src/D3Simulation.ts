@@ -16,7 +16,7 @@ export class D3Simulation {
   }
 
   resetData(nodes: NodeType[], links: LinkType[]) {
-    this.#simulation.nodes(nodes as D3NodeType[]);
+    this.#simulation.nodes(nodes);
     this.#simulation.force("link", forceLink().links(links).strength(0.07));
     this.restart();
   }

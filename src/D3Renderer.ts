@@ -1,18 +1,19 @@
 import { bindDragAndDrop, bindSelectNode, bindZoomAndPan } from "./events.js";
 import { D3Simulation } from "./D3Simulation";
-import { D3NodeType, LinkType, NodeType } from "./model/data";
+import { D3LinkType, D3NodeType, LinkType, NodeType } from "./model/data";
 import { Config } from "./model/config";
 import { bindMouseOverLink } from "./hover";
-import { D3DataSelection, D3Selection } from "./model/d3";
+import { D3Selection, GEl, PathEl, SVGEl } from "./model/d3";
 import { create } from "d3";
 import { DataReader } from "./data/DataReader";
 
 export class D3Renderer {
   readonly #config: Config;
-  #svg: D3Selection<SVGElement>;
-  #nodes?: D3DataSelection<SVGGElement, D3NodeType>;
-  #links?: D3DataSelection<SVGGElement, LinkType>;
-  #linkHovers?: D3DataSelection<SVGGElement, LinkType>;
+  private rootEl!: SVGEl;
+  private viewPortEl!: GEl;
+  private links?: PathEl<D3LinkType>;
+  private linkHovers?: PathEl<LinkType>;
+  private nodesEl?: GEl<D3NodeType, SVGGElement>;
   readonly #simulation: D3Simulation;
   readonly #data: DataReader;
 
@@ -20,59 +21,58 @@ export class D3Renderer {
     this.#config = config;
     this.#data = data;
     this.#simulation = new D3Simulation(config);
-    this.#simulation.onTick(() => this.#tick());
+    this.#simulation.onTick(() => this.tick());
     this.#simulation.onEnd(() => this.#updateHoversRegions());
   }
 
-  build() {
-    this.#svg = buildSvg(this.#config);
-    bindZoomAndPan(this.#svg);
-  }
-
-  #updateNodes(nodes: NodeType[]) {
-    this.#nodes?.on(".", null);
-    this.#nodes?.remove();
-    this.#nodes = buildNodes(this.#config, this.#svg, nodes);
-    bindDragAndDrop(this.#nodes, this.#simulation);
-    bindSelectNode(this.#nodes, this.#data);
-  }
-
-  #updateLinks(links: LinkType[]) {
-    this.#links?.on(".", null);
-    this.#links?.remove();
-    this.#links = buildLinks(this.#config, this.#svg, links, "links");
-    this.#linkHovers = buildLinks(this.#config, this.#svg, links, "linkHovers");
-    bindMouseOverLink(this.#links, this.#data);
-  }
-
-  #tick() {
-    this.#links?.attr("d", (d) => plotLinkD(this.#config, d));
-    this.#linkHovers?.attr("d", (d) => plotLinkD(this.#config, d));
-    this.#nodes?.attr("transform", (d) => `translate(${d.x},${d.y})`);
-  }
-
   get htmlEl() {
-    return this.#svg.node();
+    return this.rootEl.node();
+  }
+
+  build() {
+    const svg = buildSvg(this.#config);
+    addDefsToSvg(svg);
+    this.viewPortEl = svg.append("g").attr("id", "view-port");
+    this.rootEl = svg;
+    bindZoomAndPan(svg, this.viewPortEl);
   }
 
   refresh() {
     this.#updateLinks(this.#data.links);
-    this.#updateNodes(this.#data.nodes);
-    this.#simulation.resetData(this.#data.nodes, this.#data.links);
+    this.#updateNodes(this.#data.nodes as NodeType[]);
+    this.#simulation.resetData(this.#data.nodes as NodeType[], this.#data.links);
+  }
+
+  #updateNodes(nodes: NodeType[]) {
+    this.nodesEl?.on(".", null);
+    this.nodesEl?.remove();
+    this.nodesEl = buildNodes(this.#config, this.viewPortEl, nodes);
+    bindDragAndDrop(this.nodesEl, this.#simulation);
+    bindSelectNode(this.nodesEl, this.#data);
+  }
+
+  #updateLinks(links: LinkType[]) {
+    this.links?.on(".", null);
+    this.links?.remove();
+    this.links = buildLinks(this.#config, this.viewPortEl, links, "links");
+    this.linkHovers = buildLinks(this.#config, this.viewPortEl, links, "linkHovers");
+    bindMouseOverLink(this.links, this.#data);
+  }
+
+  private tick() {
+    this.links?.attr("d", (d) => plotLinkD(this.#config, d));
+    this.linkHovers?.attr("d", (d) => plotLinkD(this.#config, d));
+    this.nodesEl?.attr("transform", (d) => `translate(${d.x},${d.y})`);
   }
 
   #updateHoversRegions() {}
 }
 
-function buildSvg({ width, height, curvedArrows }: Config) {
-  const svg = create("svg")
-    .attr("id", "nms-graph")
-    .attr("viewBox", [0, 0, width, height])
-    .classed("arrows", curvedArrows);
-  return addArrowHeadDefs(svg);
+function buildSvg({ width, height, curvedArrows }: Config): SVGEl {
+  return create("svg").attr("id", "nms-graph").attr("viewBox", [0, 0, width, height]).classed("arrows", curvedArrows);
 }
 
-function addArrowHeadDefs(svg: D3Selection<SVGSVGElement>) {
+function addDefsToSvg(svg: D3Selection<SVGSVGElement>) {
   const defs = svg.append("defs");
 
   defs
@@ -103,17 +103,17 @@ function addArrowHeadDefs(svg: D3Selection<SVGSVGElement>) {
   return svg;
 }
 
-function buildLinks({}: Config, svg: D3Selection<SVGElement>, data: LinkType[] = [], className: string) {
-  let linksGroup = svg.select("." + className);
+function buildLinks({}: Config, svg: GEl, data: LinkType[] = [], className: string) {
+  let linksGroup: GEl = svg.select("." + className);
   if (linksGroup.empty()) {
     linksGroup = svg.append("g").classed(className, true);
   }
 
-  return linksGroup.selectAll("path").data(data).join("path") as D3DataSelection<SVGPathElement, LinkType>;
+  return linksGroup.selectAll("path").data(data).join("path") as PathEl<LinkType>;
 }
 
-function buildNodes({ iconSize }: Config, svg: D3Selection<SVGElement>, data: NodeType[] = []) {
-  let nodeGroup = svg.select(".nodes");
+function buildNodes({ iconSize }: Config, svg: GEl, data: NodeType[] = []) {
+  let nodeGroup: GEl = svg.select(".nodes");
   if (nodeGroup.empty()) {
     nodeGroup = svg.append("g").classed("nodes", true);
   }
@@ -144,17 +144,17 @@ function buildNodes({ iconSize }: Config, svg: D3Selection<SVGElement>, data: No
   value.clone(true).attr("fill", "none").attr("stroke", "white").attr("stroke-width", 3);
   value.raise();
 
-  return node as D3DataSelection<SVGGElement, D3NodeType>;
+  return node as GEl<NodeType, SVGGElement>;
 }
 
-function plotLinkD(c: Config, d) {
+function plotLinkD(c: Config, d: LinkType) {
   if (c.curvedArrows) {
     return linkArc(c, d);
   }
   return linkLine(c, d);
 }
 
-function linkLine({ iconSize }: Config, d) {
+function linkLine({ iconSize }: Config, d: any) {
   const arrowFix = 2;
   const R = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
   const r = nodeValueRadius(d.source.value, iconSize);
@@ -169,7 +169,7 @@ function linkLine({ iconSize }: Config, d) {
           ${x1},${y1}`;
 }
 
-function linkArc({ iconSize }: Config, d) {
+function linkArc({ iconSize }: Config, d: any) {
   const arrowFix = 2;
   const R = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
   const r = nodeValueRadius(d.source.value, iconSize);
@@ -189,7 +189,7 @@ function linkArc({ iconSize }: Config, d) {
   `;
 }
 
-function nodeValueRadius(value, iconSize) {
+function nodeValueRadius(value: string | number, iconSize: number) {
   const fixedVal = Number(value) || 1;
   return Math.log2(fixedVal) + iconSize / 2 + 2;
 }

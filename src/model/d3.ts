@@ -1,4 +1,6 @@
-import { Selection } from "d3-selection";
+import { BaseType, Selection } from "d3-selection";
 
-export type D3Selection<K extends Element> = Selection<K, undefined, null, undefined>;
-export type D3DataSelection<K extends Element, N> = Selection<K, N, null, undefined>;
+export type SVGEl<D = undefined> = Selection<SVGSVGElement, D, null, undefined>;
+export type GEl<D = undefined, P extends BaseType = null> = Selection<SVGGElement, D, P, undefined>;
+export type PathEl<D = undefined> = Selection<SVGPathElement, D, SVGGElement, any>;
+export type D3Selection<K extends BaseType> = Selection<K, undefined, null, undefined>;

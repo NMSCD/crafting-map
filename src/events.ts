@@ -1,20 +1,18 @@
 import { ConfigBuilder } from "./ConfigBuilder.js";
-import { D3DataSelection, D3Selection } from "./model/d3";
+import { GEl, SVGEl } from "./model/d3";
 import { drag, select, zoom } from "d3";
 import { DataReader } from "./data/DataReader";
-import { D3NodeType } from "./model/data";
+import { NodeType } from "./model/data";
 
 const height = window.innerHeight;
 const width = window.innerWidth;
 
-export function bindZoomAndPan(svg: D3Selection<SVGElement>) {
-  function handleZoom(e) {
-    svg.select(".nodes").attr("transform", e.transform);
-    svg.select(".links").attr("transform", e.transform);
-    svg.select(".linkHovers").attr("transform", e.transform);
+export function bindZoomAndPan(svg: SVGEl, viewPort: GEl) {
+  function handleZoom(e: any) {
+    viewPort.attr("transform", e.transform);
   }
 
-  svg.call(zoom().on("zoom", handleZoom));
+  svg.call(zoom().on("zoom", handleZoom) as never);
 }
 
 export function bindDragAndDrop(nodes, simulation) {
@@ -48,7 +46,7 @@ let lastClick = {
   clickCount: 0,
 };
 
-export function bindSelectNode(nodes: D3DataSelection<SVGGElement, D3NodeType>, data: DataReader) {
+export function bindSelectNode(nodes: GEl<NodeType, SVGGElement>, data: DataReader) {
   function targetSingleNode({ name }) {
     if (lastClick.name === name && lastClick.clickCount === 1) {
       lastClick = {
