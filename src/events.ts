@@ -15,7 +15,7 @@ export function bindZoomAndPan(svg: SVGEl, viewPort: GEl) {
   svg.call(zoom().on("zoom", handleZoom) as never);
 }
 
-export function bindDragAndDrop(nodes, simulation) {
+export function bindDragAndDrop(nodes, changeCb: () => void) {
   const dragEvent = drag().on("start", dragstart).on("drag", dragged);
   nodes.call(dragEvent).on("click", click);
 
@@ -23,7 +23,7 @@ export function bindDragAndDrop(nodes, simulation) {
     delete d.fx;
     delete d.fy;
     select(this).classed("fixed", false);
-    simulation.restart();
+    changeCb();
   }
 
   function dragstart() {
@@ -33,7 +33,7 @@ export function bindDragAndDrop(nodes, simulation) {
   function dragged(event, d) {
     d.fx = clamp(event.x, 0, width);
     d.fy = clamp(event.y, 0, height);
-    simulation.restart();
+    changeCb();
   }
 
   function clamp(x, lo, hi) {

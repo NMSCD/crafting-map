@@ -27,12 +27,16 @@ export class D3StarsRenderer {
     this.links = links;
   }
 
-  private removeStars() {
+  removeStars() {
     this.starsAnimationHandler?.stop();
     this.starsEl.selectAll("circle").remove();
   }
 
   private updateStars() {
+    this.removeStars();
+    if (!this.links.length) {
+      return;
+    }
     this.starsAnimationHandler = setRandomInterval(
       () => {
         const idx = randomNum(0, this.links.length - 1);

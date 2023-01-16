@@ -49,7 +49,10 @@ export class D3Renderer {
     this.nodesEl?.on(".", null);
     this.nodesEl?.remove();
     this.nodesEl = buildNodes(this.config, this.viewPortEl, nodes);
-    bindDragAndDrop(this.nodesEl, this.simulation);
+    bindDragAndDrop(this.nodesEl, () => {
+      this.simulation.restart();
+      this.stars.removeStars();
+    });
     bindSelectNode(this.nodesEl, this.data);
   }
 
