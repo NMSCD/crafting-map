@@ -8,64 +8,60 @@ import { create } from "d3";
 import { DataReader } from "./data/DataReader";
 
 export class D3Renderer {
-  readonly #config: Config;
-  private rootEl!: SVGEl;
   private viewPortEl!: GEl;
   private links?: PathEl<D3LinkType>;
   private linkHovers?: PathEl<LinkType>;
   private nodesEl?: GEl<D3NodeType, SVGGElement>;
-  readonly #simulation: D3Simulation;
-  readonly #data: DataReader;
+
+  private readonly config: Config;
+  private readonly simulation: D3Simulation;
+  private readonly data: DataReader;
 
   constructor(config: Config, data: DataReader) {
-    this.#config = config;
-    this.#data = data;
-    this.#simulation = new D3Simulation(config);
-    this.#simulation.onTick(() => this.tick());
-    this.#simulation.onEnd(() => this.#updateHoversRegions());
+    this.config = config;
+    this.data = data;
+    this.simulation = new D3Simulation(config);
+    this.simulation.onTick(() => this.tick());
   }
 
   get htmlEl() {
-    return this.rootEl.node();
+    return this.viewPortEl.node()?.parentNode as ParentNode;
   }
 
   build() {
-    const svg = buildSvg(this.#config);
+    const svg = buildSvg(this.config);
     addDefsToSvg(svg);
     this.viewPortEl = svg.append("g").attr("id", "view-port");
-    this.rootEl = svg;
     bindZoomAndPan(svg, this.viewPortEl);
   }
 
   refresh() {
-    this.#updateLinks(this.#data.links);
-    this.#updateNodes(this.#data.nodes as NodeType[]);
-    this.#simulation.resetData(this.#data.nodes as NodeType[], this.#data.links);
+    this.updateLinks(this.data.links);
+    this.updateNodes(this.data.nodes as NodeType[]);
+    this.simulation.resetData(this.data.nodes as NodeType[], this.data.links);
   }
 
-  #updateNodes(nodes: NodeType[]) {
+  private updateNodes(nodes: NodeType[]) {
     this.nodesEl?.on(".", null);
     this.nodesEl?.remove();
-    this.nodesEl = buildNodes(this.#config, this.viewPortEl, nodes);
-    bindDragAndDrop(this.nodesEl, this.#simulation);
-    bindSelectNode(this.nodesEl, this.#data);
+    this.nodesEl = buildNodes(this.config, this.viewPortEl, nodes);
+    bindDragAndDrop(this.nodesEl, this.simulation);
+    bindSelectNode(this.nodesEl, this.data);
   }
 
-  #updateLinks(links: LinkType[]) {
+  private updateLinks(links: LinkType[]) {
     this.links?.on(".", null);
     this.links?.remove();
-    this.links = buildLinks(this.#config, this.viewPortEl, links, "links");
-    this.linkHovers = buildLinks(this.#config, this.viewPortEl, links, "linkHovers");
-    bindMouseOverLink(this.links, this.#data);
+    this.links = buildLinks(this.config, this.viewPortEl, links, "links");
+    this.linkHovers = buildLinks(this.config, this.viewPortEl, links, "linkHovers");
+    bindMouseOverLink(this.links, this.data);
   }
 
   private tick() {
-    this.links?.attr("d", (d) => plotLinkD(this.#config, d));
-    this.linkHovers?.attr("d", (d) => plotLinkD(this.#config, d));
+    this.links?.attr("d", (d) => plotLinkD(this.config, d));
+    this.linkHovers?.attr("d", (d) => plotLinkD(this.config, d));
     this.nodesEl?.attr("transform", (d) => `translate(${d.x},${d.y})`);
   }
-
-  #updateHoversRegions() {}
 }
 
 function buildSvg({ width, height, curvedArrows }: Config): SVGEl {
@@ -103,21 +99,20 @@ function addDefsToSvg(svg: D3Selection<SVGSVGElement>) {
   return svg;
 }
 
-function buildLinks({}: Config, svg: GEl, data: LinkType[] = [], className: string) {
-  let linksGroup: GEl = svg.select("." + className);
-  if (linksGroup.empty()) {
-    linksGroup = svg.append("g").classed(className, true);
+function appendChildGEl(parent: GEl, className: string) {
+  let el: GEl = parent.select("." + className);
+  if (el.empty()) {
+    el = parent.append("g").classed(className, true);
   }
+  return el;
+}
 
-  return linksGroup.selectAll("path").data(data).join("path") as PathEl<LinkType>;
+function buildLinks({}: Config, svg: GEl, data: LinkType[] = [], className: string) {
+  return appendChildGEl(svg, className).selectAll("path").data(data).join("path") as PathEl<LinkType>;
 }
 
 function buildNodes({ iconSize }: Config, svg: GEl, data: NodeType[] = []) {
-  let nodeGroup: GEl = svg.select(".nodes");
-  if (nodeGroup.empty()) {
-    nodeGroup = svg.append("g").classed("nodes", true);
-  }
-  const node = nodeGroup.selectAll(".node").data(data).join("g").classed("node", true);
+  const node = appendChildGEl(svg, "nodes").selectAll(".node").data(data).join("g").classed("node", true);
   node.append("circle").attr("r", (d) => nodeValueRadius(d.value, iconSize));
   node
     .append("svg:image")
