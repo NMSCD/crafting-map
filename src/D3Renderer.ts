@@ -101,6 +101,8 @@ function addDefsToSvg(svg: D3Selection<SVGSVGElement>) {
     .append("path")
     .attr("fill", `#f8bc63`)
     .attr("d", "M0,-5L10,0L0,5");
+
+  radialGradients(defs);
   return svg;
 }
 
@@ -114,6 +116,22 @@ function appendChildGEl(parent: GEl, className: string) {
 
 function buildLinks({}: Config, svg: GEl, data: LinkType[] = [], className: string) {
   return appendChildGEl(svg, className).selectAll("path").data(data).join("path") as any as PathEl<D3LinkType>;
+}
+
+function radialGradients(el: any) {
+  const grad = el
+    .append("radialGradient")
+    .attr("id", "grad")
+    .attr("gradientUnits", "objectBoundingBox")
+    .attr("gradientTransform", `matrix(10,0,0,0.5,-5,.25)`);
+
+  grad.append("stop").attr("id", "stop0").attr("offset", 0);
+  grad.append("stop").attr("id", "stop1").attr("offset", 1);
+
+  const gradFixed = grad.clone().attr("id", "gradFixed").attr("gradientTransform", `matrix(10,0,0,1,-5,0)`);
+
+  gradFixed.append("stop").attr("id", "stop2").attr("offset", 0);
+  gradFixed.append("stop").attr("id", "stop3").attr("offset", 1);
 }
 
 function buildNodes({ iconSize }: Config, svg: GEl, data: NodeType[] = []) {

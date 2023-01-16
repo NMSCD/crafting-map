@@ -45,8 +45,26 @@ body {
   cursor: move;
 }
 
+#nms-graph defs #stop0 {
+  stop-color: var(--orange-0);
+  stop-opacity: 1;
+}
+#nms-graph defs #stop1 {
+  stop-color: var(--bg);
+  stop-opacity: 0;
+}
+#nms-graph defs #stop2 {
+  stop-color: var(--orange-0);
+  stop-opacity: 1;
+}
+#nms-graph defs #stop3 {
+  stop-color: red;
+  stop-opacity: 1;
+}
+
 #nms-graph .node circle {
   fill: var(--bg);
+  stroke: url('#grad');
 }
 
 #nms-graph .star {
@@ -54,5 +72,15 @@ body {
 }
 
 #nms-graph .node.fixed circle {
-  stroke: #f00;
+  stroke: url('#gradFixed');
+  animation: rotating 2s linear infinite;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
