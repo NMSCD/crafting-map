@@ -1,4 +1,4 @@
-Target,TargetCount,Type,Source_1,Count_1,Source_2,Count_2,Source_3,Count_3
+Product,ProductCount,Type,Source_1,Count_1,Source_2,Count_2,Source_3,Count_3
 Antimatter,1,crafting,Chromatic Metal,25,Condensed Carbon,20,,
 Microprocessor,1,crafting,Chromatic Metal,40,Carbon Nanotubes,1,,
 Quantum Computer,1,crafting,Microprocessor,1,Antimatter,1,Chromatic Metal,25

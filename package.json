@@ -2,10 +2,11 @@
   "scripts": {
     "lint:code": "prettier -c src/",
     "lint:ts": "tsc --noEmit",
-    "test": "npm run lint:code && npm run lint:ts",
-    "analyze": "esbuild src/index.ts src/menu/menu.tsx --minify --bundle --loader:.ts=ts --outdir=_site --metafile=meta.json",
-    "build": "esbuild src/index.ts src/menu/menu.tsx --minify --bundle --loader:.ts=ts --target=es2022 --outdir=_site",
-    "dev": "esbuild src/index.ts src/menu/menu.tsx --sourcemap --bundle --loader:.ts=ts --target=es2022 --watch --outdir=_site",
+    "lint:eslint": "eslint .",
+    "test": "npm run lint:code && npm run lint:ts && npm run lint:eslint",
+    "analyze": "esbuild src/index.ts --minify --bundle --loader:.ts=ts --outdir=_site --metafile=meta.json",
+    "build": "esbuild src/index.ts --minify --bundle --loader:.ts=ts --target=es2022 --outdir=_site",
+    "dev": "esbuild src/index.ts --sourcemap --bundle --loader:.ts=ts --target=es2022 --watch --outdir=_site",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -15,8 +16,11 @@
   },
   "devDependencies": {
     "@types/d3": "^7.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
     "csv": "^6.1.0",
     "esbuild": "^0.17.0",
+    "eslint": "^8.32.0",
     "husky": "^8.0.3",
     "node-fetch": "^2",
     "node-html-parser": "^5.2.0",

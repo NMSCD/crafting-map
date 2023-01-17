@@ -1,34 +1,26 @@
 import { h, render } from "preact";
+import { ConnectionType } from "../model/data";
 
 type TooltipProps = {
   show: boolean;
   showNames: boolean;
-  x?: number;
-  y?: number;
-  connections: {
-    source: {
-      image: string;
-      count: number;
-      name: string;
-    }[];
-    count: number;
-    image: number;
-    name: string;
-  }[];
+  x: number;
+  y: number;
+  data: ConnectionType[];
 };
 
-export function Tooltip({ show, showNames, x, y, connections }: TooltipProps) {
+export function Tooltip({ show, showNames, x, y, data }: TooltipProps) {
   function showConnections() {
-    return connections.map((c) => {
+    return data.map((c) => {
       return (
         <div class="wrapper">
-          {c.source.map((s) => (
+          {c.resources.map((s) => (
             <div class="flex-col">
               <div class="inner-wrapper">
                 <span>{s.count}</span>
-                <img src={`assets/${s.image}`} alt="src_image" />
+                <img src={`assets/${s.node.image}`} alt="src_image" />
               </div>
-              <small className={showNames ? "show" : ""}>{s.name}</small>
+              <small className={showNames ? "show" : ""}>{s.node.name}</small>
             </div>
           ))}
           <div className="flex-col">
@@ -36,10 +28,10 @@ export function Tooltip({ show, showNames, x, y, connections }: TooltipProps) {
           </div>
           <div class="flex-col">
             <div className="inner-wrapper">
-              <span>{c.count}</span>
-              <img src={`assets/${c.image}`} alt="con_image" />
+              <span>{c.product.count}</span>
+              <img src={`assets/${c.product.node.image}`} alt="con_image" />
             </div>
-            <small className={showNames ? "show" : ""}>{c.name}</small>
+            <small className={showNames ? "show" : ""}>{c.product.node.name}</small>
           </div>
         </div>
       );
@@ -55,19 +47,19 @@ export function Tooltip({ show, showNames, x, y, connections }: TooltipProps) {
 
 export class TooltipRenderer {
   private readonly el: HTMLDivElement;
-  private hoverTimerHandler: number;
-  private namesTimerHandler: number;
+  private hoverTimerHandler?: number;
+  private namesTimerHandler?: number;
 
   constructor() {
     this.el = document.createElement("div");
     document.body.appendChild(this.el);
   }
 
-  show(x: number, y: number, connections) {
+  show(x: number, y: number, data: ConnectionType[]) {
     this.hoverTimerHandler = setTimeout(() => {
-      render(h(Tooltip, { show: true, showNames: false, x, y, connections }), this.el);
+      render(h(Tooltip, { show: true, showNames: false, x, y, data }), this.el);
       this.namesTimerHandler = setTimeout(() => {
-        render(h(Tooltip, { show: true, showNames: true, x, y, connections }), this.el);
+        render(h(Tooltip, { show: true, showNames: true, x, y, data }), this.el);
       }, 500);
     }, 100);
   }
@@ -75,6 +67,6 @@ export class TooltipRenderer {
   hide() {
     clearTimeout(this.hoverTimerHandler);
     clearTimeout(this.namesTimerHandler);
-    render(h(Tooltip, { show: false, showNames: false, connections: [] }), this.el);
+    render(h(Tooltip, { show: false, showNames: false, data: [], x: 0, y: 0 }), this.el);
   }
 }

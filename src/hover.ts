@@ -1,34 +1,34 @@
 import { haveCommonElements } from "./utils.js";
 import { selectAll } from "d3";
-import { TooltipRenderer } from "./tooltip";
+import { TooltipRenderer } from "./UI/tooltip";
 import { LinkType } from "./model/data";
-import { DataReader } from "./data/DataReader";
+import { PathEl } from "./model/d3";
 
 const tooltip = new TooltipRenderer();
 
-export function bindMouseOverLink(links, data: DataReader) {
-  function findGroupedLinks(links, d) {
-    return links.filter((l) => haveCommonElements(l.connectionIdx, d.connectionIdx));
+export function bindMouseOverLink(links: PathEl<LinkType>) {
+  function findGroupedLinks(d: LinkType) {
+    return links.filter((l) => haveCommonElements(l.connections, d.connections));
   }
 
-  function showHoverInfo(event, d) {
-    const groupLinks = findGroupedLinks(links, d);
+  function showHoverInfo(event: MouseEvent, d: LinkType) {
+    const groupLinks = findGroupedLinks(d);
     groupLinks.classed("hover", true);
   }
 
-  function hideHoverInfo(d) {
-    const groupLinks = findGroupedLinks(links, d);
+  function hideHoverInfo(d: LinkType) {
+    const groupLinks = findGroupedLinks(d);
     groupLinks.classed("hover", false);
   }
 
-  const hoverableLinks = selectAll("svg .linkHovers path");
+  const hoverableLinks = selectAll<never, LinkType>("svg .linkHovers path");
 
-  hoverableLinks.on("mouseover", function (event, d: LinkType) {
+  hoverableLinks.on("mouseover", function (event: MouseEvent, d) {
     showHoverInfo(event, d);
-    tooltip.show(event.x, event.y, data.connectionsDataByIdxes(d.connectionIdx));
+    tooltip.show(event.x, event.y, d.connections);
   });
 
-  hoverableLinks.on("mouseout", function (event, d) {
+  hoverableLinks.on("mouseout", function (_, d) {
     hideHoverInfo(d);
     tooltip.hide();
   });

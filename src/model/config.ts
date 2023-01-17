@@ -10,9 +10,3 @@ export type Config = {
   curvedArrows: boolean;
   starsAnimation: StarsAnimationConfig;
 };
-
-export type SearchOpts = {
-  search?: any;
-  direction?: any;
-  clickId?: any;
-};

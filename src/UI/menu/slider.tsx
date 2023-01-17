@@ -1,4 +1,4 @@
-export function Slider({ checked, onChange }: { checked: boolean; onChange: (boolean) => void }) {
+export function Slider({ checked, onChange }: { checked: boolean; onChange: (value: boolean) => void }) {
   const change = () => onChange(!checked);
   const bcgClass = `bcg${checked ? "" : " on"}`;
 

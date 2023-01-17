@@ -1,5 +1,5 @@
 import { D3Simulation } from "./D3Simulation";
-import { D3LinkType } from "./model/data";
+import { LinkType } from "./model/data";
 import { GEl } from "./model/d3";
 import { randomNum, setRandomInterval } from "./utils";
 import { easeSinIn, transition } from "d3";
@@ -8,7 +8,7 @@ import { StarsAnimationConfig } from "./model/config";
 export class D3StarsRenderer {
   private starsEl!: GEl;
   private starsAnimationHandler?: { stop: () => void };
-  private links!: D3LinkType[];
+  private links!: LinkType[];
 
   constructor(private readonly config: StarsAnimationConfig, simulation: D3Simulation) {
     if (!config.animate) {
@@ -22,7 +22,7 @@ export class D3StarsRenderer {
     this.starsEl = viewPortEl.append("g").classed("stars", true);
   }
 
-  updateLinks(links: D3LinkType[]) {
+  updateLinks(links: LinkType[]) {
     this.removeStars();
     this.links = links;
   }
@@ -40,15 +40,15 @@ export class D3StarsRenderer {
     this.starsAnimationHandler = setRandomInterval(
       () => {
         const idx = randomNum(0, this.links.length - 1);
-        this.renderStars([this.links.at(idx)]);
+        this.renderStars([this.links.at(idx) as LinkType]);
       },
       100,
       1000
     );
   }
 
-  private renderStars(data: D3LinkType[]) {
-    const starAnimation = transition().delay(100).duration(750).ease(easeSinIn);
+  private renderStars(data: LinkType[]) {
+    const starAnimation = transition().delay(100).duration(750).ease(easeSinIn) as any;
 
     const stars = this.starsEl.append("circle").data(data).join("circle").classed("star", true);
     stars.attr("r", 2).attr("transform", (d) => `translate(${d.source.x},${d.source.y})`);

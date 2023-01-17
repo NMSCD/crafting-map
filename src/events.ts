@@ -1,8 +1,8 @@
-import { ConfigBuilder } from "./ConfigBuilder.js";
 import { GEl, SVGEl } from "./model/d3";
 import { drag, select, zoom } from "d3";
-import { DataReader } from "./data/DataReader";
 import { NodeType } from "./model/data";
+import { SearchAction } from "./model/search";
+import { clamp } from "./utils";
 
 const height = window.innerHeight;
 const width = window.innerWidth;
@@ -15,30 +15,24 @@ export function bindZoomAndPan(svg: SVGEl, viewPort: GEl) {
   svg.call(zoom().on("zoom", handleZoom) as never);
 }
 
-export function bindDragAndDrop(nodes, changeCb: () => void) {
-  const dragEvent = drag().on("start", dragstart).on("drag", dragged);
-  nodes.call(dragEvent).on("click", click);
-
-  function click(event, d) {
+export function bindDragAndDrop(nodes: GEl<NodeType>, changeCb: () => void) {
+  nodes.call(
+    drag<SVGGElement, NodeType>()
+      .on("start", function () {
+        select(this).classed("fixed", true);
+      })
+      .on("drag", function (event: MouseEvent, d: NodeType) {
+        d.fx = clamp(event.x, 0, width);
+        d.fy = clamp(event.y, 0, height);
+        changeCb();
+      })
+  );
+  nodes.on("click", function (event: MouseEvent, d: NodeType) {
     delete d.fx;
     delete d.fy;
     select(this).classed("fixed", false);
     changeCb();
-  }
-
-  function dragstart() {
-    select(this).classed("fixed", true);
-  }
-
-  function dragged(event, d) {
-    d.fx = clamp(event.x, 0, width);
-    d.fy = clamp(event.y, 0, height);
-    changeCb();
-  }
-
-  function clamp(x, lo, hi) {
-    return x < lo ? lo : x > hi ? hi : x;
-  }
+  });
 }
 
 let lastClick = {
@@ -46,33 +40,29 @@ let lastClick = {
   clickCount: 0,
 };
 
-export function bindSelectNode(nodes: GEl<NodeType, SVGGElement>, data: DataReader) {
-  function targetSingleNode({ name }) {
+export function bindSelectNode(nodes: GEl<NodeType>, configChange: (action: SearchAction, ...args: any[]) => void) {
+  function targetSingleNode({ name }: NodeType) {
     if (lastClick.name === name && lastClick.clickCount === 1) {
       lastClick = {
         name: "",
         clickCount: 0,
       };
-      data.changeConfig(new ConfigBuilder({ search: "", direction: true }).build());
+      configChange("RESET_SEARCH");
     } else if (lastClick.name === name) {
       lastClick.clickCount++;
       lastClick.name = name;
-      data.changeConfig(new ConfigBuilder().search(name).direction(!data.searchOpts.direction).build());
+      configChange("TOGGLE_DIRECTION");
     } else {
       lastClick = {
         name,
         clickCount: 0,
       };
-      data.changeConfig(new ConfigBuilder(data.searchOpts).search(name).build());
+      configChange("SEARCH", name);
     }
   }
 
-  function handleSelectiveDisplay() {
-    return (event, d) => {
-      event.preventDefault();
-      targetSingleNode(d);
-    };
-  }
-
-  nodes.on("contextmenu", handleSelectiveDisplay());
+  nodes.on("contextmenu", (event, d) => {
+    event.preventDefault();
+    targetSingleNode(d);
+  });
 }
