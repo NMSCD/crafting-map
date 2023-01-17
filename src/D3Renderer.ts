@@ -34,7 +34,7 @@ export class D3Renderer {
   build() {
     const svg = buildSvg(this.config);
     addDefsToSvg(svg);
-    this.viewPortEl = svg.append("g").attr("id", "view-port");
+    this.viewPortEl = svg.append("g").attr("id", "view-port") as GEl;
     this.stars.build(this.viewPortEl);
     bindZoomAndPan(svg, this.viewPortEl);
   }
@@ -142,11 +142,13 @@ function radialGradients(el: any) {
 }
 
 function buildNodes({ iconSize }: Config, svg: GEl, data: NodeType[] = []) {
-  const node: GEl<NodeType> = appendChildGEl(svg, "nodes")
+  const node = appendChildGEl(svg, "nodes")
     .selectAll(".node")
     .data(data)
     .join("g")
-    .classed("node", true) as any;
+    .classed("node", true)
+    .classed("fixed", (d) => !!d.fx || !!d.fy) as GEl<NodeType>;
+
   node.append("circle").attr("r", (d) => nodeValueRadius(d.value, iconSize));
   node
     .append("svg:image")
