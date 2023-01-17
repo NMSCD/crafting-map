@@ -1,12 +1,5 @@
 import { Slider } from "./slider";
-
-type MenuProps = {
-  search: string;
-  direction: boolean;
-  onSearch: (name: string) => void;
-  onDirection: (checked: boolean) => void;
-  onReset: () => void;
-};
+import { MenuProps } from "./menuProps";
 
 export function Menu(props: MenuProps) {
   return (

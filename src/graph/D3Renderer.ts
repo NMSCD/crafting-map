@@ -1,13 +1,12 @@
 import { bindDragAndDrop, bindSelectNode, bindZoomAndPan } from "./events.js";
 import { D3Simulation } from "./D3Simulation";
-import { LinkType, NodeType } from "./model/data";
-import { Config } from "./model/config";
+import { DataType, LinkType, NodeType } from "../model/data";
+import { Config } from "../model/config";
 import { bindMouseOverLink } from "./hover";
-import { GEl, PathEl, SVGEl } from "./model/d3";
+import { GEl, PathEl, SVGEl } from "../model/d3";
 import { create } from "d3";
 import { D3StarsRenderer } from "./D3StarsRenderer";
-import { DataReader } from "./data/DataReader";
-import { SearchAction } from "./model/search";
+import { SearchAction } from "../model/search";
 
 export class D3Renderer {
   private viewPortEl!: GEl;
@@ -25,13 +24,10 @@ export class D3Renderer {
     this.simulation = new D3Simulation(config);
     this.stars = new D3StarsRenderer(config.starsAnimation, this.simulation);
     this.simulation.onTick(() => this.tick());
+    this.build();
   }
 
-  get htmlEl() {
-    return this.viewPortEl.node()?.parentNode as ParentNode;
-  }
-
-  build() {
+  private build() {
     const svg = buildSvg(this.config);
     addDefsToSvg(svg);
     this.viewPortEl = svg.append("g").attr("id", "view-port") as GEl;
@@ -39,10 +35,14 @@ export class D3Renderer {
     bindZoomAndPan(svg, this.viewPortEl);
   }
 
-  refresh(data: DataReader) {
-    this.updateLinks(data.links);
-    this.updateNodes(data.nodes);
-    this.simulation.resetData(data.nodes, data.links);
+  get htmlEl() {
+    return this.viewPortEl.node()?.parentNode as ParentNode;
+  }
+
+  refresh({ links, nodes }: DataType) {
+    this.updateLinks(links);
+    this.updateNodes(nodes);
+    this.simulation.resetData(nodes, links);
   }
 
   private updateNodes(nodes: NodeType[]) {

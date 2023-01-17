@@ -1,6 +1,6 @@
-import { DataType, NodeType } from "../model/data";
-import { SearchOpts } from "../model/search";
-import { haveCommonElements, unique } from "../utils";
+import { DataType, NodeType } from "../../model/data";
+import { SearchOpts } from "../../model/search";
+import { haveCommonElements, unique } from "../../utils";
 
 export class FilteredDataProvider {
   private config!: SearchOpts;

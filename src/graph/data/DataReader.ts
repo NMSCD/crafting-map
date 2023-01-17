@@ -1,8 +1,8 @@
 import { FilteredDataProvider } from "./FilteredDataProvider.js";
-import { DataType } from "../model/data";
-import { Config } from "../model/config";
+import { DataType } from "../../model/data";
+import { Config } from "../../model/config";
 import { fetchCSV$ } from "./fetchFileData";
-import { SearchAction, SearchOpts } from "../model/search";
+import { SearchAction, SearchOpts } from "../../model/search";
 
 export class DataReader {
   private data: DataType = {
@@ -17,12 +17,11 @@ export class DataReader {
     this._searchOpts = searchOpts;
   }
 
-  get nodes() {
-    return this.filtered.nodes;
-  }
-
-  get links() {
-    return this.filtered.links;
+  get currentData(): DataType {
+    return {
+      nodes: this.filtered.nodes,
+      links: this.filtered.links,
+    };
   }
 
   get searchOpts() {

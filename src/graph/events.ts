@@ -1,8 +1,8 @@
-import { GEl, SVGEl } from "./model/d3";
+import { GEl, SVGEl } from "../model/d3";
 import { drag, select, zoom } from "d3";
-import { NodeType } from "./model/data";
-import { SearchAction } from "./model/search";
-import { clamp } from "./utils";
+import { NodeType } from "../model/data";
+import { SearchAction } from "../model/search";
+import { clamp } from "../utils";
 
 const height = window.innerHeight;
 const width = window.innerWidth;

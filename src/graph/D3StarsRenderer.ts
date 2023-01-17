@@ -1,9 +1,9 @@
 import { D3Simulation } from "./D3Simulation";
-import { LinkType } from "./model/data";
-import { GEl } from "./model/d3";
-import { randomNum, setRandomInterval } from "./utils";
+import { LinkType } from "../model/data";
+import { GEl } from "../model/d3";
+import { randomNum, setRandomInterval } from "../utils";
 import { easeSinIn, transition } from "d3";
-import { StarsAnimationConfig } from "./model/config";
+import { StarsAnimationConfig } from "../model/config";
 
 export class D3StarsRenderer {
   private starsEl!: GEl;

@@ -1,6 +1,6 @@
-import { Config } from "./model/config";
+import { Config } from "../model/config";
 import { Simulation, SimulationLinkDatum } from "d3-force";
-import { LinkType, NodeType } from "./model/data";
+import { LinkType, NodeType } from "../model/data";
 import { forceCollide, forceLink, forceSimulation } from "d3";
 import funcyCenteringForce from "./funcyCenteringForce";
 

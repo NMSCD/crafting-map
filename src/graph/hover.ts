@@ -1,8 +1,8 @@
-import { haveCommonElements } from "./utils.js";
+import { haveCommonElements } from "../utils.js";
 import { selectAll } from "d3";
-import { TooltipRenderer } from "./UI/tooltip";
-import { LinkType } from "./model/data";
-import { PathEl } from "./model/d3";
+import { TooltipRenderer } from "../UI/tooltip";
+import { LinkType } from "../model/data";
+import { PathEl } from "../model/d3";
 
 const tooltip = new TooltipRenderer();
 

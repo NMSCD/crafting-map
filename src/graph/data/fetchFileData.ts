@@ -1,8 +1,8 @@
 import { autoType, csvParse } from "d3";
 import { DSVParsedArray } from "d3-dsv";
-import { ConnectionNode, ConnectionType, DataType, LinkType, NodeType } from "../model/data";
-import { Config } from "../model/config";
-import { assert } from "../utils";
+import { ConnectionNode, ConnectionType, DataType, LinkType, NodeType } from "../../model/data";
+import { Config } from "../../model/config";
+import { assert } from "../../utils";
 
 type ConnectionsCVS = {
   Product: string;
