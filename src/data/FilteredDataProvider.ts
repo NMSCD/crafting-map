@@ -1,6 +1,6 @@
 import { DataType, NodeType } from "../model/data";
 import { SearchOpts } from "../model/search";
-import { unique } from "../utils";
+import { haveCommonElements, unique } from "../utils";
 
 export class FilteredDataProvider {
   private config!: SearchOpts;
@@ -21,6 +21,7 @@ export class FilteredDataProvider {
 
     this.filerNodes();
     this.filterLinks();
+    this.filterConnections();
   }
 
   get nodes() {
@@ -55,6 +56,28 @@ export class FilteredDataProvider {
         return l.connections.find((c) => c.resources.find((r) => ids.includes(r.node.id)));
       });
     }
+  }
+
+  private filterConnections() {
+    const ids = this.initialIds;
+    if (!ids) {
+      return;
+    }
+    this.filteredData.links = this.filteredData.links.map((l) => ({
+      ...l,
+      connections: [
+        ...l.connections.filter((c) => {
+          if (this.config.direction) {
+            return ids.includes(c.product.node.id);
+          } else {
+            return haveCommonElements(
+              ids,
+              c.resources.map((r) => r.node.id)
+            );
+          }
+        }),
+      ],
+    }));
   }
 
   private findRelatedNodes(initialIds: number[]): NodeType[] {
