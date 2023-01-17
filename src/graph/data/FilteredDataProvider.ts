@@ -82,27 +82,26 @@ export class FilteredDataProvider {
   }
 
   private findRelatedNodes(initialIds: number[]): NodeType[] {
+    const initialNodes = this.fullData.nodes.filter((n) => initialIds.includes(n.id));
+    let linkNodes: NodeType[];
+
     function focusNode(node: NodeType) {
       node.focused = initialIds.includes(node.id);
       return node;
     }
     if (this.config.direction) {
-      return unique(
-        this.fullData.links
-          .filter((l) => initialIds.includes(l.target.id) || initialIds.includes(l.source.id))
-          .map((l) => l.source)
-          .map((n) => focusNode(n))
-      );
+      linkNodes = this.fullData.links
+        .filter((l) => initialIds.includes(l.target.id) || initialIds.includes(l.source.id))
+        .map((l) => l.source);
     } else {
-      return unique(
-        this.fullData.links
-          .filter((l) => {
-            return l.connections.find((c) => c.resources.find((r) => initialIds.includes(r.node.id)));
-          })
-          .map((l) => [l.source, l.target])
-          .flat()
-          .map((n) => focusNode(n))
-      );
+      linkNodes = this.fullData.links
+        .filter((l) => {
+          return l.connections.find((c) => c.resources.find((r) => initialIds.includes(r.node.id)));
+        })
+        .map((l) => [l.source, l.target])
+        .flat();
     }
+
+    return unique([...linkNodes, ...initialNodes]).map((n) => focusNode(n));
   }
 }
