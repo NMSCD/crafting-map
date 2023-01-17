@@ -6,6 +6,10 @@ export function haveCommonElements<T>(arrA: T[], arrB: T[]) {
   });
 }
 
+export function unique<T>(array: T[]) {
+  return [...new Set(array)];
+}
+
 export function randomNum(min = 0, max = 100) {
   return (Math.random() * (max - min + 1)) << 0;
 }

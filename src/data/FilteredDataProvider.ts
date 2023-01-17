@@ -1,78 +1,78 @@
-import { LinkType, NodeType } from "../model/data";
+import { DataType, NodeType } from "../model/data";
 import { SearchOpts } from "../model/search";
+import { unique } from "../utils";
 
 export class FilteredDataProvider {
   private config!: SearchOpts;
-  private filter: any = {};
   private initialIds?: number[];
-  private nodes: NodeType[] = [];
-  private allLinks: LinkType[] = [];
+  private fullData: DataType = {
+    nodes: [],
+    links: [],
+  };
+  private filteredData: DataType = {
+    nodes: [],
+    links: [],
+  };
 
-  refresh(config: SearchOpts, nodes: NodeType[], links: LinkType[]) {
-    this.nodes = nodes;
-    this.allLinks = links;
+  refresh(config: SearchOpts, data: DataType) {
+    this.fullData = data;
     this.config = config;
-    this.filter = {};
     this.initialIds = undefined;
 
-    this.nodeIdsById();
-    this.nodeIdsBySearch();
-    this.linksIds();
+    this.filerNodes();
+    this.filterLinks();
   }
 
-  get nodesIds() {
-    return this.filter.nodeIds;
+  get nodes() {
+    return this.filteredData.nodes;
   }
   get links() {
-    return this.filter.links;
+    return this.filteredData.links;
   }
 
-  private nodeIdsBySearch() {
+  private filerNodes() {
     const search = this.config.search?.toLowerCase();
     if (!search) {
+      this.filteredData.nodes = this.fullData.nodes;
       return;
     }
-
-    const initialIds = this.nodes.filter((n) => n.name.toLowerCase().includes(search)).map((n) => n.id);
-
-    this.initialIds = initialIds;
-    this.filter.nodeIds = this.findMultiNodeIds(initialIds);
+    this.initialIds = this.nodes.filter((n) => n.name.toLowerCase().includes(search)).map((n) => n.id);
+    this.filteredData.nodes = this.findRelatedNodes(this.initialIds);
   }
 
-  private nodeIdsById() {
-    const id = this.config.clickId;
-    if (!id) {
-      return;
-    }
-    this.initialIds = [id];
-    this.filter.nodeIds = this.findMultiNodeIds([id]);
-  }
-
-  private linksIds() {
+  private filterLinks() {
     const ids = this.initialIds;
     if (!ids) {
+      this.filteredData.links = this.fullData.links;
       return;
     }
 
     const keyA = this.config.direction ? "target" : "source";
-
-    this.filter.links = this.allLinks.filter((l) => ids.includes(l[keyA].id));
+    if (this.config.direction) {
+      this.filteredData.links = this.fullData.links.filter((l) => ids.includes(l[keyA].id));
+    } else {
+      this.filteredData.links = this.fullData.links.filter((l) => {
+        return l.connections.find((c) => c.resources.find((r) => ids.includes(r.node.id)));
+      });
+    }
   }
 
-  private findMultiNodeIds(ids: number[]) {
-    const d3LinkData = this.allLinks;
-    const keyA = this.config.direction ? "target" : "source";
-    const keyB = !this.config.direction ? "target" : "source";
-
-    const nodeIds = d3LinkData.reduce(
-      (acc, value) => {
-        if (ids.includes(value[keyA].id) && !acc.includes(value[keyB].id)) {
-          return [...acc, value[keyB].id];
-        }
-        return acc;
-      },
-      [...ids]
-    );
-    return [...new Set(nodeIds)];
+  private findRelatedNodes(initialIds: number[]): NodeType[] {
+    if (this.config.direction) {
+      return unique(
+        this.fullData.links
+          .filter((l) => initialIds.includes(l.target.id) || initialIds.includes(l.source.id))
+          .map((l) => l.source)
+      );
+    } else {
+      return unique(
+        this.fullData.links
+          .filter((l) => {
+            return l.connections.find((c) => c.resources.find((r) => initialIds.includes(r.node.id)));
+          })
+          .map((l) => [l.source, l.target])
+          .flat()
+      );
+    }
   }
 }

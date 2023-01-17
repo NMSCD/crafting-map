@@ -17,15 +17,11 @@ export class DataReader {
   }
 
   get nodes() {
-    const ids = this.filtered.nodesIds;
-    if (ids) {
-      return this.data.nodes?.filter((n) => ids.includes(n.id));
-    }
-    return this.data.nodes;
+    return this.filtered.nodes;
   }
 
   get links() {
-    return this.filtered.links || this.data.links;
+    return this.filtered.links;
   }
 
   get searchOpts() {
@@ -34,11 +30,12 @@ export class DataReader {
 
   set searchOpts(config) {
     this._searchOpts = config;
-    this.filtered.refresh(config, this.data.nodes, this.data.links);
+    this.filtered.refresh(config, this.data);
   }
 
   async fetchCSV$() {
     this.data = await fetchCSV$(this.config);
+    this.filtered.refresh(this._searchOpts, this.data);
   }
 
   triggerAction(action: SearchAction, ...args: any[]) {
