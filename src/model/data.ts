@@ -7,6 +7,7 @@ type Node = {
   name: string;
   type: string;
   value: number;
+  focused: boolean;
 };
 export type NodeType = SimulationNodeDatum & Node;
 

@@ -17,6 +17,7 @@ export class FilteredDataProvider {
   refresh(config: SearchOpts, data: DataType) {
     this.fullData = data;
     this.config = config;
+    this.fullData.nodes.forEach((n) => (n.focused = false));
     this.initialIds = undefined;
 
     this.filerNodes();
@@ -81,11 +82,16 @@ export class FilteredDataProvider {
   }
 
   private findRelatedNodes(initialIds: number[]): NodeType[] {
+    function focusNode(node: NodeType) {
+      node.focused = initialIds.includes(node.id);
+      return node;
+    }
     if (this.config.direction) {
       return unique(
         this.fullData.links
           .filter((l) => initialIds.includes(l.target.id) || initialIds.includes(l.source.id))
           .map((l) => l.source)
+          .map((n) => focusNode(n))
       );
     } else {
       return unique(
@@ -95,6 +101,7 @@ export class FilteredDataProvider {
           })
           .map((l) => [l.source, l.target])
           .flat()
+          .map((n) => focusNode(n))
       );
     }
   }

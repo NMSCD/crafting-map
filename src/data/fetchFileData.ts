@@ -109,6 +109,7 @@ function parseCSVNodes(nodeArray: DSVParsedArray<NodesCVS>): NodeType[] {
       type: n.Type,
       value: n.Value,
       image: n.Image,
+      focused: false,
     });
   });
   return [...nodeMap.values()];

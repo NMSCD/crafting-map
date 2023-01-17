@@ -1,7 +1,8 @@
 import { Config } from "./model/config";
 import { Simulation, SimulationLinkDatum } from "d3-force";
 import { LinkType, NodeType } from "./model/data";
-import { forceCenter, forceCollide, forceLink, forceSimulation } from "d3";
+import { forceCollide, forceLink, forceSimulation } from "d3";
+import funcyCenteringForce from "./funcyCenteringForce";
 
 export class D3Simulation {
   private simulation: Simulation<NodeType, SimulationLinkDatum<NodeType>>;
@@ -18,6 +19,12 @@ export class D3Simulation {
   resetData(nodes: NodeType[], links: LinkType[]) {
     this.simulation.nodes(nodes);
     this.simulation.force("link", forceLink().links(links).strength(0.07));
+    this.simulation.force(
+      "center",
+      funcyCenteringForce(this.config.width / 2, this.config.height / 2).strength((d: NodeType) =>
+        d.focused ? 1 : 0.3
+      )
+    );
     this.restart();
   }
 
@@ -31,8 +38,10 @@ export class D3Simulation {
 }
 
 function createSimulation({ width, height, collisionRadius }: Config) {
-  return forceSimulation<NodeType, SimulationLinkDatum<NodeType>>()
-    .nodes([])
-    .force("center", forceCenter(width / 2, height / 2))
-    .force("colide", forceCollide(collisionRadius).strength(0.2));
+  return (
+    forceSimulation<NodeType, SimulationLinkDatum<NodeType>>()
+      .nodes([])
+      // .force("center", forceCenter(width / 2, height / 2))
+      .force("colide", forceCollide(collisionRadius).strength(0.2))
+  );
 }
