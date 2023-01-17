@@ -36,7 +36,7 @@ export class FilteredDataProvider {
       this.filteredData.nodes = this.fullData.nodes;
       return;
     }
-    this.initialIds = this.nodes.filter((n) => n.name.toLowerCase().includes(search)).map((n) => n.id);
+    this.initialIds = this.fullData.nodes.filter((n) => n.name.toLowerCase().includes(search)).map((n) => n.id);
     this.filteredData.nodes = this.findRelatedNodes(this.initialIds);
   }
 

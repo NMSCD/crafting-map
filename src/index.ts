@@ -3,6 +3,7 @@ import { DataReader } from "./data/DataReader";
 import { Config } from "./model/config";
 import { h, render } from "preact";
 import { Menu } from "./UI/menu/menu";
+import { SearchOpts } from "./model/search";
 
 const height = window.innerHeight;
 const width = window.innerWidth;
@@ -16,7 +17,12 @@ const config: Config = {
   starsAnimation: { animate: true },
 };
 
-const data = new DataReader(config);
+const opts: SearchOpts = {
+  search: "",
+  direction: true,
+};
+
+const data = new DataReader(config, opts);
 const renderer = new D3Renderer(config);
 renderer.build();
 

@@ -10,10 +10,11 @@ export class DataReader {
     links: [],
   };
   private filtered!: FilteredDataProvider;
-  private _searchOpts: SearchOpts = { search: "", direction: true };
+  private _searchOpts!: SearchOpts;
 
-  constructor(private readonly config: Config) {
+  constructor(private readonly config: Config, searchOpts: SearchOpts) {
     this.filtered = new FilteredDataProvider();
+    this._searchOpts = searchOpts;
   }
 
   get nodes() {
