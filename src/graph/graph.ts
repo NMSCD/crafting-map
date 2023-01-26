@@ -8,19 +8,22 @@ export class Graph {
   private data: DataReader;
   private renderer: D3Renderer;
 
-  constructor(private readonly domRefresh: () => void, config: Config, opts: SearchOpts) {
-    this.data = new DataReader(config, opts);
+  constructor(private readonly domRefresh: () => void, private config: Config, private opts: SearchOpts) {
     this.renderer = new D3Renderer(config);
+    this.data = new DataReader(this.config, this.opts);
 
     document.body.append(this.renderer.htmlEl);
-
-    this.data.fetchCSV$().then(() => {
-      this.renderer.refresh(this.data.currentData);
-      this.domRefresh();
-    });
+    this.fetchData();
 
     this.renderer.config$((action, ...args) => {
       this.data.triggerAction(action, ...args);
+      this.renderer.refresh(this.data.currentData);
+      this.domRefresh();
+    });
+  }
+
+  private fetchData() {
+    this.data.fetchCSV$().then(() => {
       this.renderer.refresh(this.data.currentData);
       this.domRefresh();
     });
@@ -37,21 +40,30 @@ export class Graph {
       onReset: this.onReset.bind(this),
       search: this.data.searchOpts.search,
       direction: this.data.searchOpts.direction,
+      curvedArrows: this.config.curvedArrows,
+      onCurvedArrows: this.onCurvedArrows.bind(this),
     };
   }
 
-  onSearch(name: string) {
+  private onCurvedArrows(v: boolean) {
+    this.config.curvedArrows = v;
+    this.renderer.arrows = v;
+    this.data = new DataReader(this.config, this.data.searchOpts);
+    this.fetchData();
+  }
+
+  private onSearch(name: string) {
     this.data.triggerAction("SEARCH", name);
     this.render();
   }
 
-  onDirection() {
+  private onDirection() {
     this.data.triggerAction("TOGGLE_DIRECTION");
     this.render();
     this.domRefresh();
   }
 
-  onReset() {
+  private onReset() {
     this.data.triggerAction("RESET_SEARCH");
     this.render();
     this.domRefresh();

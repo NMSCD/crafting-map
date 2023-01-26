@@ -10,6 +10,7 @@ import { SearchAction } from "../model/search";
 
 export class D3Renderer {
   private viewPortEl!: GEl;
+  private svgEl!: SVGEl;
   private links?: PathEl<LinkType>;
   private linkHovers?: PathEl<LinkType>;
   private nodesEl?: GEl<NodeType>;
@@ -28,15 +29,20 @@ export class D3Renderer {
   }
 
   private build() {
-    const svg = buildSvg(this.config);
-    addDefsToSvg(svg);
-    this.viewPortEl = svg.append("g").attr("id", "view-port") as GEl;
+    this.svgEl = buildSvg(this.config);
+    addDefsToSvg(this.svgEl);
+    this.arrows = this.config.curvedArrows;
+    this.viewPortEl = this.svgEl.append("g").attr("id", "view-port") as GEl;
     this.stars.build(this.viewPortEl);
-    bindZoomAndPan(svg, this.viewPortEl);
+    bindZoomAndPan(this.svgEl, this.viewPortEl);
   }
 
   get htmlEl() {
     return this.viewPortEl.node()?.parentNode as ParentNode;
+  }
+
+  set arrows(v: boolean) {
+    this.svgEl.classed("arrows", v);
   }
 
   refresh({ links, nodes }: DataType) {
@@ -76,8 +82,8 @@ export class D3Renderer {
   }
 }
 
-function buildSvg({ width, height, curvedArrows }: Config): SVGEl {
-  return create("svg").attr("id", "nms-graph").attr("viewBox", [0, 0, width, height]).classed("arrows", curvedArrows);
+function buildSvg({ width, height }: Config): SVGEl {
+  return create("svg").attr("id", "nms-graph").attr("viewBox", [0, 0, width, height]);
 }
 
 function addDefsToSvg(svg: SVGEl) {

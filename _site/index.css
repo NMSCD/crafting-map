@@ -3,6 +3,10 @@
 @import "menu/menu.css";
 @import "tooltip.css";
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   overflow: hidden;

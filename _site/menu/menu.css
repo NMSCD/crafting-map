@@ -1,29 +1,107 @@
-@import "slider.css";
+/*@import "slider.css";*/
+@import "checkbox.css";
+@import "radio.css";
 
 nav {
   position: fixed;
   bottom: 0;
   right: 0;
   color: white;
+  font-size: 1.5rem;
 }
 
 .nav-center {
   display: flex;
+  width: 400px;
   flex-direction: column;
   background-color: var(--box-bg);
   border: var(--box-border) 1px solid;
-  border-radius: 1rem 0 0 1rem;
-  padding: 1rem;
+  border-radius: 2em 0 0 2em;
+  padding: 1.5em;
 }
+
 .nav-center > * {
-  margin-bottom: 10px;
+  margin-bottom: 0.5em;
 }
-#search {
-  font-size: 1.5rem;
+
+.nav-center input[type="text"] {
+  background: none;
+  width: 100%;
+  border: none;
+  border-bottom: gray 1px solid;
+  color: orange;
+  font-size: 1em;
+  line-height: 1.1em;
 }
-#refresh {
-  cursor: pointer;
+.nav-center input[type="text"]:focus,
+.nav-center input[type="text"]:focus-visible {
+  border-bottom: gray 1px solid;
+  outline: none;
+}
+.nav-center input[type="text"]::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: gray;
+  opacity: 1; /* Firefox */
+}
+
+.nav-center p {
+  margin: 0;
+}
+
+.nav-center#help-info {
+  transition: 250ms ease-in-out;
+  overflow: hidden;
+  max-height: 20em;
+}
+.nav-center#help-info.hidden {
+  padding-top: 0;
+  padding-bottom: 0;
+  max-height: 0;
+  border: none;
+}
+
+.nav-left {
+  position: absolute;
+  left: -3em;
+  top: 0;
+}
+
+.nav-left button {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  border: var(--box-border) 1px solid;
+  background-color: var(--box-bg);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 100ms ease-in-out;
+  fill: rgba(255, 165, 0, 0.68);
+  width: 3em;
+  height: 3em;
+  margin-bottom: 1em;
+}
+
+.nav-left button.active {
+  border-color: orange;
+  fill: orange;
+}
+.nav-left button:hover {
+  transform: scale(150%);
+  fill: orange;
+}
+.nav-left button#refresh svg {
+  margin: 0.2em;
+}
+.nav-left button#help svg {
+  margin: 0.4em;
+}
+.nav-left button#help:hover {
+  transform: rotateZ(-20deg) scale(1.1);
+}
+
+.nav-left button#refresh {
+  transform: scaleX(-1);
+}
+.nav-left button#refresh:hover {
+  transform: scaleX(-1) rotateZ(20deg) scale(1.1);
 }
