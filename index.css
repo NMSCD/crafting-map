@@ -1,0 +1,90 @@
+@import url("https://nmscd.github.io/No-Mans-Sky-Universal-Font/assets/font/NMSGeoSans_Kerned/Web-TT/NMSGeoSans_Kerned.css");
+@import "variables.css";
+@import "menu/menu.css";
+@import "tooltip.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  font: 12px NMSGeoSans sans-serif;
+}
+
+#nms-graph .linkHovers,
+#nms-graph .links {
+  stroke-width: 1;
+  fill: none;
+}
+
+#nms-graph .linkHovers {
+  stroke-width: 15;
+  stroke: red;
+  opacity: 0;
+}
+
+#nms-graph .links path {
+  stroke: var(--box-border);
+}
+
+#nms-graph .links path.hover {
+  stroke: var(--orange-0);
+  stroke-width: 2;
+}
+
+#nms-graph.arrows .links path {
+  marker-end: url("#arrow-basic");
+}
+
+#nms-graph.arrows .links path.hover {
+  marker-end: url("#arrow-highlight");
+}
+
+#nms-graph .node {
+  cursor: move;
+}
+
+#nms-graph defs #stop0 {
+  stop-color: var(--orange-0);
+  stop-opacity: 1;
+}
+#nms-graph defs #stop1 {
+  stop-color: var(--bg);
+  stop-opacity: 0;
+}
+#nms-graph defs #stop2 {
+  stop-color: var(--orange-0);
+  stop-opacity: 1;
+}
+#nms-graph defs #stop3 {
+  stop-color: red;
+  stop-opacity: 1;
+}
+
+#nms-graph .node circle {
+  fill: var(--bg);
+  stroke: url('#grad');
+}
+
+#nms-graph .star {
+  fill: white;
+}
+
+#nms-graph .node.fixed circle {
+  stroke: url('#gradFixed');
+  animation: rotating 2s linear infinite;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

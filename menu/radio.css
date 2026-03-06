@@ -1,0 +1,21 @@
+.type-radio {
+  display: flex;
+  align-items: center;
+}
+.type-radio label {
+  font-size: 0.9em;
+  line-height: 1em;
+  color: gray
+}
+.type-radio span {
+  margin-left: 1em;
+  border: gray 1px solid;
+  padding: 0.25em 0.5em;
+  border-radius: 0.5em;
+  line-height: 1.1em;
+  cursor: pointer;
+}
+.type-radio span.checked {
+  border-color: orange;
+  color: orange;
+}
